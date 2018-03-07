@@ -36,9 +36,9 @@ $(function () {
         }
     });
 
-    initTinymce();
+//    initTinymce();
 
-    $("#contentTags").tagEditor();
+//    $("#contentTags").tagEditor();
 });
 
 var setting = {

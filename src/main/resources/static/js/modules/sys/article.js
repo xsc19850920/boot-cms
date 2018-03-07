@@ -39,7 +39,7 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
-    initTinymce();
+//    initTinymce();
 });
 
 var vm = new Vue({

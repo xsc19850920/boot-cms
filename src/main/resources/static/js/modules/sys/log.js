@@ -19,7 +19,7 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
-        multiselect: false,
+        multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -37,6 +37,31 @@ $(function () {
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
+    
+    
+//    $('.summernote').summernote({
+//    	lang : 'zh-CN',
+//    	callbacks: { // 覆写掉自带的上传文件函数
+//	        onImageUpload: function(files, editor, $editable) {
+//	        	var formData = new FormData();
+//	            formData.append("file", files[0]);
+//	            $.ajax({
+//	                data: formData,  
+//	                type: "POST",  
+//	                url: baseURL+ "/sys/attachment/upload",
+//	                cache: false,  
+//	                contentType: false,  
+//	                processData: false,  
+//	                success: function(image) {  
+//	                    $('.summernote').summernote('editor.insertImage',image.src);  
+//	                },  
+//	                error: function() {  
+//	                	 alert("插入失败");
+//	                }  
+//	            })
+//	        }
+//    	}
+//    });
 });
 
 var vm = new Vue({
@@ -45,6 +70,7 @@ var vm = new Vue({
 		q:{
 			key: null
 		},
+		log:{}
 	},
 	methods: {
 		query: function () {
@@ -56,6 +82,22 @@ var vm = new Vue({
 				postData:{'key': vm.q.key},
                 page:page
             }).trigger("reloadGrid");
-		}
+		},
+		getLog: function (logId){
+            
+        },
+		info: function (){
+            var id = getSelectedRow();
+            if(id == null){
+                return ;
+            }
+            $.get(baseURL + '/sys/log/info/'+id, function(r){
+                vm.log = r.log;
+                openLayer('900px', '600px', '查看附件', 'logInfoLayer');
+                $('.summernote').summernote('disable');
+                $('.summernote').summernote('code',vm.log.params);
+            });
+           
+        }
 	}
 });

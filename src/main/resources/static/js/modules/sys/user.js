@@ -41,30 +41,6 @@ $(function () {
         }
     });
     
-    $('.summernote').summernote({
-    	lang : 'zh-CN',
-    	callbacks: { // 覆写掉自带的上传文件函数
-	        onImageUpload: function(files, editor, $editable) {
-	        	var formData = new FormData();
-	            formData.append("file", file[0]);
-	            $.ajax({
-	                data: formData,  
-	                type: "POST",  
-	                url: baseURL+ "/sys/attachment/upload",
-	                cache: false,  
-	                contentType: false,  
-	                processData: false,  
-	                success: function(image) {  
-	                	console.log(image);
-	                    $('.summernote').summernote('editor.insertImage',image.src);  
-	                },  
-	                error: function() {  
-	                	 alert("插入失败");
-	                }  
-	            })
-	        }
-    	}
-    });
     
     
 });
@@ -217,6 +193,8 @@ var vm = new Vue({
             });
         },
 		reload: function () {
+//			console.info($('.summernote').summernote('code'));
+//			alert($('.summernote').summernote('code'));
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 

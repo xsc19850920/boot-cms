@@ -20,7 +20,7 @@ T.p = url;
 
 //请求前缀
 var baseURL = getRootPath();
-// var baseURL = "http://192.168.162.1:8889/vgk/dev/admin";
+// var baseURL = "http://192.168.162.1:8889/bb/admin";
 
 function getRootPath() {
     var pathName = parent.location.pathname;
@@ -250,41 +250,6 @@ var attachmentLayerTemplate = Vue.extend({
 
 Vue.component('attachment-layer', attachmentLayerTemplate);
 
+
 //文本编辑器
-function initTinymce() {
-    tinymce.init({
-        selector: '#textarea',
-        height: 365,
-        language: 'zh_CN',
-        menubar: false,
-        automatic_uploads: true,
-        paste_data_images: true,
-        convert_urls: false,
-        relative_urls: false,
-        imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
-        imagetools_proxy: '',
-        images_upload_url: '',
-        wordcount_countregex: /[\u4e00-\u9fa5_a-zA-Z0-9]/g,
-        file_picker_callback: function (callback, value, meta) {
-            openAttachmentLayer(callback);
-        },
-        font_formats: "宋体=SimSun;新宋体=NSimSun;微软雅黑=Microsoft YaHei;华文黑体=STHeiti;楷体=KaiTi;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",
-        fontsize_formats: "12px 14px 16px 18px 20px 24px 32px",
-        plugins: [
-            "advlist autolink autosave link image media imagetools lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code codesample fullscreen insertdatetime media nonbreaking",
-            "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"],
-        toolbar1: '  bold italic underline strikethrough removeformat | blockquote hr table image media codesample | anchor link   unlink | alignleft aligncenter alignright alignjustify | bullist numlist     ',
-        toolbar2: '  fontselect | fontsizeselect | formatselect | outdent indent | forecolor backcolor  |  undo redo | code  fullscreen',
-    });
-}
 
-//获取文本编辑器内容
-function getTinymceContent() {
-    return tinymce.activeEditor.getBody().innerHTML;
-}
-
-//设置文本编辑器内容
-function setTinymceContent(text) {
-    tinymce.activeEditor.setContent(text);
-}

@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class SysConfig {
 
-	private Long id;
+	private String id;
 
 	@NotBlank(message="参数名不能为空")
 	private String key;
@@ -25,10 +25,11 @@ public class SysConfig {
 	private Integer status;
 	
 	
-	public Long getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getKey() {

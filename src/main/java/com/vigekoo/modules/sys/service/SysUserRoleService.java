@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface SysUserRoleService {
 	
-	void saveOrUpdate(Long userId, List<Long> roleIdList);
+	void saveOrUpdate(String userId, List<String> roleIdList);
 	
 	/**
 	 * 根据用户ID，获取角色ID列表
 	 */
-	List<Long> queryRoleIdList(Long userId);
+	List<String> queryRoleIdList(String userId);
 	
-	void delete(Long userId);
+	void delete(String userId);
 
-	void deleteBatch(Long[] userIds);
+	void deleteBatch(String[] userIds);
 
 }

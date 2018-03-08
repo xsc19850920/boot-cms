@@ -19,7 +19,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 
 	@Override
 	@Transactional
-	public void saveOrUpdate(Long roleId, List<Long> menuIdList) {
+	public void saveOrUpdate(String roleId, List<String> menuIdList) {
 		//先删除角色与菜单关系
 		sysRoleMenuDao.delete(roleId);
 
@@ -35,12 +35,12 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 	}
 
 	@Override
-	public List<Long> queryMenuIdList(Long roleId) {
+	public List<String> queryMenuIdList(String roleId) {
 		return sysRoleMenuDao.queryMenuIdList(roleId);
 	}
 
 	@Override
-	public void deleteBatch(Long[] roleIds) {
+	public void deleteBatch(String[] roleIds) {
 		sysRoleMenuDao.deleteBatch(roleIds);
 	}
 

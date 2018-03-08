@@ -30,7 +30,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysUserService sysUserService;
 
 	@Override
-	public SysRole queryObject(Long id) {
+	public SysRole queryObject(String id) {
 		return sysRoleDao.queryObject(id);
 	}
 
@@ -63,7 +63,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional
-	public void deleteBatch(Long[] ids) {
+	public void deleteBatch(String[] ids) {
 		sysRoleDao.deleteBatch(ids);
 		//删除角色与菜单关系
 		sysRoleMenuService.deleteBatch(ids);

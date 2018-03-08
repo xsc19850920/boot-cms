@@ -31,7 +31,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	private final static int EXPIRE = 86400;
 
 	@Override
-	public SysUserToken queryByUserId(Long userId) {
+	public SysUserToken queryByUserId(String userId) {
 		SysUserToken sysUserToken=sysUserTokenRedis.get(userId);
 		if(sysUserToken==null){
 			sysUserToken=sysUserTokenDao.queryByUserId(userId);
@@ -65,7 +65,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	}
 
 	@Override
-	public Map<String, Object> createToken(long userId) {
+	public Map<String, Object> createToken(String userId) {
 		//生成一个token
 		String token = TokenGenerator.generateValue();
 		
@@ -103,7 +103,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	}
 
 	@Override
-	public void logout(long userId) {
+	public void logout(String userId) {
 		//生成一个token
 		String token = TokenGenerator.generateValue();
 //		String token =  jwtUtils.generateToken(userId);

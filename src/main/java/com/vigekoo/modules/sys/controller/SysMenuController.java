@@ -66,9 +66,9 @@ public class SysMenuController extends AbstractController {
 		
 		//添加顶级菜单
 		SysMenu root = new SysMenu();
-		root.setId(0L);
+		root.setId("0");
 		root.setName("一级菜单");
-		root.setParentId(-1L);
+		root.setParentId("-1");
 		root.setOpen(true);
 		menuList.add(root);
 		
@@ -80,7 +80,7 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/info/{menuId}")
 	@RequiresPermissions("sys:menu:info")
-	public Result info(@PathVariable("menuId") Long menuId){
+	public Result info(@PathVariable("menuId") String menuId){
 		SysMenu menu = sysMenuService.queryObject(menuId);
 		return Result.ok().put("menu", menu);
 	}
@@ -121,14 +121,14 @@ public class SysMenuController extends AbstractController {
 	@SysLog("删除菜单")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:menu:delete")
-	public Result delete(long menuId){
+	public Result delete(String menuId){
 		//判断是否有子菜单或按钮
 		List<SysMenu> menuList = sysMenuService.queryListByParentId(menuId);
 		if(menuList.size() > 0){
 			return Result.error("请先删除子菜单或按钮");
 		}
 
-		sysMenuService.deleteBatch(new Long[]{menuId});
+		sysMenuService.deleteBatch(new String[]{menuId});
 		
 		return Result.ok();
 	}
@@ -154,7 +154,7 @@ public class SysMenuController extends AbstractController {
 		
 		//上级菜单类型
 		int parentType = MenuType.CATALOG.getValue();
-		if(menu.getParentId() != 0){
+		if(StringUtils.equals(menu.getParentId(), "0")){
 			SysMenu parentMenu = sysMenuService.queryObject(menu.getParentId());
 			parentType = parentMenu.getType();
 		}

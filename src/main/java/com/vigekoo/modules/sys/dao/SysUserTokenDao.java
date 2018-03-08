@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysUserTokenDao extends BaseDao<SysUserToken> {
     
-    SysUserToken queryByUserId(Long userId);
+    SysUserToken queryByUserId(String userId);
 
     SysUserToken queryByToken(String token);
 	

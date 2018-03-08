@@ -10,9 +10,13 @@ import java.util.Date;
  */
 public class SysUserToken implements Serializable {
 
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String id;
 	//用户ID
-	private Long userId;
+	private String userId;
 	//token
 	private String token;
 	//过期时间
@@ -20,23 +24,24 @@ public class SysUserToken implements Serializable {
 	//更新时间
 	private Date updateTime;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * 设置：用户ID
 	 */
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	/**
 	 * 获取：用户ID
 	 */
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 	/**

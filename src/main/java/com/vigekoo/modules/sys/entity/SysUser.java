@@ -1,12 +1,13 @@
 package com.vigekoo.modules.sys.entity;
 
-import com.vigekoo.common.validator.group.AddGroup;
-import com.vigekoo.common.validator.group.UpdateGroup;
-import org.hibernate.validator.constraints.NotBlank;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.vigekoo.common.validator.group.AddGroup;
+import com.vigekoo.common.validator.group.UpdateGroup;
 
 /**
  * @author sxia
@@ -16,9 +17,14 @@ import java.util.List;
 public class SysUser implements Serializable {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 用户ID
 	 */
-	private Long id;
+	private String id;
 
 	/**
 	 * 用户名
@@ -66,12 +72,12 @@ public class SysUser implements Serializable {
 	/**
 	 * 角色ID列表
 	 */
-	private List<Long> roleIdList;
+	private List<String> roleIdList;
 	
 	/**
 	 * 创建者ID
 	 */
-	private Long createUserId;
+	private String createUserId;
 
 	/**
 	 * 创建时间
@@ -79,22 +85,16 @@ public class SysUser implements Serializable {
 	private Date createTime;
 
 
-	/**
-	 * 设置：
-	 * @param id
-	 */
-	public void setId(Long id) {
+	
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * 获取：
-	 * @return Long
-	 */
-	public Long getId() {
-		return id;
-	}
-	
 	/**
 	 * 设置：用户名
 	 * @param username 用户名
@@ -199,11 +199,9 @@ public class SysUser implements Serializable {
 		return createTime;
 	}
 
-	public List<Long> getRoleIdList() {
-		return roleIdList;
-	}
+	
 
-	public void setRoleIdList(List<Long> roleIdList) {
+	public void setRoleIdList(List<String> roleIdList) {
 		this.roleIdList = roleIdList;
 	}
 
@@ -223,11 +221,17 @@ public class SysUser implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public Long getCreateUserId() {
+	public String getCreateUserId() {
 		return createUserId;
 	}
 
-	public void setCreateUserId(Long createUserId) {
+	public void setCreateUserId(String createUserId) {
 		this.createUserId = createUserId;
 	}
+
+	public List<String> getRoleIdList() {
+		return roleIdList;
+	}
+
+	
 }

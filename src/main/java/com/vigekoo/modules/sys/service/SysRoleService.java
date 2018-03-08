@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface SysRoleService {
 	
-	SysRole queryObject(Long id);
+	SysRole queryObject(String id);
 	
 	List<SysRole> queryList(Map<String, Object> map);
 	
@@ -17,6 +17,6 @@ public interface SysRoleService {
 	
 	void update(SysRole role);
 	
-	void deleteBatch(Long[] ids);
+	void deleteBatch(String[] ids);
 
 }

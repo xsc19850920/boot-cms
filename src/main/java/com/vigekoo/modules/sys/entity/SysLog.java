@@ -10,7 +10,11 @@ import java.util.Date;
  */
 public class SysLog implements Serializable {
 	
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String id;
 	//用户名
 	private String username;
 	//用户操作
@@ -26,17 +30,12 @@ public class SysLog implements Serializable {
 	//创建时间
 	private Date createTime;
 
-	/**
-	 * 设置：
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * 获取：
-	 */
-	public Long getId() {
+	
+	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * 设置：用户名

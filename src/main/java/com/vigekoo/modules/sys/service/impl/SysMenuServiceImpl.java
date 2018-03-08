@@ -22,7 +22,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	private SysUserService sysUserService;
 	
 	@Override
-	public List<SysMenu> queryListByParentId(Long parentId, List<Long> menuIdList) {
+	public List<SysMenu> queryListByParentId(String parentId, List<String> menuIdList) {
 		List<SysMenu> menuList = queryListByParentId(parentId);
 		if(menuIdList == null){
 			return menuList;
@@ -38,7 +38,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 
 	@Override
-	public List<SysMenu> queryListByParentId(Long parentId) {
+	public List<SysMenu> queryListByParentId(String parentId) {
 		return sysMenuDao.queryListByParentId(parentId);
 	}
 
@@ -48,19 +48,19 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 
 	@Override
-	public List<SysMenu> getUserMenuList(Long userId) {
+	public List<SysMenu> getUserMenuList(String userId) {
 		//系统管理员，拥有最高权限
-		if(userId == Constant.SUPER_ADMIN){
+		if(userId.equals(Constant.SUPER_ADMIN)){
 			return getAllMenuList(null);
 		}
 		
 		//用户菜单列表
-		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
+		List<String> menuIdList = sysUserService.queryAllMenuId(userId);
 		return getAllMenuList(menuIdList);
 	}
 	
 	@Override
-	public SysMenu queryObject(Long id) {
+	public SysMenu queryObject(String id) {
 		return sysMenuDao.queryObject(id);
 	}
 
@@ -88,21 +88,21 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 	@Override
 	@Transactional
-	public void deleteBatch(Long[] ids) {
+	public void deleteBatch(String[] ids) {
 		sysMenuDao.deleteBatch(ids);
 	}
 	
 	@Override
-	public List<SysMenu> queryUserList(Long userId) {
+	public List<SysMenu> queryUserList(String userId) {
 		return sysMenuDao.queryUserList(userId);
 	}
 
 	/**
 	 * 获取所有菜单列表
 	 */
-	private List<SysMenu> getAllMenuList(List<Long> menuIdList){
+	private List<SysMenu> getAllMenuList(List<String> menuIdList){
 		//查询根菜单列表
-		List<SysMenu> menuList = queryListByParentId(0L, menuIdList);
+		List<SysMenu> menuList = queryListByParentId("0", menuIdList);
 		//递归获取子菜单
 		getMenuTreeList(menuList, menuIdList);
 		
@@ -112,7 +112,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	/**
 	 * 递归
 	 */
-	private List<SysMenu> getMenuTreeList(List<SysMenu> menuList, List<Long> menuIdList){
+	private List<SysMenu> getMenuTreeList(List<SysMenu> menuList, List<String> menuIdList){
 		List<SysMenu> subMenuList = new ArrayList<SysMenu>();
 		
 		for(SysMenu entity : menuList){

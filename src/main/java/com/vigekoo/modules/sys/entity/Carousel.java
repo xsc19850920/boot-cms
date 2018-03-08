@@ -10,8 +10,12 @@ import java.util.Date;
  */
 public class Carousel implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//
-	private Integer id;
+	private String id;
 	//
 	private String title;
 	//
@@ -27,17 +31,12 @@ public class Carousel implements Serializable {
 	//
 	private Date updateTime;
 
-	/**
-	 * 设置：
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * 获取：
-	 */
-	public Integer getId() {
+	
+	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * 设置：

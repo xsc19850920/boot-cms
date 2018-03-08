@@ -18,7 +18,7 @@ public abstract class AbstractController {
         return (SysUser) SecurityUtils.getSubject().getPrincipal();
     }
 
-    protected Long getUserId() {
+    protected String getUserId() {
         return getUser().getId();
     }
 

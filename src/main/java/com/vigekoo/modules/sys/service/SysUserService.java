@@ -12,12 +12,12 @@ public interface SysUserService {
 	 * 查询用户的所有权限
 	 * @param userId  用户ID
 	 */
-	List<String> queryAllPerms(Long userId);
+	List<String> queryAllPerms(String userId);
 	
 	/**
 	 * 查询用户的所有菜单ID
 	 */
-	List<Long> queryAllMenuId(Long userId);
+	List<String> queryAllMenuId(String userId);
 
 	/**
 	 * 根据用户名，查询系统用户
@@ -29,7 +29,7 @@ public interface SysUserService {
 	 * @param id
 	 * @return
 	 */
-	SysUser queryObject(Long id);
+	SysUser queryObject(String id);
 	
 	/**
 	 * 查询用户列表
@@ -54,7 +54,7 @@ public interface SysUserService {
 	/**
 	 * 删除用户
 	 */
-	void deleteBatch(Long[] ids);
+	void deleteBatch(String[] ids);
 	
 	/**
 	 * 修改密码
@@ -67,6 +67,6 @@ public interface SysUserService {
 	/**
 	 * 获取用户权限列表
 	 */
-	Set<String> getUserPermissions(long userId);
+	Set<String> getUserPermissions(String userId);
 
 }

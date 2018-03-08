@@ -10,8 +10,12 @@ import java.util.Date;
  */
 public class Article implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//
-	private Integer id;
+	private String id;
 	//标题
 	private String title;
 	//预览图
@@ -23,17 +27,12 @@ public class Article implements Serializable {
 	//最近一次修改时间
 	private Date updateTime;
 
-	/**
-	 * 设置：
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * 获取：
-	 */
-	public Integer getId() {
+
+	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * 设置：标题

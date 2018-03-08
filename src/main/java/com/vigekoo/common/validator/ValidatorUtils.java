@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
- * @author oplus
+ * @author sxia
  * @Description: TODO(hibernate-validator校验工具类)
  * @date 2017-6-23 15:07
  */

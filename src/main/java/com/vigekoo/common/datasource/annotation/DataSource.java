@@ -3,7 +3,7 @@ package com.vigekoo.common.datasource.annotation;
 import java.lang.annotation.*;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(多数据源注解)
  * @date 2017-9-26 16:53
  */

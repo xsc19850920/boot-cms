@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Redis切面处理类)
  * @date 2017-6-23 15:07
  */

@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Shiro配置)
  * @date 2017-6-23 15:07
  */

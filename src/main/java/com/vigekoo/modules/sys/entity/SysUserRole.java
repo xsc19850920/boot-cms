@@ -3,7 +3,7 @@ package com.vigekoo.modules.sys.entity;
 import java.io.Serializable;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(用户与角色对应关系)
  * @date 2017-6-23 15:07
  */

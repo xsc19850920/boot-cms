@@ -4,7 +4,7 @@ import com.vigekoo.common.exception.AppException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(SQL过滤)
  * @date 2017-6-23 15:07
  */

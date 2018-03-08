@@ -3,7 +3,7 @@ package com.vigekoo.modules.sys.entity;
 import java.util.List;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(表数据)
  * @date 2017-6-23 15:07
  */

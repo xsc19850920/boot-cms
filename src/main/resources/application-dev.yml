@@ -7,12 +7,12 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:  #数据源1
-#                url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#                username: a710009498
-#                password: a710009498
-                url: jdbc:mysql://192.168.0.88:3306/springboot-admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-                username: root
-                password: root
+                url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                username: a710009498
+                password: a710009498
+#                url: jdbc:mysql://192.168.0.88:3306/springboot-admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#                username: root
+#                password: root
             initial-size: 10
             max-active: 100
             min-idle: 10

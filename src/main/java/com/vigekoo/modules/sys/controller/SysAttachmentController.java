@@ -2,7 +2,6 @@ package com.vigekoo.modules.sys.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +12,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.aliyun.oss.OSSClient;
+import com.vigekoo.common.Constant;
 import com.vigekoo.common.annotation.SysLog;
 import com.vigekoo.common.exception.AppException;
+import com.vigekoo.common.utils.AliyunOSSClientUtil;
 import com.vigekoo.common.utils.AttachmentUtils;
 import com.vigekoo.common.utils.FileUtils;
 import com.vigekoo.common.utils.PageUtils;
@@ -31,7 +32,7 @@ import com.vigekoo.modules.sys.entity.SysAttachment;
 import com.vigekoo.modules.sys.service.SysAttachmentService;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(附件)
  * @date 2017-7-10 17:07
  */
@@ -72,6 +73,7 @@ public class SysAttachmentController extends AbstractController {
 	@RequestMapping("/upload")
 	@RequiresPermissions("sys:attachment:upload")
 	public Result upload(HttpServletRequest request) {
+
 		String webpath = StringUtils.EMPTY;
 		try {
 			List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
@@ -85,20 +87,29 @@ public class SysAttachmentController extends AbstractController {
 				String newFileName = AttachmentUtils.newFileName(suffix);
 				File newFile = new File(newFileName);
 				file.transferTo(newFile);
-				
+				newFile.deleteOnExit();
 				logger.debug(String.format("富文本上传文件物理路径 ： %s", newFile.getAbsolutePath()));
-				String path = "/" + FileUtils.removePrefix(newFile.getAbsolutePath(), FileUtils.getTempPath()).replace("\\", "/");
-				webpath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/uploadFile" + path;
+				// 初始化OSSClient
+				OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
+				AliyunOSSClientUtil.uploadObject2OSS(ossClient, newFile, Constant.BACKET_NAME, Constant.FOLDER);
+				webpath = AliyunOSSClientUtil.getUrl(Constant.FOLDER + newFile.getName());
+
+				// String path = "/" +
+				// FileUtils.removePrefix(newFile.getAbsolutePath(),
+				// FileUtils.getTempPath()).replace("\\", "/");
+				// webpath = request.getScheme() + "://" +
+				// request.getServerName() + ":" + request.getServerPort() +
+				// request.getContextPath() + "/uploadFile" + path;
 				logger.debug(String.format("富文本上传文件路径 ： %s", webpath));
-				
-				SysAttachment sysAttachment = new SysAttachment();
-				sysAttachment.setUserId(getUserId());
-				sysAttachment.setTitle(file.getOriginalFilename());
-				sysAttachment.setPath(path);
-				sysAttachment.setSuffix(suffix);
-				sysAttachment.setMimeType(file.getContentType());
-				sysAttachment.setCreateTime(new Date());
-				sysAttachmentService.save(sysAttachment);
+
+//				SysAttachment sysAttachment = new SysAttachment();
+//				sysAttachment.setUserId(getUserId());
+//				sysAttachment.setTitle(file.getOriginalFilename());
+//				sysAttachment.setPath(webpath);
+//				sysAttachment.setSuffix(suffix);
+//				sysAttachment.setMimeType(file.getContentType());
+//				sysAttachment.setCreateTime(new Date());
+//				sysAttachmentService.save(sysAttachment);
 			}
 
 			return Result.ok().put("src", webpath);
@@ -128,10 +139,17 @@ public class SysAttachmentController extends AbstractController {
 	@SysLog("删除配置")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:attachment:delete")
-	public Result delete(@RequestBody Long[] ids) {
-		sysAttachmentService.deleteBatch(ids);
-		return Result.ok();
+	public Result delete(@RequestParam(value = "key") String key) {
+//		sysAttachmentService.deleteBatch(ids);
+//		return Result.ok();
+		if (!key.isEmpty()) {
+			// 初始化OSSClient
+			OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
+			AliyunOSSClientUtil.deleteFile(ossClient, Constant.BACKET_NAME, Constant.FOLDER, key);
+			return Result.ok();
+		} else {
+			return Result.error();
+		}
 	}
-
 
 }

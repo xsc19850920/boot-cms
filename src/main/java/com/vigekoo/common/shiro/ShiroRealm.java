@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(认证)
  * @date 2017-6-23 15:07
  */

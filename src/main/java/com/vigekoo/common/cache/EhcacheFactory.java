@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Ehcache缓存工厂)
  * @date 2017-6-23 15:07
  */

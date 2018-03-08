@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(系统用户)
  * @date 2017-6-23 15:07
  */
@@ -89,11 +89,11 @@ public class SysUserController extends AbstractController {
 	 */
 	@RequestMapping("/info/{userId}")
 	@RequiresPermissions("sys:user:info")
-	public Result info(@PathVariable("userId") Long userId){
-		SysUser user = sysUserService.queryObject(userId);
+	public Result info(@PathVariable("userId") String userId){
+		SysUser user = sysUserService.queryObject(Long.valueOf(userId));
 		
 		//获取用户所属的角色列表
-		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
+		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(Long.valueOf(userId));
 		user.setRoleIdList(roleIdList);
 		
 		return Result.ok().put("user", user);

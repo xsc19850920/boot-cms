@@ -1,21 +1,30 @@
 package com.vigekoo.config;
 
-import com.vigekoo.common.utils.FileUtils;
-import com.vigekoo.common.xss.XssFilter;
-import com.vigekoo.modules.api.intercept.ApiInterceptor;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.DispatcherType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.servlet.DispatcherType;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.vigekoo.common.utils.FileUtils;
+import com.vigekoo.common.xss.XssFilter;
+import com.vigekoo.modules.api.intercept.ApiInterceptor;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(web配置)
  * @date 2017-6-23 15:07
  */
@@ -35,6 +44,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //        registry.addResourceHandler("/webjars*").addResourceLocations("classpath:/META-INF/resources/webjars/");
         
         super.addResourceHandlers(registry);
+    }
+    
+    /**
+     * 利用fastjson替换掉jackson，且解决中文乱码问题
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        //处理中文乱码问题
+        List<MediaType> fastMediaTypes = new ArrayList<>();
+        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastConverter.setSupportedMediaTypes(fastMediaTypes);
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+        converters.add(fastConverter);
     }
 
     @Bean

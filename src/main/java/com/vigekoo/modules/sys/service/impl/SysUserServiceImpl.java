@@ -1,6 +1,7 @@
 package com.vigekoo.modules.sys.service.impl;
 
 import com.vigekoo.common.Constant;
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysMenuDao;
 import com.vigekoo.modules.sys.dao.SysUserDao;
 import com.vigekoo.modules.sys.entity.SysMenu;
@@ -9,6 +10,7 @@ import com.vigekoo.modules.sys.redis.SysUserRedis;
 import com.vigekoo.modules.sys.service.SysRoleService;
 import com.vigekoo.modules.sys.service.SysUserRoleService;
 import com.vigekoo.modules.sys.service.SysUserService;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -84,6 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
 		user.setSalt(salt);
+		user.setId(IdGenUtil.get().nextId());
 		sysUserDao.save(user);
 
 		//保存用户与角色关系

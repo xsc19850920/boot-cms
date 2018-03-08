@@ -16,7 +16,7 @@ import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(兵器)
  * @date 2017-12-19 13:59:34
  */

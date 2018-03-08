@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(图片处理)
  * @date 2017-6-23 15:07
  */

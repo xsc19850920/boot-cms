@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Spring Context 工具类)
  * @date 2017-6-23 15:07
  */

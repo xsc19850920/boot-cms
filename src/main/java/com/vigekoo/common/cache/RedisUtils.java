@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Redis工具类)
  * @date 2017-6-23 15:07
  */

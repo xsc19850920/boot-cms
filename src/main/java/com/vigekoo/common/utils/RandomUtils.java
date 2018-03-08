@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**  
 * @Description: TODO(随机数工具类)
-* @author oplus
+* @author sxia
 * @date 2016年10月10日 上午8:50:13
 */
 public class RandomUtils {

@@ -3,7 +3,7 @@ package com.vigekoo.modules.sys.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(系统配置信息)
  * @date 2017-6-23 15:07
  */

@@ -1,17 +1,19 @@
 package com.vigekoo.modules.sys.service.impl;
 
-import com.vigekoo.common.shiro.TokenGenerator;
-import com.vigekoo.modules.sys.dao.SysUserTokenDao;
-import com.vigekoo.modules.sys.entity.SysUserToken;
-import com.vigekoo.modules.sys.redis.SysUserTokenRedis;
-import com.vigekoo.modules.sys.service.SysUserTokenService;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.vigekoo.common.shiro.TokenGenerator;
+import com.vigekoo.modules.api.utils.JwtUtils;
+import com.vigekoo.modules.sys.dao.SysUserTokenDao;
+import com.vigekoo.modules.sys.entity.SysUserToken;
+import com.vigekoo.modules.sys.redis.SysUserTokenRedis;
+import com.vigekoo.modules.sys.service.SysUserTokenService;
 
 @Service("sysUserTokenService")
 public class SysUserTokenServiceImpl implements SysUserTokenService {
@@ -21,6 +23,9 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 
 	@Autowired
 	private SysUserTokenRedis sysUserTokenRedis;
+	
+	@Autowired
+    private JwtUtils jwtUtils;
 	
 	//24小时后过期
 	private final static int EXPIRE = 86400;
@@ -63,7 +68,8 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	public Map<String, Object> createToken(long userId) {
 		//生成一个token
 		String token = TokenGenerator.generateValue();
-
+		
+//		String token =  jwtUtils.generateToken(userId);
 		//当前时间
 		Date now = new Date();
 		//过期时间
@@ -91,6 +97,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("token", token);
+		result.put("userId", userId);
 		result.put("expire", EXPIRE);
 		return result;
 	}
@@ -99,7 +106,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	public void logout(long userId) {
 		//生成一个token
 		String token = TokenGenerator.generateValue();
-
+//		String token =  jwtUtils.generateToken(userId);
 		//修改token
 		SysUserToken tokenEntity = new SysUserToken();
 		tokenEntity.setUserId(userId);

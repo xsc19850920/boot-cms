@@ -6,7 +6,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Shiro工具类)
  * @date 2017-6-23 15:07
  */

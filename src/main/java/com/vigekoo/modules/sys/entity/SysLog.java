@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(系统日志)
  * @date 2017-6-23 15:07
  */

@@ -8,7 +8,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(中文转拼音工具)
  * @date 2017-9-26 10:09
  */

@@ -3,15 +3,16 @@ package com.vigekoo.modules.api.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(jwt工具类)
  * @date 2017-9-27 14:33
  */
@@ -19,7 +20,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
     private String secret;
     private long expire;
@@ -30,14 +31,14 @@ public class JwtUtils {
      * @param userId
      * @return
      */
-    public String generateToken(long userId) {
+    public String generateToken(String userId) {
         Date nowDate = new Date();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(userId+"")
+                .setSubject(userId)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)

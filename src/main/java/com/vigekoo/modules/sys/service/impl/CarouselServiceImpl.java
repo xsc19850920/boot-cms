@@ -2,8 +2,11 @@ package com.vigekoo.modules.sys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
+
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.CarouselDao;
 import com.vigekoo.modules.sys.entity.Carousel;
 import com.vigekoo.modules.sys.service.CarouselService;
@@ -31,6 +34,7 @@ public class CarouselServiceImpl implements CarouselService {
 	
 	@Override
 	public void save(Carousel carousel){
+		carousel.setId(IdGenUtil.get().nextId());
 		carouselDao.save(carousel);
 	}
 	

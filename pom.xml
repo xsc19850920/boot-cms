@@ -39,6 +39,7 @@
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <jwt.version>0.8.0</jwt.version>
         <springfox.version>2.6.1</springfox.version>
+        <aliyun.oss.version>2.5.0</aliyun.oss.version>
     </properties>
 
     <dependencies>
@@ -182,6 +183,12 @@
             <artifactId>jjwt</artifactId>
             <version>${jwt.version}</version>
         </dependency>
+        
+        <dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>${aliyun.oss.version}</version>
+		</dependency>
         
        <!-- <dependency>
 			<groupId>io.springfox</groupId>

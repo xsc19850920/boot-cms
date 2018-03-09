@@ -1,17 +1,17 @@
 package com.vigekoo;
 
-import com.vigekoo.common.utils.SpringContextUtils;
+import java.net.InetAddress;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.PropertySource;
 
-import java.net.InetAddress;
-import java.util.HashSet;
-import java.util.Set;
+import com.vigekoo.common.utils.SpringContextUtils;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {

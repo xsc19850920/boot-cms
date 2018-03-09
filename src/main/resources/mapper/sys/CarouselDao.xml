@@ -40,6 +40,7 @@
 	<insert id="save" parameterType="com.vigekoo.modules.sys.entity.Carousel" useGeneratedKeys="true" keyProperty="id">
 		insert into carousel
 		(
+			`id`, 
 			`title`, 
 			`image`, 
 			`pc_image`, 
@@ -50,6 +51,7 @@
 		)
 		values
 		(
+			#{id}, 
 			#{title}, 
 			#{image}, 
 			#{pcImage}, 

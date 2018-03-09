@@ -1,7 +1,7 @@
 package com.vigekoo.modules.sys.entity;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(列的属性)
  * @date 2017-6-23 15:07
  */

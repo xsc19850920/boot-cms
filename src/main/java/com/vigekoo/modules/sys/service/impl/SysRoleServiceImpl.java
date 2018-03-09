@@ -1,11 +1,13 @@
 package com.vigekoo.modules.sys.service.impl;
 
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysRoleDao;
 import com.vigekoo.modules.sys.entity.SysRole;
 import com.vigekoo.modules.sys.service.SysRoleMenuService;
 import com.vigekoo.modules.sys.service.SysRoleService;
 import com.vigekoo.modules.sys.service.SysUserRoleService;
 import com.vigekoo.modules.sys.service.SysUserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysUserService sysUserService;
 
 	@Override
-	public SysRole queryObject(Long id) {
+	public SysRole queryObject(String id) {
 		return sysRoleDao.queryObject(id);
 	}
 
@@ -48,6 +50,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Transactional
 	public void save(SysRole role) {
 		role.setCreateTime(new Date());
+		role.setId(IdGenUtil.get().nextId());
 		sysRoleDao.save(role);
 		//保存角色与菜单关系
 		sysRoleMenuService.saveOrUpdate(role.getId(), role.getMenuIdList());
@@ -63,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional
-	public void deleteBatch(Long[] ids) {
+	public void deleteBatch(String[] ids) {
 		sysRoleDao.deleteBatch(ids);
 		//删除角色与菜单关系
 		sysRoleMenuService.deleteBatch(ids);

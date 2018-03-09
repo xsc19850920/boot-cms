@@ -1,15 +1,17 @@
 package com.vigekoo.common.exception;
 
-import com.vigekoo.common.utils.Result;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.vigekoo.common.utils.Result;
+
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(异常处理器)
  * @date 2017-6-23 15:07
  */
@@ -34,6 +36,12 @@ public class AppExceptionHandler {
 
 	@ExceptionHandler(AuthorizationException.class)
 	public Result handleAuthorizationException(AuthorizationException e){
+		logger.error(e.getMessage(), e);
+		return Result.error("没有权限，请联系管理员授权");
+	}
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	public Result handleAuthorizationException(UnauthorizedException e){
 		logger.error(e.getMessage(), e);
 		return Result.error("没有权限，请联系管理员授权");
 	}

@@ -3,7 +3,7 @@ package com.vigekoo.common.shiro;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(token)
  * @date 2017-6-23 15:07
  */

@@ -2,10 +2,12 @@ package com.vigekoo.modules.sys.service.impl;
 
 import com.google.gson.Gson;
 import com.vigekoo.common.exception.AppException;
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysConfigDao;
 import com.vigekoo.modules.sys.entity.SysConfig;
 import com.vigekoo.modules.sys.service.SysConfigService;
 import com.vigekoo.modules.sys.redis.SysConfigRedis;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class SysConfigServiceImpl implements SysConfigService {
 	@Override
 	@Transactional
 	public void save(SysConfig config) {
+		config.setId(IdGenUtil.get().nextId());
 		sysConfigDao.save(config);
 		sysConfigRedis.saveOrUpdate(config);
 	}

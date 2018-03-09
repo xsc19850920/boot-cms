@@ -11,64 +11,47 @@ import java.io.Serializable;
  */
 public class SysRoleMenu implements Serializable {
 	
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
 	/**
 	 * 角色ID
 	 */
-	private Long roleId;
+	private String roleId;
 
 	/**
 	 * 菜单ID
 	 */
-	private Long menuId;
+	private String menuId;
 
-	/**
-	 * 设置：
-	 * @param id 
-	 */
-	public void setId(Long id) {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * 获取：
-	 * @return Long
-	 */
-	public Long getId() {
-		return id;
+	public String getRoleId() {
+		return roleId;
 	}
-	
-	/**
-	 * 设置：角色ID
-	 * @param roleId 角色ID
-	 */
-	public void setRoleId(Long roleId) {
+
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 
-	/**
-	 * 获取：角色ID
-	 * @return Long
-	 */
-	public Long getRoleId() {
-		return roleId;
+	public String getMenuId() {
+		return menuId;
 	}
-	
-	/**
-	 * 设置：菜单ID
-	 * @param menuId 菜单ID
-	 */
-	public void setMenuId(Long menuId) {
+
+	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
 
-	/**
-	 * 获取：菜单ID
-	 * @return Long
-	 */
-	public Long getMenuId() {
-		return menuId;
-	}
+	
 	
 }

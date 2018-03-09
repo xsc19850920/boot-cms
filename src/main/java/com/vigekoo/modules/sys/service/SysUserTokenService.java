@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface SysUserTokenService {
 
-	SysUserToken queryByUserId(Long userId);
+	SysUserToken queryByUserId(String userId);
 
 	SysUserToken queryByToken(String token);
 	
@@ -18,12 +18,12 @@ public interface SysUserTokenService {
 	 * 生成token
 	 * @param userId  用户ID
 	 */
-	Map<String, Object> createToken(long userId);
+	Map<String, Object> createToken(String userId);
 
 	/**
 	 * 退出，修改token值
 	 * @param userId  用户ID
 	 */
-	void logout(long userId);
+	void logout(String userId);
 
 }

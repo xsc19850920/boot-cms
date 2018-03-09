@@ -16,7 +16,7 @@ import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(轮播图)
  * @date 2017-11-30 15:35:54
  */

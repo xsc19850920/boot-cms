@@ -6,7 +6,7 @@ sys:
     jwt:
         header: token
         # 加密秘钥
-        secret: f4e2e52034348f86b67cde581c0f9eb5[vgk]
+        secret: f4e2e52034348f86b67cde581c0f9eb5[bb]
         # token有效时长，单位秒
         expire: 86400
 
@@ -17,7 +17,7 @@ server:
         max-application-dev.ymlthreads: 1000
         min-spare-threads: 30
     port: 8888
-    #打开注释，则通过【http://localhost:8888/vgk/admin】访问
+    #打开注释，则通过【http://localhost:8888/bb/admin】访问
     context-path: /bb/admin
 
 # mysql

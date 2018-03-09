@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(角色管理)
  * @date 2017-6-23 15:07
  */
@@ -61,10 +61,10 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/info/{roleId}")
 	@RequiresPermissions("sys:role:info")
-	public Result info(@PathVariable("roleId") Long roleId){
+	public Result info(@PathVariable("roleId") String roleId){
 		SysRole role = sysRoleService.queryObject(roleId);
 		//查询角色对应的菜单
-		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
+		List<String> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
 		role.setMenuIdList(menuIdList);
 		return Result.ok().put("role", role);
 	}
@@ -99,7 +99,7 @@ public class SysRoleController extends AbstractController {
 	@SysLog("删除角色")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
-	public Result delete(@RequestBody Long[] roleIds){
+	public Result delete(@RequestBody String[] roleIds){
 		sysRoleService.deleteBatch(roleIds);
 		return Result.ok();
 	}

@@ -7,16 +7,21 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(角色)
  * @date 2017-6-23 15:07
  */
 public class SysRole implements Serializable {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 角色ID
 	 */
-	private Long id;
+	private String id;
 
 	/**
 	 * 角色名称
@@ -32,61 +37,53 @@ public class SysRole implements Serializable {
 	/**
 	 * 创建者ID
 	 */
-	private Long createUserId;
+	private String createUserId;
 	
-	private List<Long> menuIdList;
+	private List<String> menuIdList;
 	
 	/**
 	 * 创建时间
 	 */
 	private Date createTime;
 
-	/**
-	 * 设置：
-	 * @param id
-	 */
-	public void setId(Long id) {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * 获取：
-	 * @return Long
-	 */
-	public Long getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
-	
-	/**
-	 * 设置：角色名称
-	 * @param name 角色名称
-	 */
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * 获取：角色名称
-	 * @return String
-	 */
-	public String getName() {
-		return name;
+	public String getRemark() {
+		return remark;
 	}
-	
-	/**
-	 * 设置：备注
-	 * @param remark 备注
-	 */
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 
-	/**
-	 * 获取：备注
-	 * @return String
-	 */
-	public String getRemark() {
-		return remark;
+	public String getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public List<String> getMenuIdList() {
+		return menuIdList;
+	}
+
+	public void setMenuIdList(List<String> menuIdList) {
+		this.menuIdList = menuIdList;
 	}
 
 	public Date getCreateTime() {
@@ -97,12 +94,8 @@ public class SysRole implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public List<Long> getMenuIdList() {
-		return menuIdList;
-	}
-
-	public void setMenuIdList(List<Long> menuIdList) {
-		this.menuIdList = menuIdList;
-	}
+	
+	
+	
 	
 }

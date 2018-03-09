@@ -34,8 +34,8 @@
 	</select>
 	
 	<insert id="save" parameterType="com.vigekoo.modules.sys.entity.SysConfig">
-		insert into sys_config(`key`, `value`,status, remark)
-			values(#{key},#{value},#{status},#{remark})
+		insert into sys_config(`id`,`key`, `value`,status, remark)
+			values(#{id},#{key},#{value},#{status},#{remark})
 	</insert>
 	
 	<update id="update" parameterType="com.vigekoo.modules.sys.entity.SysConfig">

@@ -1,6 +1,7 @@
 package com.vigekoo.modules.sys.service.impl;
 
 import com.vigekoo.common.Constant;
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysMenuDao;
 import com.vigekoo.modules.sys.dao.SysUserDao;
 import com.vigekoo.modules.sys.entity.SysMenu;
@@ -9,6 +10,7 @@ import com.vigekoo.modules.sys.redis.SysUserRedis;
 import com.vigekoo.modules.sys.service.SysRoleService;
 import com.vigekoo.modules.sys.service.SysUserRoleService;
 import com.vigekoo.modules.sys.service.SysUserService;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -37,12 +39,12 @@ public class SysUserServiceImpl implements SysUserService {
 	private SysUserRedis sysUserRedis;
 
 	@Override
-	public List<String> queryAllPerms(Long userId) {
+	public List<String> queryAllPerms(String userId) {
 		return sysUserDao.queryAllPerms(userId);
 	}
 
 	@Override
-	public List<Long> queryAllMenuId(Long userId) {
+	public List<String> queryAllMenuId(String userId) {
 		return sysUserDao.queryAllMenuId(userId);
 	}
 
@@ -57,7 +59,7 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
-	public SysUser queryObject(Long id) {
+	public SysUser queryObject(String id) {
 		SysUser sysUser=sysUserRedis.get(id);
 		if(sysUser==null){
 			sysUser=sysUserDao.queryObject(id);
@@ -84,6 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
 		user.setSalt(salt);
+		user.setId(IdGenUtil.get().nextId() );
 		sysUserDao.save(user);
 
 		//保存用户与角色关系
@@ -110,8 +113,8 @@ public class SysUserServiceImpl implements SysUserService {
 
 	@Override
 	@Transactional
-	public void deleteBatch(Long[] ids) {
-		for(Long id : ids){
+	public void deleteBatch(String[] ids) {
+		for(String id : ids){
 			SysUser sysUser=queryObject(id);
 			sysUserRedis.delete(sysUser);
 		}
@@ -135,11 +138,11 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
-	public Set<String> getUserPermissions(long userId) {
+	public Set<String> getUserPermissions(String userId) {
 		List<String> permsList;
 
 		//系统管理员，拥有最高权限
-		if(userId == Constant.SUPER_ADMIN){
+		if(userId.equals( Constant.SUPER_ADMIN)){
 			List<SysMenu> menuList = sysMenuDao.queryList(new HashMap<>());
 			permsList = new ArrayList<>(menuList.size());
 			for(SysMenu menu : menuList){

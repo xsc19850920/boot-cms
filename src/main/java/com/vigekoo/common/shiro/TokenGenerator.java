@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.util.UUID;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(生成token)
  * @date 2017-6-23 15:07
  */

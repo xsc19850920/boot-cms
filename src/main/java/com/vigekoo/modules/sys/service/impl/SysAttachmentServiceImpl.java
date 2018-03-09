@@ -1,8 +1,10 @@
 package com.vigekoo.modules.sys.service.impl;
 
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.entity.SysAttachment;
 import com.vigekoo.modules.sys.service.SysAttachmentService;
 import com.vigekoo.modules.sys.dao.SysAttachmentDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO()
  * @date 2017-7-10 17:02
  */
@@ -45,6 +47,7 @@ public class SysAttachmentServiceImpl implements SysAttachmentService {
     @Override
     @Transactional
     public void save(SysAttachment sysAttachment) {
+    	sysAttachment.setId(IdGenUtil.get().nextId());
         sysAttachmentDao.save(sysAttachment);
     }
 

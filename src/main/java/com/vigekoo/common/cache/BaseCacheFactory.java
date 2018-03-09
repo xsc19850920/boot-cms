@@ -1,7 +1,7 @@
 package com.vigekoo.common.cache;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(缓存工厂基类)
  * @date 2017-6-23 15:07
  */

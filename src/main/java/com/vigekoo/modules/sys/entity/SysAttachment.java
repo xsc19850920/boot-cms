@@ -4,17 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(附件)
  * @date 2017-7-10 16:58
  */
 public class SysAttachment implements Serializable {
 
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
     private String title;
 
-    private Long userId;
+    private String userId;
 
     private String path;
 
@@ -24,14 +29,6 @@ public class SysAttachment implements Serializable {
 
     private Date createTime;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -40,15 +37,23 @@ public class SysAttachment implements Serializable {
         this.title = title;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getPath() {
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPath() {
         return path;
     }
 

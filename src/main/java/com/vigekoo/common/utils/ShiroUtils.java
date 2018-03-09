@@ -6,7 +6,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(Shiro工具类)
  * @date 2017-6-23 15:07
  */
@@ -24,7 +24,7 @@ public class ShiroUtils {
 		return (SysUser)SecurityUtils.getSubject().getPrincipal();
 	}
 
-	public static Long getUserId() {
+	public static String getUserId() {
 		return getUserEntity().getId();
 	}
 	

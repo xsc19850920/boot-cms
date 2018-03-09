@@ -18,7 +18,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 
 	@Override
 	@Transactional
-	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
+	public void saveOrUpdate(String userId, List<String> roleIdList) {
 		//先删除用户与角色关系
 		this.delete(userId);
 
@@ -34,18 +34,18 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 	}
 
 	@Override
-	public List<Long> queryRoleIdList(Long userId) {
+	public List<String> queryRoleIdList(String userId) {
 		return sysUserRoleDao.queryRoleIdList(userId);
 	}
 
 	@Override
 	@Transactional
-	public void delete(Long userId) {
+	public void delete(String userId) {
 		sysUserRoleDao.delete(userId);
 	}
 
 	@Override
-	public void deleteBatch(Long[] userIds) {
+	public void deleteBatch(String[] userIds) {
 		sysUserRoleDao.deleteBatch(userIds);
 	}
 }

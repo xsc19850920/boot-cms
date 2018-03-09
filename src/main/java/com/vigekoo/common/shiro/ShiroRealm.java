@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(认证)
  * @date 2017-6-23 15:07
  */
@@ -40,7 +40,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SysUser user = (SysUser)principals.getPrimaryPrincipal();
-        Long userId = user.getId();
+        String userId = user.getId();
 
         //用户权限列表
         Set<String> permsSet = sysUserService.getUserPermissions(userId);

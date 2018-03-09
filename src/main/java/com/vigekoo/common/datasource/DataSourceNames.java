@@ -1,7 +1,7 @@
 package com.vigekoo.common.datasource;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(配置多数据源的名字)
  * @date 2017-9-26 16:58
  */

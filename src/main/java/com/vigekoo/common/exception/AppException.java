@@ -1,13 +1,18 @@
 package com.vigekoo.common.exception;
 
 /**
- * @author oplus
+ * @author sxia
  * @Description: TODO(自定义异常)
  * @date 2017-6-23 15:07
  */
 public class AppException extends RuntimeException {
 	
-    private String msg;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String msg;
 
     private int code = 500;
     

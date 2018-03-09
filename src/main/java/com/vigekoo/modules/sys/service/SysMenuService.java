@@ -12,13 +12,13 @@ public interface SysMenuService {
 	 * @param parentId 父菜单ID
 	 * @param menuIdList  用户菜单ID
 	 */
-	List<SysMenu> queryListByParentId(Long parentId, List<Long> menuIdList);
+	List<SysMenu> queryListByParentId(String parentId, List<String> menuIdList);
 
 	/**
 	 * 根据父菜单，查询子菜单
 	 * @param parentId 父菜单ID
 	 */
-	List<SysMenu> queryListByParentId(Long parentId);
+	List<SysMenu> queryListByParentId(String parentId);
 	
 	/**
 	 * 获取不包含按钮的菜单列表
@@ -28,12 +28,12 @@ public interface SysMenuService {
 	/**
 	 * 获取用户菜单列表
 	 */
-	List<SysMenu> getUserMenuList(Long userId);
+	List<SysMenu> getUserMenuList(String userId);
 	
 	/**
 	 * 查询菜单
 	 */
-	SysMenu queryObject(Long id);
+	SysMenu queryObject(String id);
 	
 	/**
 	 * 查询菜单列表
@@ -58,10 +58,10 @@ public interface SysMenuService {
 	/**
 	 * 删除
 	 */
-	void deleteBatch(Long[] ids);
+	void deleteBatch(String[] ids);
 	
 	/**
 	 * 查询用户的权限列表
 	 */
-	List<SysMenu> queryUserList(Long userId);
+	List<SysMenu> queryUserList(String userId);
 }

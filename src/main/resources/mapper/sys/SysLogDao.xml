@@ -39,6 +39,7 @@
 	<insert id="save" parameterType="com.vigekoo.modules.sys.entity.SysLog" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_log
 		(
+			`id`, 
 			`username`, 
 			`operation`, 
 			`method`, 
@@ -49,6 +50,7 @@
 		)
 		values
 		(
+			#{id}, 
 			#{username}, 
 			#{operation}, 
 			#{method}, 

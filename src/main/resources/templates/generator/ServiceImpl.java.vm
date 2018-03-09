@@ -31,6 +31,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
 	public void save(${className} ${classname}){
+		${classname}.setId(IdGenUtil.get().nextId());
 		${classname}Dao.save(${classname});
 	}
 	

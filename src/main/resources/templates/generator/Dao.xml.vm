@@ -45,10 +45,8 @@
 		values
 		(
 #foreach($column in $columns)
-#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
 			#{$column.attrname}#if($velocityCount != $columns.size()), #end
-
-#end			
+			
 #end
 		)
 	</insert>

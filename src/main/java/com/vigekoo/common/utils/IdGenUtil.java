@@ -47,7 +47,7 @@ public class IdGenUtil {
 		this.datacenterId = datacenterId;
 	}
 
-	public synchronized long nextId() {
+	public synchronized String nextId() {
 		long timestamp = timeGen(); //获取当前毫秒数
 		//如果服务器时间有问题(时钟后退) 报错。
 		if (timestamp < lastTimestamp) {
@@ -68,7 +68,7 @@ public class IdGenUtil {
 		// 最后按照规则拼出ID。
 		// 000000000000000000000000000000000000000000  00000            00000       000000000000
 		// time                                        datacenterId   workerId    sequence
-		return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
+		return String.valueOf(((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence);
 	}
 
 	protected long tilNextMillis(long lastTimestamp) {

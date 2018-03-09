@@ -6,6 +6,8 @@ import com.vigekoo.modules.sys.entity.SysMenu;
 import com.vigekoo.modules.sys.service.SysMenuService;
 import com.vigekoo.modules.sys.service.SysUserService;
 import com.vigekoo.common.Constant.MenuType;
+import com.vigekoo.common.utils.IdGenUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,6 +79,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
 	@Transactional
 	public void save(SysMenu menu) {
+		menu.setId(IdGenUtil.get().nextId());
 		sysMenuDao.save(menu);
 	}
 

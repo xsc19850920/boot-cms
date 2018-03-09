@@ -86,7 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
 		user.setSalt(salt);
-		user.setId(IdGenUtil.get().nextId() + "");
+		user.setId(IdGenUtil.get().nextId() );
 		sysUserDao.save(user);
 
 		//保存用户与角色关系

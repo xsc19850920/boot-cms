@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.shiro.TokenGenerator;
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.api.utils.JwtUtils;
 import com.vigekoo.modules.sys.dao.SysUserTokenDao;
 import com.vigekoo.modules.sys.entity.SysUserToken;
@@ -53,6 +54,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	@Override
 	@Transactional
 	public void save(SysUserToken token){
+		token.setId(IdGenUtil.get().nextId());
 		sysUserTokenDao.save(token);
 		sysUserTokenRedis.saveOrUpdate(token);
 	}

@@ -2,8 +2,11 @@ package com.vigekoo.modules.sys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
+
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.ArticleDao;
 import com.vigekoo.modules.sys.entity.Article;
 import com.vigekoo.modules.sys.service.ArticleService;
@@ -31,6 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Override
 	public void save(Article article){
+		article.setId(IdGenUtil.get().nextId());
 		articleDao.save(article);
 	}
 	

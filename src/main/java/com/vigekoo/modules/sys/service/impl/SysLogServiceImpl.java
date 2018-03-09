@@ -1,8 +1,10 @@
 package com.vigekoo.modules.sys.service.impl;
 
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysLogDao;
 import com.vigekoo.modules.sys.service.SysLogService;
 import com.vigekoo.modules.sys.entity.SysLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ public class SysLogServiceImpl implements SysLogService {
 	
 	@Override
 	public void save(SysLog sysLog){
+		sysLog.setId(IdGenUtil.get().nextId());
 		sysLogDao.save(sysLog);
 	}
 	

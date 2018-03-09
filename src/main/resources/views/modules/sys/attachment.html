@@ -59,7 +59,7 @@
                 <div class="col-sm-2 control-label">缩略图</div>
                 <span v-if="mimeType.indexOf('image') >= 0">
 					<img class="img-thumbnail" style="width: 250px;height: 250px;"
-                         :src="uploadFileResource+attachment.path">
+                         :src="attachment.path">
 				</span>
                 <span v-if="mimeType.indexOf('audio') >= 0">
 					<img class="img-thumbnail" style="width: 250px;height: 250px;" :src="baseURL+'/image/audio.jpg'">

@@ -41,7 +41,7 @@
 		</foreach>
 	</delete>
 	
-	<select id="queryRoleIdList" resultType="long">
+	<select id="queryRoleIdList" resultType="string">
 		select role_id from sys_user_role where user_id = #{value}
 	</select>
 

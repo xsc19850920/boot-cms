@@ -1,5 +1,6 @@
 package com.vigekoo.modules.sys.service.impl;
 
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.sys.dao.SysUserRoleDao;
 import com.vigekoo.modules.sys.service.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 		
 		//保存用户与角色关系
 		Map<String, Object> map = new HashMap<>();
+		map.put("id", IdGenUtil.get().nextId());
 		map.put("userId", userId);
 		map.put("roleIdList", roleIdList);
 		sysUserRoleDao.save(map);

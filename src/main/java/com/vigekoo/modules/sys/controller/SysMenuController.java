@@ -154,7 +154,7 @@ public class SysMenuController extends AbstractController {
 		
 		//上级菜单类型
 		int parentType = MenuType.CATALOG.getValue();
-		if(StringUtils.equals(menu.getParentId(), "0")){
+		if(!StringUtils.equals(menu.getParentId(), "0")){
 			SysMenu parentMenu = sysMenuService.queryObject(menu.getParentId());
 			parentType = parentMenu.getType();
 		}

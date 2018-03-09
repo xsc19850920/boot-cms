@@ -8,7 +8,7 @@ $(function () {
             { label: '缩略图', name: 'path', width: 100, formatter: function(value, options, row){
                 var mime=row.mimeType;
                 if(mime.indexOf('image') >= 0){
-                    return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+uploadFileResource+value+'" >';
+                    return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+value+'" >';
                 }else if(mime.indexOf('audio') >= 0){
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+baseURL+'/image/audio.jpg" >';
                 }else if(mime.indexOf('video') >= 0){

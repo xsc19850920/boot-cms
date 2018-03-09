@@ -2,6 +2,7 @@ package com.vigekoo.modules.sys.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import com.vigekoo.common.exception.AppException;
 import com.vigekoo.common.utils.AliyunOSSClientUtil;
 import com.vigekoo.common.utils.AttachmentUtils;
 import com.vigekoo.common.utils.FileUtils;
+import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.common.utils.PageUtils;
 import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
@@ -93,23 +95,17 @@ public class SysAttachmentController extends AbstractController {
 				OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
 				AliyunOSSClientUtil.uploadObject2OSS(ossClient, newFile, Constant.BACKET_NAME, Constant.FOLDER);
 				webpath = AliyunOSSClientUtil.getUrl(Constant.FOLDER + newFile.getName());
-
-				// String path = "/" +
-				// FileUtils.removePrefix(newFile.getAbsolutePath(),
-				// FileUtils.getTempPath()).replace("\\", "/");
-				// webpath = request.getScheme() + "://" +
-				// request.getServerName() + ":" + request.getServerPort() +
-				// request.getContextPath() + "/uploadFile" + path;
 				logger.debug(String.format("富文本上传文件路径 ： %s", webpath));
 
-//				SysAttachment sysAttachment = new SysAttachment();
-//				sysAttachment.setUserId(getUserId());
-//				sysAttachment.setTitle(file.getOriginalFilename());
-//				sysAttachment.setPath(webpath);
-//				sysAttachment.setSuffix(suffix);
-//				sysAttachment.setMimeType(file.getContentType());
-//				sysAttachment.setCreateTime(new Date());
-//				sysAttachmentService.save(sysAttachment);
+				SysAttachment sysAttachment = new SysAttachment();
+				sysAttachment.setId(IdGenUtil.get().nextId());
+				sysAttachment.setUserId(getUserId());
+				sysAttachment.setTitle(file.getOriginalFilename());
+				sysAttachment.setPath(webpath);
+				sysAttachment.setSuffix(suffix);
+				sysAttachment.setMimeType(file.getContentType());
+				sysAttachment.setCreateTime(new Date());
+				sysAttachmentService.save(sysAttachment);
 			}
 
 			return Result.ok().put("src", webpath);

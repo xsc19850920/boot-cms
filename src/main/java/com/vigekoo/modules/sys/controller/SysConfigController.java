@@ -33,7 +33,7 @@ public class SysConfigController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:config:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		params.put("status", Constant.ConfigStatus.SHOW.getValue());
+//		params.put("status", Constant.ConfigStatus.SHOW.getValue());
 		//查询列表数据
 		Query query = new Query(params);
 		List<SysConfig> configList = sysConfigService.queryList(query);

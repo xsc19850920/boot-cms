@@ -4,12 +4,16 @@
 <mapper namespace="com.vigekoo.modules.sys.dao.SysMenuDao">
 
 	<select id="queryObject" resultType="com.vigekoo.modules.sys.entity.SysMenu">
-		SELECT s.id, s.parent_id, s.name, s.url, s.perms
+		<!-- SELECT s.id, s.parent_id, s.name, s.url, s.perms
 			, s.type, s.icon, s.order_num, p.name AS parent_name
 		FROM sys_menu s
 			INNER JOIN sys_menu p
 			ON s.parent_id = p.id
-				AND s.id = #{value}
+				AND s.id = #{value} -->
+				
+		SELECT *
+		FROM sys_menu s
+				where s.id = #{value}  
 	</select>
 	
 	<insert id="save" parameterType="com.vigekoo.modules.sys.entity.SysMenu">

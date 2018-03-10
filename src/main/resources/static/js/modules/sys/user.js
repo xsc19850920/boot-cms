@@ -13,10 +13,11 @@ $(function () {
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '创建时间', name: 'createTime', index: "create_time", width: 80}
+			{name:'createTime',index:'create_time',label:"创建时间",  width:80},
+			{ label: '操作', name: 'opt',  width: 80}
         ],
 		viewrecords: true,
-        height: 385,
+//        height: 385,
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
@@ -37,7 +38,21 @@ $(function () {
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
-        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        	//$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        	var ids = $("#jqGrid").jqGrid('getDataIDs');
+	        for (var i = 0; i < ids.length; i++) {
+	          var id = ids[i];
+	          var rowData = "";
+	          var editBtn = "<a onclick='vm.getUser("+ id +")'>修改</a>  ";
+	          var delBtn = "<a  onclick='vm.del()'>刪除<a>";
+	          if(hasPermission('sys:user:update')){
+	        	  rowData += editBtn;
+	          }
+	          if(hasPermission('sys:user:info')){
+	        	  rowData += delBtn;
+	          }
+	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
+	        }
         }
     });
     
@@ -159,6 +174,8 @@ var vm = new Vue({
 			});
 		},
 		getUser: function(userId){
+			vm.showList = false;
+            vm.title = "修改";
 			$.get(baseURL + "/sys/user/info/"+userId, function(r){
 				vm.user = r.user;
 				vm.user.password = null;

@@ -15,6 +15,10 @@ public class ${className} implements Serializable {
 	
 #foreach ($column in $columns)
 	//$column.comments
+#if($column.columnName == $pk.columnName )
+	@JSONField(serializeUsing= DateCodec.class)
+	@JSONField(serializeUsing= ToStringSerializer.class)
+#end
 	private $column.attrType $column.attrname;
 #end
 

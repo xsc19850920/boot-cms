@@ -4,6 +4,9 @@
 
 package com.vigekoo.common.utils;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * 全局唯一ID生成器
  */
@@ -81,6 +84,12 @@ public class IdGenUtil {
 
 	protected long timeGen() {
 		return System.currentTimeMillis();
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println(get().nextId());
+		System.out.println(new Date().getTime());
 	}
 
 }

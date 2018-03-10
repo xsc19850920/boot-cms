@@ -60,6 +60,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         fastConverter.setFastJsonConfig(fastJsonConfig);
+        fastConverter.setFeatures(SerializerFeature.WriteDateUseDateFormat);
         converters.add(fastConverter);
     }
 

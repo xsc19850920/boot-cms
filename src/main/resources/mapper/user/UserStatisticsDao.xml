@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.user.dao.UserStatisticsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.user.entity.UserStatistics" id="userStatisticsMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userStatisticsId" column="user_statistics_id"/>
+        <result property="statisticsKey" column="statistics_key"/>
+        <result property="statisticsValue" column="statistics_value"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserStatistics">
+		select * from user_statistics where user_statistics_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.user.entity.UserStatistics">
+		select * from user_statistics
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_statistics_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryListByUserId" resultType="com.vigekoo.modules.user.entity.UserStatistics" parameterType="string">
+		select * from user_statistics where oper_user_id = #{userId}
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from user_statistics 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserStatistics">
+		insert into user_statistics
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`user_statistics_id`, 
+			`statistics_key`, 
+			`statistics_value`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{userStatisticsId}, 			
+			#{statisticsKey}, 			
+			#{statisticsValue}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.user.entity.UserStatistics">
+		update user_statistics 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="statisticsKey != null">`statistics_key` = #{statisticsKey}, </if>
+			<if test="statisticsValue != null">`statistics_value` = #{statisticsValue}</if>
+		</set>
+		where user_statistics_id = #{userStatisticsId}
+	</update>
+	
+	<delete id="delete">
+		delete from user_statistics where user_statistics_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from user_statistics where user_statistics_id in 
+		<foreach item="userStatisticsId" collection="array" open="(" separator="," close=")">
+			#{userStatisticsId}
+		</foreach>
+	</delete>
+
+</mapper>

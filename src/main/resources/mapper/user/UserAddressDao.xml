@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.user.dao.UserAddressDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.user.entity.UserAddress" id="userAddressMap">
+        <result property="userAddressId" column="user_address_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="tel" column="tel"/>
+        <result property="address" column="address"/>
+        <result property="postCode" column="post_code"/>
+        <result property="defaultFlag" column="default_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserAddress">
+		select * from user_address where user_address_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.user.entity.UserAddress">
+		select * from user_address where user_id = #{userId}
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_address_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from user_address where user_id = #{userId}
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserAddress">
+		insert into user_address
+		(
+			`user_address_id`, 
+			`user_id`, 
+			`nickname`, 
+			`tel`, 
+			`address`, 
+			`post_code`, 
+			`default_flag`
+		)
+		values
+		(
+			#{userAddressId}, 			
+			#{userId}, 			
+			#{nickname}, 			
+			#{tel}, 			
+			#{address}, 			
+			#{postCode}, 			
+			#{defaultFlag}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.user.entity.UserAddress">
+		<if test="userAddressId != null">
+			update user_address 
+			<set>
+				<!-- <if test="userId != null">`user_id` = #{userId}, </if>
+				<if test="nickname != null">`nickname` = #{nickname}, </if>
+				<if test="tel != null">`tel` = #{tel}, </if>
+				<if test="address != null">`address` = #{address}, </if>
+				<if test="postCode != null">`post_code` = #{postCode}, </if> -->
+				<if test="defaultFlag != null">`default_flag` = #{defaultFlag}</if>
+			</set>
+			where user_address_id = #{userAddressId} 
+		</if>
+		<if test="userAddressId == null || userAddressId == ''">
+			update user_address 
+			<set>
+				<!-- <if test="userId != null">`user_id` = #{userId}, </if>
+				<if test="nickname != null">`nickname` = #{nickname}, </if>
+				<if test="tel != null">`tel` = #{tel}, </if>
+				<if test="address != null">`address` = #{address}, </if>
+				<if test="postCode != null">`post_code` = #{postCode}, </if> -->
+				<if test="defaultFlag != null">`default_flag` = #{defaultFlag}</if>
+			</set>
+			where user_id = #{userId}
+		</if>
+	</update>
+	
+	<delete id="delete">
+		delete from user_address where user_address_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from user_address where user_address_id in 
+		<foreach item="userAddressId" collection="array" open="(" separator="," close=")">
+			#{userAddressId}
+		</foreach>
+	</delete>
+
+</mapper>

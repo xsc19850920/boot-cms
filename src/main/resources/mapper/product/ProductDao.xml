@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.product.dao.ProductDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.product.entity.Product" id="productMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="productId" column="product_id"/>
+        <result property="productCode" column="product_code"/>
+        <result property="title" column="title"/>
+        <result property="priceText" column="price_text"/>
+        <result property="points" column="points"/>
+        <result property="detail" column="detail"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="imagePathMult" column="image_path_mult"/>
+        <result property="inventoryQty" column="inventory_qty"/>
+        <result property="orderQty" column="order_qty"/>
+        <result property="lookQty" column="look_qty"/>
+        <result property="topFlag" column="top_flag"/>
+        <result property="topOrder" column="top_order"/>
+        <result property="hotFlag" column="hot_flag"/>
+        <result property="hotOrder" column="hot_order"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.product.entity.Product">
+		select * from product where product_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.product.entity.Product">
+		select * from product
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`product_code` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by product_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from product 
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`product_code` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.product.entity.Product">
+		insert into product
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`product_id`, 
+			`product_code`, 
+			`title`, 
+			`price_text`, 
+			`points`, 
+			`detail`, 
+			`image_path`, 
+			`image_path_mult`, 
+			`inventory_qty`, 
+			`order_qty`, 
+			`look_qty`, 
+			`top_flag`, 
+			`top_order`, 
+			`hot_flag`, 
+			`hot_order`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{productId}, 			
+			#{productCode}, 			
+			#{title}, 			
+			#{priceText}, 			
+			#{points}, 			
+			#{detail}, 			
+			#{imagePath}, 			
+			#{imagePathMult}, 			
+			#{inventoryQty}, 			
+			#{orderQty}, 			
+			#{lookQty}, 			
+			#{topFlag}, 			
+			#{topOrder}, 			
+			#{hotFlag}, 			
+			#{hotOrder}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.product.entity.Product">
+		update product 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="productCode != null">`product_code` = #{productCode}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="priceText != null">`price_text` = #{priceText}, </if>
+			<if test="points != null">`points` = #{points}, </if>
+			<if test="detail != null">`detail` = #{detail}, </if>
+			<if test="imagePath != null">`image_path` = #{imagePath}, </if>
+			<if test="imagePathMult != null">`image_path_mult` = #{imagePathMult}, </if>
+			<if test="inventoryQty != null">`inventory_qty` = #{inventoryQty}, </if>
+			<if test="orderQty != null">`order_qty` = #{orderQty}, </if>
+			<if test="lookQty != null">`look_qty` = #{lookQty}, </if>
+			<if test="topFlag != null">`top_flag` = #{topFlag}, </if>
+			<if test="topOrder != null">`top_order` = #{topOrder}, </if>
+			<if test="hotFlag != null">`hot_flag` = #{hotFlag}, </if>
+			<if test="hotOrder != null">`hot_order` = #{hotOrder}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where product_id = #{productId}
+	</update>
+	
+	<delete id="delete">
+		delete from product where product_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from product where product_id in 
+		<foreach item="productId" collection="array" open="(" separator="," close=")">
+			#{productId}
+		</foreach>
+	</delete>
+
+</mapper>

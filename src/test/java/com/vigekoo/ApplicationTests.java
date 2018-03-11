@@ -22,7 +22,7 @@ public class ApplicationTests {
 
     @Test
     public void generatorCode() {
-        String[] tableNames = {"carousel"};
+        String[] tableNames = {"user_order"};
 
         sysGeneratorService.generatorCode(tableNames);
 

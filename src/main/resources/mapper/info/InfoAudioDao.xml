@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.info.dao.InfoAudioDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.info.entity.InfoAudio" id="infoAudioMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="infoAudioId" column="info_audio_id"/>
+        <result property="infoType" column="info_type"/>
+        <result property="title" column="title"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="fileSrc" column="file_src"/>
+        <result property="duration" column="duration"/>
+        <result property="durationText" column="duration_text"/>
+        <result property="flagTop" column="flag_top"/>
+        <result property="favoriteQty" column="favorite_qty"/>
+        <result property="playQty" column="play_qty"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.info.entity.InfoAudio">
+		select * from info_audio where info_audio_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.info.entity.InfoAudio">
+		select * from info_audio
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by info_audio_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from info_audio 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.info.entity.InfoAudio">
+		insert into info_audio
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`info_audio_id`, 
+			`info_type`, 
+			`title`, 
+			`cloud_url`, 
+			`file_src`, 
+			`duration`, 
+			`duration_text`, 
+			`flag_top`, 
+			`favorite_qty`, 
+			`play_qty`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{infoAudioId}, 			
+			#{infoType}, 			
+			#{title}, 			
+			#{cloudUrl}, 			
+			#{fileSrc}, 			
+			#{duration}, 			
+			#{durationText}, 			
+			#{flagTop}, 			
+			#{favoriteQty}, 			
+			#{playQty}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.info.entity.InfoAudio">
+		update info_audio 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="infoType != null">`info_type` = #{infoType}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="fileSrc != null">`file_src` = #{fileSrc}, </if>
+			<if test="duration != null">`duration` = #{duration}, </if>
+			<if test="durationText != null">`duration_text` = #{durationText}, </if>
+			<if test="flagTop != null">`flag_top` = #{flagTop}, </if>
+			<if test="favoriteQty != null">`favorite_qty` = #{favoriteQty}, </if>
+			<if test="playQty != null">`play_qty` = #{playQty}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where info_audio_id = #{infoAudioId}
+	</update>
+	
+	<delete id="delete">
+		delete from info_audio where info_audio_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from info_audio where info_audio_id in 
+		<foreach item="infoAudioId" collection="array" open="(" separator="," close=")">
+			#{infoAudioId}
+		</foreach>
+	</delete>
+
+</mapper>

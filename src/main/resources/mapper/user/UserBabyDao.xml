@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.user.dao.UserBabyDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.user.entity.UserBaby" id="userBabyMap">
+        <result property="userId" column="user_id"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="nickname" column="nickname"/>
+        <result property="gender" column="gender"/>
+        <result property="birthday" column="birthday"/>
+        <result property="tipFlag" column="tip_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserBaby">
+		select * from user_baby where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.user.entity.UserBaby">
+		select * from user_baby
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from user_baby 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserBaby">
+		insert into user_baby
+		(
+			`user_id`, 
+			`cloud_url`, 
+			`nickname`, 
+			`gender`, 
+			`birthday`, 
+			`tip_flag`
+		)
+		values
+		(
+			#{userId}, 			
+			#{cloudUrl}, 			
+			#{nickname}, 			
+			#{gender}, 			
+			#{birthday}, 			
+			#{tipFlag}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.user.entity.UserBaby">
+		update user_baby 
+		<set>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="gender != null">`gender` = #{gender}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="tipFlag != null">`tip_flag` = #{tipFlag}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		delete from user_baby where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from user_baby where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+</mapper>

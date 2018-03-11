@@ -18,8 +18,14 @@ import com.vigekoo.common.utils.Result;
 import com.vigekoo.modules.sys.controller.AbstractController;
 import com.vigekoo.modules.user.entity.User;
 import com.vigekoo.modules.user.entity.UserAddress;
+import com.vigekoo.modules.user.entity.UserBaby;
+import com.vigekoo.modules.user.entity.UserDetail;
+import com.vigekoo.modules.user.entity.UserOrder;
 import com.vigekoo.modules.user.entity.UserStatistics;
 import com.vigekoo.modules.user.service.UserAddressService;
+import com.vigekoo.modules.user.service.UserBabyService;
+import com.vigekoo.modules.user.service.UserDetailService;
+import com.vigekoo.modules.user.service.UserOrderService;
 import com.vigekoo.modules.user.service.UserService;
 import com.vigekoo.modules.user.service.UserStatisticsService;
 
@@ -40,6 +46,15 @@ public class UserController extends AbstractController{
 	
 	@Autowired
 	private UserAddressService userAddressService;
+	
+	@Autowired
+	private UserOrderService userOrderService;
+	
+	@Autowired
+	private UserBabyService userBabyService;
+	
+	@Autowired
+	private UserDetailService userDetailService;
 	/**
 	 * 列表
 	 */
@@ -69,6 +84,14 @@ public class UserController extends AbstractController{
 		//init user statistics
 		List<UserStatistics> userStatisticsList = userStatisticsService.queryListByUserId(String.valueOf(userId));
 		
+		
+		
+		//init user details
+		UserDetail userDetail = userDetailService.queryObject(userId);
+		
+		//init user baby
+		UserBaby userBaby = userBabyService.queryObject(userId);
+		
 		Map<String,Integer> userStatisticsMap = new HashMap<String, Integer>(); 
 		for (UserStatistics userStatistics : userStatisticsList) {
 			switch (userStatistics.getStatisticsKey()) {
@@ -97,11 +120,21 @@ public class UserController extends AbstractController{
 		params.put("userId", userId);
 		Query query = new Query(params);
 		List<UserAddress> userAddressList = userAddressService.queryList(query);
-		int total = userAddressService.queryTotal(query);
-		PageUtils userAddressPageUtil = new PageUtils(userAddressList, total, query.getLimit(), query.getPage());
+		int totalAddress = userAddressService.queryTotal(query);
+		PageUtils userAddressPageUtil = new PageUtils(userAddressList, totalAddress, query.getLimit(), query.getPage());
 		
 		
-		return Result.ok().put("user", user).put("userStatisticsMap",userStatisticsMap).put("userAddressPageUtil",userAddressPageUtil);
+		List<UserOrder> userOrderList = userOrderService.queryList(query);
+		int totalOrder = userOrderService.queryTotal(query);
+		PageUtils userOrderPageUtil = new PageUtils(userOrderList, totalOrder, query.getLimit(), query.getPage());
+		
+		return Result.ok()
+				.put("user", user)
+				.put("userBaby",userBaby)
+				.put("userDetail",userDetail)
+				.put("userStatisticsMap",userStatisticsMap)
+				.put("userAddressPageUtil",userAddressPageUtil)
+				.put("userOrderPageUtil",userOrderPageUtil);
 	}
 	
 	/**

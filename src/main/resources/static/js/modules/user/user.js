@@ -69,7 +69,9 @@ var vm = new Vue({
 		q:{
             keyword: null
 		},
-		user: {}
+		user: {},
+		userBaby:{},
+		userDetail:{}
 	},
 	methods: {
 		query: function () {
@@ -141,67 +143,12 @@ var vm = new Vue({
                 initGridForStatistics(r.userStatisticsMap);
                 //init user address
                 initGridForUserAddress(r.userAddressPageUtil);
-                
-                
                 // init for order
-                $("#jqGridForOrder").jqGrid({
-                    url: baseURL + '/user/list',
-                    datatype: "json",
-                    colModel: [			
-                        { label: '用戶ID', name: 'userId', index: 'user_id', width: 110, key: true},
-                        { label: '微信', name: 'openidWeixin', index: 'openid_weixin', width: 80 }, 			
-            			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
-            			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 100 }, 			
-            			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
-            			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
-            			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
-            			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
-            			{ label: '用户类型时效', name: 'userTypeExpiresIn', index: 'user_type_expires_in', width: 80 }, 			
-            			{ label: '状态', name: 'stateType', width: 80, formatter: function(value, options, row){
-            				return value === 0 ? 
-            					'<span class="label label-danger">禁用</span>' : 
-            					'<span class="label label-success">正常</span>';
-            			}},
-            			{ label: '操作', name: 'opt',  width: 80}
-                    ],
-            		viewrecords: true,
-                    caption:"订单记录",
-                    rowNum: 10,
-            		rowList : [10,30,50],
-                    rownumbers: true, 
-                    rownumWidth: 25, 
-                    autowidth:true,
-                    jsonReader : {
-                        root: "page.list",
-                        page: "page.currPage",
-                        total: "page.totalPage",
-                        records: "page.totalCount"
-                    },
-                    prmNames : {
-                        page:"page", 
-                        rows:"limit", 
-                        order: "order"
-                    },
-                    gridComplete:function(){
-                    	//隐藏grid底部滚动条
-                    	//$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-                    	var ids = $("#jqGrid").jqGrid('getDataIDs');
-            	        for (var i = 0; i < ids.length; i++) {
-            	          var id = ids[i];
-            	          var rowData = "";
-            	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>查看</a>  ";
-            	          var delBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>删除</a>  ";
-            	          if(hasPermission('sys:user:update')){
-            	        	  rowData += editBtn;
-            	          }
-            	          if(hasPermission('sys:user:info')){
-            	        	  rowData += delBtn;
-            	          }
-            	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
-            	        }
-                    }
-                });
+                initGridForUserOrder(r.userOrderPageUtil);
                 
+                vm.userBaby = r.userBaby;
+                
+                vm.userDetail = r.userDetail;
             });
 		},
 		reload: function (event) {
@@ -297,4 +244,29 @@ function initGridForUserAddress(data){
 	 for ( var i = 0; i <= data.list.length; i++){
 		    jQuery("#jqGridForAddress").jqGrid('addRowData', i + 1, data.list[i]);
 	 }
+} 
+
+function initGridForUserOrder(data){
+	$("#jqGridForOrder").jqGrid({
+		datatype: "local",
+		autowidth:true,
+		colModel: [			
+		           { label: '订单编号', name: 'userOrderId', index: 'user_order_id', width: 50, key: true ,hidden:true},
+		           { label: '订单时间', name: 'createTime', index: 'create_time', width: 80 }, 			
+		           { label: '兑换物品编号', name: 'productCode', index: 'product_code', width: 80 }, 			
+		           { label: '兑换物品名称', name: 'product.title', index: 'product.title', width: 80 }, 			
+		           { label: '兑换积分', name: 'points', index: 'points', width: 80 }, 			
+		           { label: '快递单号', name: 'trackingNo', index: 'tracking_no', width: 80 }, 			
+		           { label: '订单状态', name: 'stateType', width: 80, formatter: function(value, options, row){
+						return value === 0 ? 
+							'<span class="label label-danger">禁用</span>' : 
+							'<span class="label label-success">正常</span>';
+					}},
+		           ],
+		           caption : "统计信息"
+	});
+	
+	for ( var i = 0; i <= data.list.length; i++){
+		jQuery("#jqGridForOrder").jqGrid('addRowData', i + 1, data.list[i]);
+	}
 } 

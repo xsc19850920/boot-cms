@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.user.dao.UserOrderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.user.entity.UserOrder" id="userOrderProductMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="userOrderId" column="user_order_id"/>
+        <result property="userId" column="user_id"/>
+        <!-- <result property="productId" column="product_id"/> -->
+        <result property="productCode" column="product_code"/>
+        <result property="title" column="title"/>
+        <result property="points" column="points"/>
+        <result property="nickname" column="nickname"/>
+        <result property="tel" column="tel"/>
+        <result property="address" column="address"/>
+        <result property="postCode" column="post_code"/>
+        <result property="trackingNo" column="tracking_no"/>
+        <result property="stateType" column="state_type"/>
+        <association property="product" column="product_id" javaType="com.vigekoo.modules.product.entity.Product">  
+           <id property="productId" column="product_id" />  
+           <result property="createTime" column="create_time"/>
+	        <result property="modifyTime" column="modify_time"/>
+	        <result property="operIp" column="oper_ip"/>
+	        <result property="operUserId" column="oper_user_id"/>
+	        <result property="delFlag" column="del_flag"/>
+	        <result property="productId" column="product_id"/>
+	        <result property="productCode" column="product_code"/>
+	        <result property="title" column="ptitle"/>
+	        <result property="priceText" column="price_text"/>
+	        <result property="points" column="points"/>
+	        <result property="detail" column="detail"/>
+	        <result property="imagePath" column="image_path"/>
+	        <result property="imagePathMult" column="image_path_mult"/>
+	        <result property="inventoryQty" column="inventory_qty"/>
+	        <result property="orderQty" column="order_qty"/>
+	        <result property="lookQty" column="look_qty"/>
+	        <result property="topFlag" column="top_flag"/>
+	        <result property="topOrder" column="top_order"/>
+	        <result property="hotFlag" column="hot_flag"/>
+	        <result property="hotOrder" column="hot_order"/>
+	        <result property="stateType" column="state_type"/> 
+        </association>  
+    </resultMap>
+    
+    
+    <!-- <resultMap type="com.vigekoo.modules.product.entity.Product" id="productMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="productId" column="product_id"/>
+        <result property="productCode" column="product_code"/>
+        <result property="title" column="title"/>
+        <result property="priceText" column="price_text"/>
+        <result property="points" column="points"/>
+        <result property="detail" column="detail"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="imagePathMult" column="image_path_mult"/>
+        <result property="inventoryQty" column="inventory_qty"/>
+        <result property="orderQty" column="order_qty"/>
+        <result property="lookQty" column="look_qty"/>
+        <result property="topFlag" column="top_flag"/>
+        <result property="topOrder" column="top_order"/>
+        <result property="hotFlag" column="hot_flag"/>
+        <result property="hotOrder" column="hot_order"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap> -->
+
+	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserOrder">
+		select * from user_order where user_order_id = #{value}
+	</select>
+
+	<select id="queryList" resultMap="userOrderProductMap" >
+		select *,p.title ptitle from user_order o LEFT JOIN product p on o.product_id = p.product_id and o.user_id = #{userId}
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by o.${sidx} ${order}
+            </when>
+			<otherwise>
+                order by o.user_order_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from user_order where user_id = #{userId}
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserOrder">
+		insert into user_order
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`user_order_id`, 
+			`user_id`, 
+			`product_id`, 
+			`product_code`, 
+			`title`, 
+			`points`, 
+			`nickname`, 
+			`tel`, 
+			`address`, 
+			`post_code`, 
+			`tracking_no`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{userOrderId}, 			
+			#{userId}, 			
+			#{productId}, 			
+			#{productCode}, 			
+			#{title}, 			
+			#{points}, 			
+			#{nickname}, 			
+			#{tel}, 			
+			#{address}, 			
+			#{postCode}, 			
+			#{trackingNo}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.user.entity.UserOrder">
+		update user_order 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="productId != null">`product_id` = #{productId}, </if>
+			<if test="productCode != null">`product_code` = #{productCode}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="points != null">`points` = #{points}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="tel != null">`tel` = #{tel}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="postCode != null">`post_code` = #{postCode}, </if>
+			<if test="trackingNo != null">`tracking_no` = #{trackingNo}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where user_order_id = #{userOrderId}
+	</update>
+	
+	<delete id="delete">
+		delete from user_order where user_order_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from user_order where user_order_id in 
+		<foreach item="userOrderId" collection="array" open="(" separator="," close=")">
+			#{userOrderId}
+		</foreach>
+	</delete>
+
+</mapper>

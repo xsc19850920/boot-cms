@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.classes.dao.ClassRoomDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.classes.entity.ClassRoom" id="classRoomMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="classRoomId" column="class_room_id"/>
+        <result property="lecturerId" column="lecturer_id"/>
+        <result property="title" column="title"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="intro" column="intro"/>
+        <result property="apply" column="apply"/>
+        <result property="videoQty" column="video_qty"/>
+        <result property="viewQty" column="view_qty"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.classes.entity.ClassRoom">
+		select * from class_room where class_room_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.classes.entity.ClassRoom">
+		select * from class_room
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by class_room_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from class_room 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.classes.entity.ClassRoom">
+		insert into class_room
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`class_room_id`, 
+			`lecturer_id`, 
+			`title`, 
+			`cloud_url`, 
+			`intro`, 
+			`apply`, 
+			`video_qty`, 
+			`view_qty`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{classRoomId}, 			
+			#{lecturerId}, 			
+			#{title}, 			
+			#{cloudUrl}, 			
+			#{intro}, 			
+			#{apply}, 			
+			#{videoQty}, 			
+			#{viewQty}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.classes.entity.ClassRoom">
+		update class_room 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="lecturerId != null">`lecturer_id` = #{lecturerId}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="intro != null">`intro` = #{intro}, </if>
+			<if test="apply != null">`apply` = #{apply}, </if>
+			<if test="videoQty != null">`video_qty` = #{videoQty}, </if>
+			<if test="viewQty != null">`view_qty` = #{viewQty}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where class_room_id = #{classRoomId}
+	</update>
+	
+	<delete id="delete">
+		delete from class_room where class_room_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from class_room where class_room_id in 
+		<foreach item="classRoomId" collection="array" open="(" separator="," close=")">
+			#{classRoomId}
+		</foreach>
+	</delete>
+
+</mapper>

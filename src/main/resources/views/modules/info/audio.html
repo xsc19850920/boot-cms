@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>信息_音频</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../libs/ajaxupload.js"></script>
+<script src="../../js/common.js"></script>
+
+</head>
+<body>
+<div id="rapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<!-- <a v-if="hasPermission('info:audio:update')" class="btn btn-warning" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a v-if="hasPermission('info:audio:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a> -->
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query" placeholder="输入进行搜索">
+			</div>
+			<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查询</i></a>
+			<a v-if="hasPermission('info:audio:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;添加</a>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			
+			<div class="form-group ">
+				<div class="col-sm-2 control-label">音频标题</div>
+                <select class="form-control" v-model="infoAudio.infoType" style="width:67%">
+                    <option value="1">早安童诗</option>
+                    <option value="2">晚安故事</option>
+                    <option value="3">古文小故事</option>
+                    <option value="4">特色绘本</option>
+                </select>
+            </div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">音频标题</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.title" placeholder="标题"/>
+			    </div>
+			</div>
+			
+			
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">音频图片</div>
+			   	<div class="col-sm-10">
+			   	<img alt="音频图片" v-if="infoAudio.cloudUrl == null"  :src="baseURL+'/image/audio.jpg'" id="uploadImg" style="width:50px;"/>
+			   	<img alt="音频图片" v-else :src="infoAudio.cloudUrl" id="uploadImg" style="width:50px;"/>
+			   	<!-- <a  class="btn btn-primary" >删除图片</a> -->
+			   	<input type="hidden"  v-if="infoAudio.cloudUrl == null"  id="infoAudioCloudUrl"  value="baseURL+'/image/audio.jpg'"/>
+			   	<input type="hidden"  v-else id="infoAudioCloudUrl" v-model="infoAudio.cloudUrl"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">上传音频</div>
+			   	<div class="col-sm-10">
+			      <a class="btn btn-primary" id="uploadAudio"><i class="fa fa-upload"></i>&nbsp;上传文件</a>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">音频地址</div>
+			   	<div class="col-sm-10">
+			      <input style="display: inline-block;width:70%;" readonly="readonly" class="form-control" id="audioFileSrc" v-model="infoAudio.fileSrc" placeholder="文件路径"/>
+			      <a  class="btn btn-primary" @click="play" style="display: none;" id="play">试听</a>
+			    </div>
+			</div>
+			
+			
+			
+				<!-- 			<div class="form-group">
+			   	<div class="col-sm-2 control-label">添加时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.createTime" placeholder="添加时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">更新时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.modifyTime" placeholder="更新时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">操作IP(保留0)</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.operIp" placeholder="操作IP(保留0)"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">操作用户ID</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.operUserId" placeholder="操作用户ID"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">删除标识</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.delFlag" placeholder="删除标识"/>
+			    </div>
+			</div>
+			
+			
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">音视频秒数</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.duration" placeholder="音视频秒数"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">音视频秒数文本 : 01:10:20</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.durationText" placeholder="音视频秒数文本 : 01:10:20"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">置顶标识</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.flagTop" placeholder="置顶标识"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">收藏次数</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.favoriteQty" placeholder="收藏次数"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">收听次数</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.playQty" placeholder="收听次数"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">状态类型 : 0未处_无效 1已处_有效</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoAudio.stateType" placeholder="状态类型 : 0未处_无效 1已处_有效"/>
+			    </div>
+			</div> -->
+			
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="发布"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="../../js/modules/info/audio.js"></script>
+</body>
+</html>

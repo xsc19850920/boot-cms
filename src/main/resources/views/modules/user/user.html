@@ -18,6 +18,9 @@
 <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
 <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
 <script src="../../js/common.js"></script>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 <div id="rapp" v-cloak>
@@ -37,47 +40,33 @@
     </div>
     
     <div v-show="!showList" class="panel panel-default">
-    	<div>
-    		<table style=" float:left;   border: 1px solid #ddd; width: 47%;height: 50%;margin-left: 5px;margin-top:5px;margin-bottom: 2px;">
-                <tr>
-                    <td rowspan="3">
-                    	<dl>
-                    		<dt><img style="width:140px;height: 140px;"/></dt>
-	                    	<dd>
-	                    		winder
-	                    	</dd>
-                    	</dl>
-                    	
-					</td>
-                    <td>222</td>
-                </tr>
-                <tr>
-                    <td>333</td>
-                </tr>
-                <tr>
-                    <td>444</td>
-                </tr>
-            </table>
-            
-            <table style="float:left;     border: 1px solid #ddd; width: 47%;height: 50%;margin-left: 5px;margin-top:5px;margin-bottom: 2px;">
-                <tr>
-                    <td rowspan="3">
-                    	<dl >
-                    		<dt><img style="width:140px;height: 140px;"/></dt>
-	                    	<dd>
-	                    		宝宝
-	                    	</dd>
-                    	</dl>
-                    </td>
-                    <td>222</td>
-                </tr>
-                <tr>
-                    <td>333</td>
-                </tr>
-                <tr>
-                    <td>444</td>
-                </tr>
-            </table>
+    	<div style="    display: inline-block;width: 98%;">
+			<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
+					<dt style=" display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
+						<span style="display: inline-block; height: 75%; width: 86%; ">
+							<img  :src="userDetail.cloudUrl" style="height: 100%;width: 100%"/>
+						</span>
+						<span style="display: inline-block; width: 90%;text-align: center;">{{userDetail.nickname}}</span>
+					</dt>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; margin-top: 10px; padding-top: 5px; width: 50%;">用户ID<span style="display: inline-block;margin-left: 50px;">{{user.userId}}</span></dd>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; padding-top: 5px; width: 50%;">生日<span style="display: inline-block;margin-left: 50px;">{{userDetail.birthday}}</span></dd>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; padding-top: 5px; width: 50%;">性别<span v-if="userDetail.gender == 1" style="display: inline-block;margin-left: 50px;">男</span><span v-if="userDetail.gender == 2" style="display: inline-block;margin-left: 50px;">女</span></dd>
+				</dl>
+
+				<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
+					<dt style=" display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
+						<span style="display: inline-block; height: 75%; width: 86%; ">
+							<img  :src="userBaby.cloudUrl" style="height: 100%;width: 100%"/>
+						</span>
+						<span style="display: inline-block; width: 90%;text-align: center;">宝宝</span>
+					</dt>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; margin-top: 10px; padding-top: 5px; width: 50%;">宝宝昵称<span style="display: inline-block;margin-left: 50px;">{{userBaby.nickname}}</span></dd>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; padding-top: 5px; width: 50%;">生日<span style="display: inline-block;margin-left: 50px;">{{userBaby.birthday}}</span></dd>
+					<dd style=" display: inline-block; height: 50px; float: left; padding-left: 14px; padding-top: 5px; width: 50%;">性别<span v-if="userBaby.gender == 1" style="display: inline-block;margin-left: 50px;">男</span><span v-if="userBaby.gender == 2" style="display: inline-block;margin-left: 50px;">女</span></dd>
+				</dl>
+
+
+				
     	</div>
     
     

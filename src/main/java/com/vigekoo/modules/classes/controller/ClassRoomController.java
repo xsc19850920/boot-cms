@@ -1,7 +1,10 @@
 package com.vigekoo.modules.classes.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +20,8 @@ import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
 import com.vigekoo.modules.classes.entity.ClassRoom;
 import com.vigekoo.modules.classes.service.ClassRoomService;
+import com.vigekoo.modules.lecturer.entity.Lecturer;
+import com.vigekoo.modules.lecturer.service.LecturerService;
 import com.vigekoo.modules.sys.controller.AbstractController;
 
 /**
@@ -30,6 +35,9 @@ public class ClassRoomController extends AbstractController{
 
 	@Autowired
 	private ClassRoomService classRoomService;
+	
+	@Autowired
+	private LecturerService lecturerService;
 	
 	/**
 	 * 列表
@@ -45,9 +53,10 @@ public class ClassRoomController extends AbstractController{
 		
 		PageUtils pageUtil = new PageUtils(classRoomList, total, query.getLimit(), query.getPage());
 		
-		return Result.ok().put("page", pageUtil);
+		//init lecturer info list
+		List<Lecturer> lecturerList = lecturerService.queryList(new HashMap<String,Object>());
+		return Result.ok().put("page", pageUtil).put("lecturerList",lecturerList);
 	}
-	
 	
 	/**
 	 * 信息
@@ -56,7 +65,6 @@ public class ClassRoomController extends AbstractController{
 	@RequiresPermissions("classes:room:info")
 	public Result info(@PathVariable("classRoomId") Long classRoomId){
 		ClassRoom classRoom = classRoomService.queryObject(classRoomId);
-		
 		return Result.ok().put("classRoom", classRoom);
 	}
 	
@@ -65,9 +73,8 @@ public class ClassRoomController extends AbstractController{
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("classes:room:save")
-	public Result save(@RequestBody ClassRoom classRoom){
-		classRoomService.save(classRoom);
-		
+	public Result save(@RequestBody ClassRoom classRoom,HttpServletRequest request){
+		classRoomService.save(classRoom,request);
 		return Result.ok();
 	}
 	

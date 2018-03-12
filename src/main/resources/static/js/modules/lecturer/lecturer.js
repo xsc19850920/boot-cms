@@ -1,36 +1,32 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/classes/room/list',
+        url: baseURL + '/lecturer/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'classRoomId', index: 'class_room_id', width: 50, key: true },
-			{ label : '课程图片', name : 'cloudUrl', width : 100, formatter : function(value, options, row) {
+			{ label: 'lecturerId', name: 'lecturerId', index: 'lecturer_id', width: 50, key: true ,hidden:true},
+            { label: '姓名', name: 'lecturerName', index: 'lecturer_name', width: 80 }, 			
+            { label : '照片', name : 'cloudUrl', width : 100, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
-			{ label: '课程标题', name: 'title', index: 'title', width: 80 }, 			
-			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 			
-			{ label: '视频数', name: 'videoQty', index: 'video_qty', width: 80 }, 			
-			{ label: '相关', name: 'viewQty', width: 100, formatter: function(value, options, row){
-				return '<p>已看:'+value+'</p>';
-			} },
-			{ label: '操作', name: 'opt',  width: 80},
-        
+            { label: '职称', name: 'lecturerTitle', index: 'lecturer_title', width: 80 }, 
+            { label: '操作', name: 'opt',  width: 80},
+//			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 //			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 80 }, 			
 //			{ label: '操作ip', name: 'operIp', index: 'oper_ip', width: 80 }, 			
 //			{ label: '操作用户id', name: 'operUserId', index: 'oper_user_id', width: 80 }, 			
 //			{ label: '删除标识', name: 'delFlag', index: 'del_flag', width: 80 }, 			
-//			{ label: '讲师id', name: 'lecturerId', index: 'lecturer_id', width: 80 }, 			
 //			{ label: '简介', name: 'intro', index: 'intro', width: 80 }, 			
-//			{ label: '适用人群', name: 'apply', index: 'apply', width: 80 }, 			
 //			{ label: '状态类型 : 0未处_无效 1已处_有效', name: 'stateType', index: 'state_type', width: 80 }			
         ],
 		viewrecords: true,
+//        height: 385,
         rowNum: 10,
 		rowList : [10,30,50],
-		caption:"课程列表",
+		caption:"讲师列表",
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
+//        multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -52,19 +48,16 @@ $(function () {
 	          var rowData = "";
 	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>编辑</a>  ";
 	          var delBtn = "<a onclick='vm.del(\""+ id +"\")'>删除</a>  ";
-	          if(hasPermission('classes:room:update')){
+	          if(hasPermission('lecturer:update')){
 	        	  rowData += editBtn;
 	          }
-	          if(hasPermission('classes:room:info')){
+	          if(hasPermission('lecturer:info')){
 	        	  rowData += delBtn;
 	          }
 	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
-	          
 	        }
         }
     });
-    
-    initLecturerList();
     
     
     new AjaxUpload('#uploadImg', {
@@ -82,8 +75,8 @@ $(function () {
         onComplete : function(file, r){
             layer.closeAll('loading');
             if(r.code == 0){
-            	vm.classRoom.cloudUrl = r.src;
-            	$('#uploadImg').attr("src",vm.classRoom.cloudUrl);
+            	vm.lecturer.cloudUrl = r.src;
+            	$('#uploadImg').attr("src",vm.lecturer.cloudUrl);
             }else{
                 alert(r.msg);
             }
@@ -96,8 +89,7 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		classRoom: {},
-		lecturerList:[],
+		lecturer: {},
 		q:{
             keyword: null
 		},
@@ -109,26 +101,25 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.classRoom = {};
+			vm.lecturer = {};
 		},
 		update: function (event) {
-			var classRoomId = getSelectedRow();
-			if(classRoomId == null){
+			var lecturerId = getSelectedRow();
+			if(lecturerId == null){
 				return ;
 			}
 			vm.showList = false;
             vm.title = "修改";
             
-            vm.getInfo(classRoomId)
+            vm.getInfo(lecturerId)
 		},
 		saveOrUpdate: function (event) {
-			vm.classRoom.lecturerId = $('#lecturerSelect').val();
-			var url = vm.classRoom.classRoomId == null ? "/classes/room/save" : "/classes/room/update";
+			var url = vm.lecturer.lecturerId == null ? "/lecturer/save" : "/lecturer/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
                 contentType: "application/json",
-			    data: JSON.stringify(vm.classRoom),
+			    data: JSON.stringify(vm.lecturer),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -140,14 +131,17 @@ var vm = new Vue({
 				}
 			});
 		},
-		del: function (infoAudioIds) {
+		del: function (ids) {
+//			var lecturerIds = getSelectedRows();
+//			if(lecturerIds == null){
+//				return ;
+//			}
 			var idsArr = [];
-			idsArr.push(infoAudioIds);
-			
+			idsArr.push(ids);
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "/classes/room/delete",
+				    url: baseURL + "/lecturer/delete",
                     contentType: "application/json",
 				    data: JSON.stringify(idsArr),
 				    success: function(r){
@@ -162,54 +156,19 @@ var vm = new Vue({
 				});
 			});
 		},
-		getInfo: function(classRoomId){
+		getInfo: function(lecturerId){
 			vm.showList = false;
-			$.get(baseURL + "/classes/room/info/"+classRoomId, function(r){
-                vm.classRoom = r.classRoom;
-                $("#lecturerSelect option[value='"+r.classRoom.lecturerId+"']").attr("selected",true); 
+			$.get(baseURL + "/lecturer/info/"+lecturerId, function(r){
+                vm.lecturer = r.lecturer;
             });
 		},
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-				 postData:{'keyword': vm.q.keyword},
+				postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
-		},
-		change :function(){
-			vm.classRoom.lecturerId = $('#lecturerSelect').val();
-			console.info(vm.classRoom.lecturerId);
 		}
 	}
 });
-
-function initLecturerList(){
-	var url = baseURL + '/lecturer/list';
-	var data = {			
-			_search: false,
-			limit: 10,
-			page: 1,
-			sidx: "",
-			order: "asc"
-	};
-	$.ajax({
-		type: "POST",
-	    url: url,
-        contentType: "application/json",
-	    data: JSON.stringify(data),
-	    success: function(r){
-	      vm.lecturerList = r.page.list;
-		  var optionElement = '';
-		  for (var i = 0; i < vm.lecturerList.length; i++) {
-		  	var lecturer = vm.lecturerList[i];
-		  	optionElement +='<option value="'+lecturer.lecturerId+'">'+lecturer.lecturerName+'</option>'
-		  }
-		  $('#lecturerSelect').html(optionElement);
-	    
-		}
-	});
-	
-	
-	  
-}

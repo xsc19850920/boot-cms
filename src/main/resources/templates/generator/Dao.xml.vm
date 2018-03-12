@@ -15,6 +15,16 @@
 
 	<select id="queryList" resultType="${package}.entity.${className}">
 		select * from ${tableName}
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`${pk.columnName}` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.lecturer.dao.LecturerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.lecturer.entity.Lecturer" id="lecturerMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="lecturerId" column="lecturer_id"/>
+        <result property="lecturerName" column="lecturer_name"/>
+        <result property="lecturerTitle" column="lecturer_title"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="intro" column="intro"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.lecturer.entity.Lecturer">
+		select * from lecturer where lecturer_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.lecturer.entity.Lecturer">
+		select * from lecturer
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`lecturer_name` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by lecturer_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from lecturer 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.lecturer.entity.Lecturer">
+		insert into lecturer
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`lecturer_id`, 
+			`lecturer_name`, 
+			`lecturer_title`, 
+			`cloud_url`, 
+			`intro`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{lecturerId}, 			
+			#{lecturerName}, 			
+			#{lecturerTitle}, 			
+			#{cloudUrl}, 			
+			#{intro}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.lecturer.entity.Lecturer">
+		update lecturer 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="lecturerName != null">`lecturer_name` = #{lecturerName}, </if>
+			<if test="lecturerTitle != null">`lecturer_title` = #{lecturerTitle}, </if>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="intro != null">`intro` = #{intro}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where lecturer_id = #{lecturerId}
+	</update>
+	
+	<delete id="delete">
+		delete from lecturer where lecturer_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from lecturer where lecturer_id in 
+		<foreach item="lecturerId" collection="array" open="(" separator="," close=")">
+			#{lecturerId}
+		</foreach>
+	</delete>
+
+</mapper>

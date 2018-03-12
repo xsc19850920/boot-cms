@@ -4,6 +4,8 @@ import com.vigekoo.modules.classes.entity.ClassRoom;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author sxia
  * @Description: TODO(绘画启蒙课堂)
@@ -17,12 +19,12 @@ public interface ClassRoomService {
 	
 	int queryTotal(Map<String, Object> map);
 	
-	void save(ClassRoom classRoom);
-	
 	void update(ClassRoom classRoom);
 	
 	void delete(Long classRoomId);
 	
 	void deleteBatch(Long[] classRoomIds);
+
+	void save(ClassRoom classRoom, HttpServletRequest request);
 
 }

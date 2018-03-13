@@ -9,7 +9,11 @@ import org.apache.shiro.authc.AuthenticationToken;
  */
 public class ShiroToken implements AuthenticationToken {
 
-    private String token;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String token;
 
     public ShiroToken(String token){
         this.token = token;

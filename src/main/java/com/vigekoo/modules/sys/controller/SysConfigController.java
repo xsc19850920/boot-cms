@@ -1,20 +1,24 @@
 package com.vigekoo.modules.sys.controller;
 
-import com.vigekoo.common.exception.AppException;
-import com.vigekoo.common.utils.Query;
-import com.vigekoo.common.utils.Result;
-import com.vigekoo.common.annotation.SysLog;
-import com.vigekoo.common.Constant;
-import com.vigekoo.common.utils.PageUtils;
-import com.vigekoo.modules.sys.entity.SysConfig;
-import com.vigekoo.modules.sys.service.SysConfigService;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import com.vigekoo.common.annotation.SysLog;
+import com.vigekoo.common.exception.AppException;
+import com.vigekoo.common.utils.PageUtils;
+import com.vigekoo.common.utils.Query;
+import com.vigekoo.common.utils.Result;
+import com.vigekoo.modules.sys.entity.SysConfig;
+import com.vigekoo.modules.sys.service.SysConfigService;
 
 /**
  * @author sxia

@@ -50,7 +50,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      * 利用fastjson替换掉jackson，且解决中文乱码问题
      * @param converters
      */
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();

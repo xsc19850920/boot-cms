@@ -61,10 +61,10 @@ $(function () {
 	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
 	          
 	        }
+	        
+	        initLecturerList();
         }
     });
-    
-    initLecturerList();
     
     
     new AjaxUpload('#uploadImg', {
@@ -122,7 +122,6 @@ var vm = new Vue({
             vm.getInfo(classRoomId)
 		},
 		saveOrUpdate: function (event) {
-			vm.classRoom.lecturerId = $('#lecturerSelect').val();
 			var url = vm.classRoom.classRoomId == null ? "/classes/room/save" : "/classes/room/update";
 			$.ajax({
 				type: "POST",
@@ -166,7 +165,6 @@ var vm = new Vue({
 			vm.showList = false;
 			$.get(baseURL + "/classes/room/info/"+classRoomId, function(r){
                 vm.classRoom = r.classRoom;
-                $("#lecturerSelect option[value='"+r.classRoom.lecturerId+"']").attr("selected",true); 
             });
 		},
 		reload: function (event) {
@@ -176,10 +174,6 @@ var vm = new Vue({
 				 postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
-		},
-		change :function(){
-			vm.classRoom.lecturerId = $('#lecturerSelect').val();
-			console.info(vm.classRoom.lecturerId);
 		}
 	}
 });
@@ -200,16 +194,6 @@ function initLecturerList(){
 	    data: JSON.stringify(data),
 	    success: function(r){
 	      vm.lecturerList = r.page.list;
-		  var optionElement = '';
-		  for (var i = 0; i < vm.lecturerList.length; i++) {
-		  	var lecturer = vm.lecturerList[i];
-		  	optionElement +='<option value="'+lecturer.lecturerId+'">'+lecturer.lecturerName+'</option>'
-		  }
-		  $('#lecturerSelect').html(optionElement);
-	    
 		}
 	});
-	
-	
-	  
 }

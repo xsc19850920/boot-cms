@@ -34,6 +34,7 @@ public class ClassRoom implements Serializable {
 	@JSONField(serializeUsing= ToStringSerializer.class)
 	private Long classRoomId;
 	//讲师id
+	@JSONField(serializeUsing= ToStringSerializer.class)
 	private Long lecturerId;
 	//标题
 	private String title;

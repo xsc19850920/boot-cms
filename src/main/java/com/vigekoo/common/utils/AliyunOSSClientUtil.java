@@ -34,7 +34,8 @@ public class AliyunOSSClientUtil {
     //阿里云API的bucket名称
     private static String BACKET_NAME;
     //阿里云API的文件夹名称
-    private static String FOLDER;
+    @SuppressWarnings("unused")
+	private static String FOLDER;
     //初始化属性
     static{
         ENDPOINT = Constant.ENDPOINT;

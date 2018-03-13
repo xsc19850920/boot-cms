@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "sys.jwt")
 @Component
+@SuppressWarnings("unused")
 public class JwtUtils {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());

@@ -12,6 +12,10 @@ import java.util.Map;
  */
 public class Result extends HashMap<String, Object> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final static int CODE_SUCCESS=0;
 	
 	public static Result error() {

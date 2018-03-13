@@ -1,17 +1,16 @@
 package com.vigekoo.modules.sys.service.impl;
 
-import com.vigekoo.common.utils.IdGenUtil;
-import com.vigekoo.modules.sys.dao.SysRoleMenuDao;
-import com.vigekoo.modules.sys.service.SysRoleMenuService;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.vigekoo.common.utils.IdGenUtil;
+import com.vigekoo.modules.sys.dao.SysRoleMenuDao;
+import com.vigekoo.modules.sys.service.SysRoleMenuService;
 
 @Service("sysRoleMenuService")
 public class SysRoleMenuServiceImpl implements SysRoleMenuService {

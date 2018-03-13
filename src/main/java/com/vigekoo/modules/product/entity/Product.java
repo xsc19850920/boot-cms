@@ -13,6 +13,10 @@ import com.alibaba.fastjson.serializer.ToStringSerializer;
  */
 public class Product implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//添加时间
 	@JSONField(serializeUsing= DateCodec.class)
 	private Long createTime;

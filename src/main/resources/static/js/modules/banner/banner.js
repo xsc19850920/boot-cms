@@ -4,14 +4,18 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '编号', name: 'bannerId', index: 'banner_id', width: 50, key: true },
-            { label: '广告名称', name: 'title', index: 'title', width: 80 }, 			
-            { label: '广告位置', name: 'bannerCategory', index: 'banner_category', width: 80 }, 		 //1首页 2妈妈知道	
-            { label: '广告图片', name: 'imagePath', index: 'image_path', width: 80 }, 	
+            { label: '广告名称', name: 'title', index: 'title', width: 80}, 			
+            { label: '广告位置', name: 'bannerCategory', index: 'banner_category', width: 80 , formatter : function(value, options, row) {
+            	return value === 1 ? '<span >首页轮播图</span>' :  '<span >妈妈知道</span>';
+			}},		 //1首页 2妈妈知道	
+            { label : '广告图片', name : 'imagePath', width : 100, formatter : function(value, options, row) {
+				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
+			}},
             { label: '时间', name: 'endTime', width: 120, formatter: function(value, options, row){
 				return '<p>开始时间:'+row.startTime+'</p><p>结束时间:'+value+'</p>';
 			} },
 			{ label: '上线/下线', name: 'stateType', index: 'state_type', width: 80, formatter: function(value, options, row){
-				return value === 0 ? '<span class="label label-danger">显现</span>' :  '<span class="label label-success">上限</span>';
+				return value === 0 ? "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+1+"\")'>上线</a>" :  "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+0+"\")'>下线</a>" ;
 			}},
 			{ label: '点击次数', name: 'viewQty', index: 'view_qty', width: 80 }, 
 			{ label: '操作', name: 'opt',  width: 80},
@@ -60,10 +64,10 @@ $(function () {
 	          if(hasPermission('classes:room:update')){
 	        	  rowData += editBtn;
 	          }
-	          if(hasPermission('classes:room:update')){
+	          if(hasPermission('banner:update')){
 	        	  rowData += topBtn;
 	          }
-	          if(hasPermission('classes:room:info')){
+	          if(hasPermission('banner:info')){
 	        	  rowData += delBtn;
 	          }
 	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
@@ -196,9 +200,48 @@ var vm = new Vue({
             }).trigger("reloadGrid");
 		},
 		top :function(id){
-			alert('top id' + id);
+			alert('字段不明确');
+//			var updateObj = {};
+//			updateObj.bannerId = id;
+//			$.ajax({
+//				type: "POST",
+//			    url: baseURL + "/banner/update",
+//                contentType: "application/json",
+//			    //data: JSON.stringify(bannerIds),
+//			    data: JSON.stringify(updateObj),
+//			    success: function(r){
+//					if(r.code == 0){
+//						alert('操作成功', function(index){
+//							$("#jqGrid").trigger("reloadGrid");
+//						});
+//					}else{
+//						alert(r.msg);
+//					}
+//				}
+//			});
 		},
-		
+		upordown:function(bannerId,stateType){
+			var updateObj = {};
+			updateObj.bannerId = bannerId;
+			updateObj.stateType = stateType;
+			console.info(updateObj);
+			$.ajax({
+				type: "POST",
+			    url: baseURL + "/banner/update",
+                contentType: "application/json",
+			    //data: JSON.stringify(bannerIds),
+			    data: JSON.stringify(updateObj),
+			    success: function(r){
+					if(r.code == 0){
+						alert('操作成功', function(index){
+							$("#jqGrid").trigger("reloadGrid");
+						});
+					}else{
+						alert(r.msg);
+					}
+				}
+			});
+		}
 		
 	}
 });

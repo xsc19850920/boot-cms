@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.info.dao.InfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.info.entity.Info" id="infoMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="infoId" column="info_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="author" column="author"/>
+        <result property="title" column="title"/>
+        <result property="intro" column="intro"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="flagTop" column="flag_top"/>
+        <result property="viewQty" column="view_qty"/>
+        <result property="favoriteQty" column="favorite_qty"/>
+        <result property="commentQty" column="comment_qty"/>
+        <result property="shareQty" column="share_qty"/>
+        <result property="stateType" column="state_type"/>
+        
+        <association property="category" column="category_id" javaType="com.vigekoo.modules.category.entity.Category">  
+           <id property="categoryId" column="category_id" />  
+            <result property="title" column="ctitle"/>
+          <!--   <result property="categoryType" column="category_type"/>
+	        <result property="title" column="title"/>
+	        <result property="intro" column="intro"/>
+	        <result property="cloudUrl" column="cloud_url"/>
+	        <result property="displayOrder" column="display_order"/>
+	        <result property="allowDeleteFlag" column="allow_delete_flag"/>
+	        <result property="hotFlag" column="hot_flag"/>
+	        <result property="hotOrder" column="hot_order"/>
+	        <result property="infoQty" column="info_qty"/>
+	        <result property="memo" column="memo"/> -->
+        </association>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.info.entity.Info">
+		select * from info where `del_flag` = 0 and  info_id = #{value}
+	</select>
+
+	<select id="queryList" resultMap="infoMap">
+		select i.*,c.title ctitle from info i left join category c on i.category_id = c.category_id
+		<where>
+			i.`del_flag` = 0
+			<if test="keyword != null and keyword != ''">
+				and (
+					`info_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by info_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from info where `del_flag` = 0
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.info.entity.Info">
+		insert into info
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`info_id`, 
+			`category_id`, 
+			`author`, 
+			`title`, 
+			`intro`, 
+			`cloud_url`, 
+			`flag_top`, 
+			`view_qty`, 
+			`favorite_qty`, 
+			`comment_qty`, 
+			`share_qty`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{infoId}, 			
+			#{categoryId}, 			
+			#{author}, 			
+			#{title}, 			
+			#{intro}, 			
+			#{cloudUrl}, 			
+			#{flagTop}, 			
+			#{viewQty}, 			
+			#{favoriteQty}, 			
+			#{commentQty}, 			
+			#{shareQty}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.info.entity.Info">
+		update info 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="categoryId != null">`category_id` = #{categoryId}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="intro != null">`intro` = #{intro}, </if>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="flagTop != null">`flag_top` = #{flagTop}, </if>
+			<if test="viewQty != null">`view_qty` = #{viewQty}, </if>
+			<if test="favoriteQty != null">`favorite_qty` = #{favoriteQty}, </if>
+			<if test="commentQty != null">`comment_qty` = #{commentQty}, </if>
+			<if test="shareQty != null">`share_qty` = #{shareQty}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where info_id = #{infoId}
+	</update>
+	
+	<delete id="delete">
+		update info set `del_flag` = 1  where info_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		update info set `del_flag` = 1  where info_id in 
+		<foreach item="infoId" collection="array" open="(" separator="," close=")">
+			#{infoId}
+		</foreach>
+	</delete>
+
+</mapper>

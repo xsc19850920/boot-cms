@@ -47,30 +47,6 @@
         </association>  
     </resultMap>
     
-    
-    <!-- <resultMap type="com.vigekoo.modules.product.entity.Product" id="productMap">
-        <result property="createTime" column="create_time"/>
-        <result property="modifyTime" column="modify_time"/>
-        <result property="operIp" column="oper_ip"/>
-        <result property="operUserId" column="oper_user_id"/>
-        <result property="delFlag" column="del_flag"/>
-        <result property="productId" column="product_id"/>
-        <result property="productCode" column="product_code"/>
-        <result property="title" column="title"/>
-        <result property="priceText" column="price_text"/>
-        <result property="points" column="points"/>
-        <result property="detail" column="detail"/>
-        <result property="imagePath" column="image_path"/>
-        <result property="imagePathMult" column="image_path_mult"/>
-        <result property="inventoryQty" column="inventory_qty"/>
-        <result property="orderQty" column="order_qty"/>
-        <result property="lookQty" column="look_qty"/>
-        <result property="topFlag" column="top_flag"/>
-        <result property="topOrder" column="top_order"/>
-        <result property="hotFlag" column="hot_flag"/>
-        <result property="hotOrder" column="hot_order"/>
-        <result property="stateType" column="state_type"/>
-    </resultMap> -->
 
 	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserOrder">
 		select * from user_order where user_order_id = #{value}

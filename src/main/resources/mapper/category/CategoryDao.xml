@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.category.dao.CategoryDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.category.entity.Category" id="categoryMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryType" column="category_type"/>
+        <result property="title" column="title"/>
+        <result property="intro" column="intro"/>
+        <result property="cloudUrl" column="cloud_url"/>
+        <result property="displayOrder" column="display_order"/>
+        <result property="allowDeleteFlag" column="allow_delete_flag"/>
+        <result property="hotFlag" column="hot_flag"/>
+        <result property="hotOrder" column="hot_order"/>
+        <result property="infoQty" column="info_qty"/>
+        <result property="memo" column="memo"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.category.entity.Category">
+		select * from category where category_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.category.entity.Category">
+		select * from category
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`category_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by category_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from category 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.category.entity.Category">
+		insert into category
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`category_id`, 
+			`category_type`, 
+			`title`, 
+			`intro`, 
+			`cloud_url`, 
+			`display_order`, 
+			`allow_delete_flag`, 
+			`hot_flag`, 
+			`hot_order`, 
+			`info_qty`, 
+			`memo`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{categoryId}, 			
+			#{categoryType}, 			
+			#{title}, 			
+			#{intro}, 			
+			#{cloudUrl}, 			
+			#{displayOrder}, 			
+			#{allowDeleteFlag}, 			
+			#{hotFlag}, 			
+			#{hotOrder}, 			
+			#{infoQty}, 			
+			#{memo}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.category.entity.Category">
+		update category 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="categoryType != null">`category_type` = #{categoryType}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="intro != null">`intro` = #{intro}, </if>
+			<if test="cloudUrl != null">`cloud_url` = #{cloudUrl}, </if>
+			<if test="displayOrder != null">`display_order` = #{displayOrder}, </if>
+			<if test="allowDeleteFlag != null">`allow_delete_flag` = #{allowDeleteFlag}, </if>
+			<if test="hotFlag != null">`hot_flag` = #{hotFlag}, </if>
+			<if test="hotOrder != null">`hot_order` = #{hotOrder}, </if>
+			<if test="infoQty != null">`info_qty` = #{infoQty}, </if>
+			<if test="memo != null">`memo` = #{memo}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where category_id = #{categoryId}
+	</update>
+	
+	<delete id="delete">
+		update category set `del_flag` = 1 where category_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		update category set `del_flag` = 1  where category_id in 
+		<foreach item="categoryId" collection="array" open="(" separator="," close=")">
+			#{categoryId}
+		</foreach>
+	</delete>
+
+</mapper>

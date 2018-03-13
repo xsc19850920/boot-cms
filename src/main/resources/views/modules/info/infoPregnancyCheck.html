@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>产检信息</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<!--<a v-if="hasPermission(':infoPregnancyCheck:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a v-if="hasPermission(':infoPregnancyCheck:update')" class="btn btn-warning" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a v-if="hasPermission(':infoPregnancyCheck:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>-->
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query" placeholder="输入进行搜索" />
+			</div>
+			<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查询</i></a>
+			<a v-if="hasPermission('info:pregnancycheck:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;添加</a>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">标题</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.title" placeholder="标题"/>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">详情</div>
+			   	<div class="col-sm-10">
+			   		<textarea rows="3" class="form-control" v-model="infoPregnancyCheck.detail" placeholder="详情"></textarea>
+			    </div>
+			</div>
+		
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+						<!-- 	<div class="form-group">
+			   	<div class="col-sm-2 control-label">添加时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.createTime" placeholder="添加时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">更新时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.modifyTime" placeholder="更新时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">操作ip</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.operIp" placeholder="操作ip"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">操作用户id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.operUserId" placeholder="操作用户id"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">删除标识</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.delFlag" placeholder="删除标识"/>
+			    </div>
+			</div>
+													
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">显示顺序</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.displayOrder" placeholder="显示顺序"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">状态类型 : 0未处_无效 1已处_有效</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="infoPregnancyCheck.stateType" placeholder="状态类型 : 0未处_无效 1已处_有效"/>
+			    </div>
+			</div> -->
+							
+		</form>
+	</div>
+</div>
+
+<script src="../../js/modules/info/infoPregnancyCheck.js"></script>
+</body>
+</html>

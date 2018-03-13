@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.info.dao.InfoPregnancyCheckDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.info.entity.InfoPregnancyCheck" id="infoPregnancyCheckMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="infoPregnancyCheckId" column="info_pregnancy_check_id"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+        <result property="displayOrder" column="display_order"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.info.entity.InfoPregnancyCheck">
+		select * from info_pregnancy_check where del_flag = 0 and info_pregnancy_check_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.info.entity.InfoPregnancyCheck">
+		select * from info_pregnancy_check
+		
+		<where>
+		    del_flag = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`info_pregnancy_check_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by info_pregnancy_check_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from info_pregnancy_check where del_flag = 0 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.info.entity.InfoPregnancyCheck">
+		insert into info_pregnancy_check
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`info_pregnancy_check_id`, 
+			`title`, 
+			`detail`, 
+			`display_order`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{infoPregnancyCheckId}, 			
+			#{title}, 			
+			#{detail}, 			
+			#{displayOrder}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.info.entity.InfoPregnancyCheck">
+		update info_pregnancy_check 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="detail != null">`detail` = #{detail}, </if>
+			<if test="displayOrder != null">`display_order` = #{displayOrder}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where info_pregnancy_check_id = #{infoPregnancyCheckId}
+	</update>
+	
+	<delete id="delete">
+		update info_pregnancy_check set `del_flag` = 1 where info_pregnancy_check_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		update info_pregnancy_check set `del_flag` = 1 where info_pregnancy_check_id in 
+		<foreach item="infoPregnancyCheckId" collection="array" open="(" separator="," close=")">
+			#{infoPregnancyCheckId}
+		</foreach>
+	</delete>
+
+</mapper>

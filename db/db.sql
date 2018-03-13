@@ -35,6 +35,7 @@ CREATE TABLE `banner` (
 `start_time`  bigint(20) UNSIGNED NOT NULL COMMENT '开始时间' ,
 `end_time`  bigint(20) UNSIGNED NOT NULL COMMENT '结束时间' ,
 `view_qty`  int(10) UNSIGNED NOT NULL COMMENT '查看次数' ,
+`display_order`  int(10) UNSIGNED NOT NULL COMMENT '顺序' ,
 `state_type`  tinyint(3) UNSIGNED NOT NULL COMMENT '状态类型 : 0未处_无效 1已处_有效' ,
 PRIMARY KEY (`banner_id`),
 UNIQUE INDEX `banner_id` (`banner_id`) USING BTREE 

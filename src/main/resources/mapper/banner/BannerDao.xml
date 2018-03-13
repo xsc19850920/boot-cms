@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.banner.dao.BannerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.banner.entity.Banner" id="bannerMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="bannerId" column="banner_id"/>
+        <result property="title" column="title"/>
+        <result property="bannerCategory" column="banner_category"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="urlLink" column="url_link"/>
+        <result property="bannerType" column="banner_type"/>
+        <result property="bannerTypeId" column="banner_type_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="viewQty" column="view_qty"/>
+        <result property="displayOrder" column="display_order"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.banner.entity.Banner">
+		select * from banner where banner_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.banner.entity.Banner">
+		select * from banner
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`banner_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by banner_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from banner 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.banner.entity.Banner">
+		insert into banner
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`banner_id`, 
+			`title`, 
+			`banner_category`, 
+			`image_path`, 
+			`url_link`, 
+			`banner_type`, 
+			`banner_type_id`, 
+			`start_time`, 
+			`end_time`, 
+			`view_qty`, 
+			`display_order`,
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{bannerId}, 			
+			#{title}, 			
+			#{bannerCategory}, 			
+			#{imagePath}, 			
+			#{urlLink}, 			
+			#{bannerType}, 			
+			#{bannerTypeId}, 			
+			#{startTime}, 			
+			#{endTime}, 			
+			#{viewQty}, 			
+			#{displayOrder}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.banner.entity.Banner">
+		update banner 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="bannerCategory != null">`banner_category` = #{bannerCategory}, </if>
+			<if test="imagePath != null">`image_path` = #{imagePath}, </if>
+			<if test="urlLink != null">`url_link` = #{urlLink}, </if>
+			<if test="bannerType != null">`banner_type` = #{bannerType}, </if>
+			<if test="bannerTypeId != null">`banner_type_id` = #{bannerTypeId}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="viewQty != null">`view_qty` = #{viewQty}, </if>
+			<if test="displayOrder != null">`display_order` = #{displayOrder}</if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where banner_id = #{bannerId}
+	</update>
+	
+	<delete id="delete">
+		delete from banner where banner_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from banner where banner_id in 
+		<foreach item="bannerId" collection="array" open="(" separator="," close=")">
+			#{bannerId}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -14,6 +14,7 @@ import ${package}.service.${className}Service;
 import com.vigekoo.common.utils.PageUtils;
 import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
+import com.vigekoo.modules.sys.controller.AbstractController;
 
 /**
  * @author ${author}

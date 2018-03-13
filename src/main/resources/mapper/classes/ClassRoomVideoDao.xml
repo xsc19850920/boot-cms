@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.classes.dao.ClassRoomVideoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.classes.entity.ClassRoomVideo" id="classRoomVideoMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="classRoomVideoId" column="class_room_video_id"/>
+        <result property="classRoomId" column="class_room_id"/>
+        <result property="title" column="title"/>
+        <result property="fileSrc" column="file_src"/>
+        <result property="duration" column="duration"/>
+        <result property="durationText" column="duration_text"/>
+        <result property="displayOrder" column="display_order"/>
+        <result property="viewQty" column="view_qty"/>
+        <result property="stateType" column="state_type"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
+		select * from class_room_video where class_room_video_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
+		select * from class_room_video
+		
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`class_room_video_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by class_room_video_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from class_room_video 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
+		insert into class_room_video
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`class_room_video_id`, 
+			`class_room_id`, 
+			`title`, 
+			`file_src`, 
+			`duration`, 
+			`duration_text`, 
+			`display_order`, 
+			`view_qty`, 
+			`state_type`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{classRoomVideoId}, 			
+			#{classRoomId}, 			
+			#{title}, 			
+			#{fileSrc}, 			
+			#{duration}, 			
+			#{durationText}, 			
+			#{displayOrder}, 			
+			#{viewQty}, 			
+			#{stateType}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
+		update class_room_video 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="classRoomId != null">`class_room_id` = #{classRoomId}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="fileSrc != null">`file_src` = #{fileSrc}, </if>
+			<if test="duration != null">`duration` = #{duration}, </if>
+			<if test="durationText != null">`duration_text` = #{durationText}, </if>
+			<if test="displayOrder != null">`display_order` = #{displayOrder}, </if>
+			<if test="viewQty != null">`view_qty` = #{viewQty}, </if>
+			<if test="stateType != null">`state_type` = #{stateType}</if>
+		</set>
+		where class_room_video_id = #{classRoomVideoId}
+	</update>
+	
+	<delete id="delete">
+		delete from class_room_video where class_room_video_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from class_room_video where class_room_video_id in 
+		<foreach item="classRoomVideoId" collection="array" open="(" separator="," close=")">
+			#{classRoomVideoId}
+		</foreach>
+	</delete>
+
+</mapper>

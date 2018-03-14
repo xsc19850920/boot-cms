@@ -59,6 +59,8 @@ $(function () {
 	        }
         }
     });
+    
+    initQueryTotalUser();
 });
 
 var vm = new Vue({
@@ -71,7 +73,9 @@ var vm = new Vue({
 		},
 		user: {},
 		userBaby:{},
-		userDetail:{}
+		userDetail:{},
+		totalUser:0,
+		totalUserToday:0,
 	},
 	methods: {
 		query: function () {
@@ -270,3 +274,26 @@ function initGridForUserOrder(data){
 		jQuery("#jqGridForOrder").jqGrid('addRowData', i + 1, data.list[i]);
 	}
 } 
+
+
+
+
+function initQueryTotalUser(){
+	
+	$.ajax({
+		type: "POST",
+	    url: baseURL + "/user/totalUser",
+        contentType: "application/json",
+	    data: {},
+	    success: function(r){
+			if(r.code == 0){
+				vm.totalUser = r.totalUser;
+				vm.totalUserToday = r.totalUserToday;
+			}else{
+				alert(r.msg);
+			}
+		}
+	});
+	
+}
+

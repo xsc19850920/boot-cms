@@ -45,7 +45,7 @@ $(function () {
         height: 'auto',
         rowNum: 10,
 		rowList : [10,30,50],
-		caption:"列表",
+		caption:"文章列表",
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
@@ -150,7 +150,7 @@ var vm = new Vue({
             vm.getInfo(infoId)
 		},
 		saveOrUpdate: function (event) {
-			vm.info.intro = escape($('.summernote').summernote('code'));
+			vm.info.detail = escape($('.summernote').summernote('code'));
 			var url = vm.info.infoId == null ? "/info/save" : "/info/update";
 			$.ajax({
 				type: "POST",
@@ -199,7 +199,7 @@ var vm = new Vue({
 			vm.showList = false;
 			$.get(baseURL + "/info/info/"+infoId, function(r){
                 vm.info = r.info;
-                $('.summernote').summernote('code',unescape(r.info.intro));
+                $('.summernote').summernote('code',unescape(r.info.detail));
             });
 		},
 		reload: function (event) {

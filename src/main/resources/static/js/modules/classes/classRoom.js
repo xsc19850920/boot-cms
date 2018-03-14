@@ -29,6 +29,7 @@ $(function () {
 		rowList : [10,30,50],
 		caption:"课程列表",
         rownumbers: true, 
+        height: 'auto',
         rownumWidth: 25, 
         autowidth:true,
         pager: "#jqGridPager",

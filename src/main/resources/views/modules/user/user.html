@@ -24,6 +24,10 @@
 </head>
 <body>
 <div id="rapp" v-cloak>
+	<div>
+	<span style="display: inline-block;width: 11%;height: 49px;text-align: center;vertical-align: middle;line-height: 50px;border: 1px solid #ddd;margin-bottom: 3px;">用户总数 : {{totalUser}}/人</span>
+	<span style="display: inline-block;width: 11%;height: 49px;text-align: center;vertical-align: middle;line-height: 50px;border: 1px solid #ddd;margin-bottom: 3px;">今日新增 : {{totalUserToday}}/人</span>
+	</div>
 	<div v-show="showList">
 		<div class="grid-btn">
 			<!-- <a v-if="hasPermission('user:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a> -->
@@ -42,8 +46,8 @@
     <div v-show="!showList" class="panel panel-default">
     	<div style="    display: inline-block;width: 98%;">
 			<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
-					<dt style=" display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
-						<span style="display: inline-block; height: 75%; width: 86%; ">
+					<dt style=" border-right: 1px solid #ddd;display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
+						<span style="display: inline-block;height: 75%;width: 50%;margin-bottom: 20px;margin-left: 47px; ">
 							<img  :src="userDetail.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
 						</span>
 						<span style="display: inline-block; width: 90%;text-align: center;">{{userDetail.nickname}}</span>
@@ -54,8 +58,8 @@
 				</dl>
 
 				<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
-					<dt style=" display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
-						<span style="display: inline-block; height: 75%; width: 86%; ">
+					<dt style=" border-right: 1px solid #ddd;display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
+						<span style="display: inline-block; height: 75%; width: 50%; margin-bottom: 20px;margin-left: 47px;">
 							<img  :src="userBaby.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
 						</span>
 						<span style="display: inline-block; width: 90%;text-align: center;">宝宝</span>

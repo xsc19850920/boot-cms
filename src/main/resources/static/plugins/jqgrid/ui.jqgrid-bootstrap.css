@@ -189,6 +189,8 @@ div.tablediv > .table-bordered {
 	overflow: hidden; 
 	white-space: pre; 
 	padding-right: 2px;
+	text-align: center;
+	vertical-align: middle;
 }
 .ui-jqgrid tr.jqgfirstrow  td {
 	height:auto; 

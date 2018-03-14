@@ -24,5 +24,9 @@ public interface UserService {
 	void delete(Long userId);
 	
 	void deleteBatch(Long[] userIds);
+	
+	int queryTotalUser();
+	
+	int queryTotalUserToday();
 
 }

@@ -72,6 +72,15 @@ public class UserController extends AbstractController{
 		return Result.ok().put("page", pageUtil);
 	}
 	
+	@RequestMapping("/totalUser")
+	public Result list(){
+
+		int totalUser = userService.queryTotalUser();
+		int totalUserToday = userService.queryTotalUserToday();
+		
+		return Result.ok().put("totalUser", totalUser).put("totalUserToday",totalUserToday);
+	}
+	
 	
 	/**
 	 * 信息
@@ -83,8 +92,6 @@ public class UserController extends AbstractController{
 		
 		//init user statistics
 		List<UserStatistics> userStatisticsList = userStatisticsService.queryListByUserId(String.valueOf(userId));
-		
-		
 		
 		//init user details
 		UserDetail userDetail = userDetailService.queryObject(userId);

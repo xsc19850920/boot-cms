@@ -8,15 +8,15 @@ package com.vigekoo.common;
 public class Constant {
 	
 	//阿里云API的外网域名
-    public static final String ENDPOINT = "oss-cn-hangzhou.aliyuncs.com";
+    public static final String ENDPOINT = "oss-cn-shanghai.aliyuncs.com";
     //阿里云API的密钥Access Key ID
-    public static final String ACCESS_KEY_ID = "LTAIqcXTcQ4gdiKi";
+    public static final String ACCESS_KEY_ID = "LTAIu1uBPXzrHMj0";
     //阿里云API的密钥Access Key Secret
-    public static final String ACCESS_KEY_SECRET = "tqFnn35rtwA6yhKKpf1skc44cjgoir";
+    public static final String ACCESS_KEY_SECRET = "1ap41tsh1YXhSlTd25CBhRc4aj3p9V";
     //阿里云API的bucket名称
-    public static final String BACKET_NAME = "knowledge-master";
+    public static final String BACKET_NAME = "ujiabb-manager";
     //阿里云API的文件夹名称
-    public static final String FOLDER="knowledge/";
+    public static final String FOLDER="ujiabb/";
 
     /**
      * 超级管理员ID

@@ -24,6 +24,21 @@
 	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.User">
 		select * from user where user_id = #{value} and del_flag = 0
 	</select>
+	
+	
+	<!-- 查询用户总数 -->
+	<select id="queryTotalUser" resultType="int">
+		select count(user_statistics_id) from user_statistics 
+		where statistics_key=1
+	</select>
+
+
+	<!-- 查询今日新增 -->
+	<select id="queryTotalUserToday" resultType="int">
+		select count(user_statistics_id) from user_statistics 
+		where statistics_key=1 and statistics_value = DATE_FORMAT(NOW(),'%Y%m%d')
+	</select>
+	
 
 	<select id="queryList" resultType="com.vigekoo.modules.user.entity.User">
 		select * from user 

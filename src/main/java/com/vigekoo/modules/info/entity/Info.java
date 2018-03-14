@@ -43,6 +43,8 @@ public class Info implements Serializable {
 	private String author;
 	//标题
 	private String title;
+	//标题
+	private String detail;
 	//简介
 	private String intro;
 	//图片路径
@@ -264,6 +266,12 @@ public class Info implements Serializable {
 	}
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	
 	

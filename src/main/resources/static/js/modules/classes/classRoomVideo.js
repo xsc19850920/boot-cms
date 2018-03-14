@@ -22,7 +22,7 @@ $(function () {
 //			{ label: '状态类型 : 0未处_无效 1已处_有效', name: 'stateType', index: 'state_type', width: 80 }			
         ],
 		viewrecords: true,
-        //height: 385,
+        height: 'auto',
         rowNum: 10,
 		rowList : [10,30,50],
 		caption:"视频列表",

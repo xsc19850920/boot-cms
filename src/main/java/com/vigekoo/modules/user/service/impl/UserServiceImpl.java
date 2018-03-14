@@ -52,5 +52,16 @@ public class UserServiceImpl implements UserService {
 	public void deleteBatch(Long[] userIds){
 		userDao.deleteBatch(userIds);
 	}
+
+	@Override
+	public int queryTotalUser() {
+		return userDao.queryTotalUser();
+	}
+
+	@Override
+	public int queryTotalUserToday() {
+		// TODO Auto-generated method stub
+		return userDao.queryTotalUserToday();
+	}
 	
 }

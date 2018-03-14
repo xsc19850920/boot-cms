@@ -150,13 +150,13 @@ var vm = new Vue({
             vm.getInfo(infoId)
 		},
 		saveOrUpdate: function (event) {
-			vm.info.intro = $('.summernote').summernote('code');;
+			vm.info.intro = escape($('.summernote').summernote('code'));
 			var url = vm.info.infoId == null ? "/info/save" : "/info/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
                 contentType: "application/json",
-			    data: escape(JSON.stringify(vm.info))/*.replace(/\"/g,"\\\"").replace(/\'/g,"\\'")*/,
+			    data: JSON.stringify(vm.info)/*.replace(/\"/g,"\\\"").replace(/\'/g,"\\'")*/,
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){

@@ -233,7 +233,7 @@ var attachmentLayerTemplate = Vue.extend({
         '<div id="attachment_jqGridPager"></div>',
         '</div>'
     ].join(''),
-    data() {
+    data(){
         return {
             title: ''
         }

@@ -58,6 +58,7 @@ public class ShiroConfig {
         filterMap.put("/druid/**", "anon");
         filterMap.put("/sys/login", "anon");
         filterMap.put("/sys/doGetKaptchaOnOff", "anon");
+        filterMap.put("/info/view", "anon"); //html5 画面
         filterMap.put("/**/*.css", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.html", "anon");

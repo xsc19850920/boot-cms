@@ -19,7 +19,6 @@ import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
 import com.vigekoo.modules.classes.entity.ClassRoom;
 import com.vigekoo.modules.classes.service.ClassRoomService;
-import com.vigekoo.modules.lecturer.service.LecturerService;
 import com.vigekoo.modules.sys.controller.AbstractController;
 
 /**
@@ -33,9 +32,6 @@ public class ClassRoomController extends AbstractController{
 
 	@Autowired
 	private ClassRoomService classRoomService;
-	
-	@Autowired
-	private LecturerService lecturerService;
 	
 	/**
 	 * 列表

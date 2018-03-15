@@ -1,15 +1,13 @@
 package com.vigekoo.modules.sys.service.impl;
 
-import com.vigekoo.common.Constant;
-import com.vigekoo.common.utils.IdGenUtil;
-import com.vigekoo.modules.sys.dao.SysMenuDao;
-import com.vigekoo.modules.sys.dao.SysUserDao;
-import com.vigekoo.modules.sys.entity.SysMenu;
-import com.vigekoo.modules.sys.entity.SysUser;
-import com.vigekoo.modules.sys.redis.SysUserRedis;
-import com.vigekoo.modules.sys.service.SysRoleService;
-import com.vigekoo.modules.sys.service.SysUserRoleService;
-import com.vigekoo.modules.sys.service.SysUserService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import com.vigekoo.common.Constant;
+import com.vigekoo.common.utils.IdGenUtil;
+import com.vigekoo.modules.sys.dao.SysMenuDao;
+import com.vigekoo.modules.sys.dao.SysUserDao;
+import com.vigekoo.modules.sys.entity.SysMenu;
+import com.vigekoo.modules.sys.entity.SysUser;
+import com.vigekoo.modules.sys.redis.SysUserRedis;
+import com.vigekoo.modules.sys.service.SysUserRoleService;
+import com.vigekoo.modules.sys.service.SysUserService;
 
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
@@ -28,9 +34,6 @@ public class SysUserServiceImpl implements SysUserService {
 
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
-
-	@Autowired
-	private SysRoleService sysRoleService;
 
 	@Autowired
 	private SysMenuDao sysMenuDao;

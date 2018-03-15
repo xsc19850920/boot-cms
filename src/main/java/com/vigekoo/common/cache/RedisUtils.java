@@ -1,13 +1,15 @@
 package com.vigekoo.common.cache;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Component;
-
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
 
 /**
  * @author sxia
@@ -25,14 +27,6 @@ public class RedisUtils {
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     private ValueOperations<String, String> valueOperations;
-    @Autowired
-    private HashOperations<String, String, Object> hashOperations;
-    @Autowired
-    private ListOperations<String, Object> listOperations;
-    @Autowired
-    private SetOperations<String, Object> setOperations;
-    @Autowired
-    private ZSetOperations<String, Object> zSetOperations;
 
     /**  默认过期时长，单位：秒 */
     public final static long DEFAULT_EXPIRE = 60 * 60 * 24;

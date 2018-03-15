@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.common.utils.ShiroUtils;
-import com.vigekoo.modules.category.entity.Category;
 import com.vigekoo.modules.info.dao.InfoPregnancyCheckDao;
 import com.vigekoo.modules.info.entity.InfoPregnancyCheck;
 import com.vigekoo.modules.info.service.InfoPregnancyCheckService;

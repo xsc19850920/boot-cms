@@ -1,20 +1,18 @@
 package com.vigekoo.modules.sys.service.impl;
 
-import com.vigekoo.common.utils.IdGenUtil;
-import com.vigekoo.modules.sys.dao.SysRoleDao;
-import com.vigekoo.modules.sys.entity.SysRole;
-import com.vigekoo.modules.sys.service.SysRoleMenuService;
-import com.vigekoo.modules.sys.service.SysRoleService;
-import com.vigekoo.modules.sys.service.SysUserRoleService;
-import com.vigekoo.modules.sys.service.SysUserService;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.vigekoo.common.utils.IdGenUtil;
+import com.vigekoo.modules.sys.dao.SysRoleDao;
+import com.vigekoo.modules.sys.entity.SysRole;
+import com.vigekoo.modules.sys.service.SysRoleMenuService;
+import com.vigekoo.modules.sys.service.SysRoleService;
 
 @Service("sysRoleService")
 public class SysRoleServiceImpl implements SysRoleService {
@@ -25,11 +23,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Autowired
 	private SysRoleMenuService sysRoleMenuService;
 
-	@Autowired
-	private SysUserRoleService sysUserRoleService;
-
-	@Autowired
-	private SysUserService sysUserService;
 
 	@Override
 	public SysRole queryObject(String id) {

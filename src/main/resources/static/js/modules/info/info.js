@@ -3,11 +3,11 @@ $(function () {
         url: baseURL + '/info/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'infoId', index: 'info_id', width: 50, key: true },
+            { label: '编号', name: 'infoId', index: 'info_id', width: 50, key: true,hidden:true },
+            { label: '标题', name: 'title', index: 'title', width: 80 }, 			
             { label : '封面图片', name : 'cloudUrl', width : 100, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
-			{ label: '标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '分类', name: 'category.title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 			{ label: '相关', name: 'favoriteQty', width: 100, formatter: function(value, options, row){
@@ -15,7 +15,7 @@ $(function () {
 			} },
 			{ label: '操作', name: 'allowDeleteFlag',  width: 80,formatter:function(value,options,row){
 				
-				  var rowData = "<a onclick='vm.getUserCommont(\""+ row.infoId +"\")'>查看评论</a>  ";
+				  var rowData = "<a onclick='vm.infoView(\""+ row.infoId +"\")'>预览文章</a> <a onclick='vm.getUserCommont(\""+ row.infoId +"\")'>查看评论</a>  ";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.infoId +"\")'>编辑</a>  ";
 		          var delBtn = "<a onclick='vm.del(\""+ row.infoId +"\")'>删除</a>  ";
 		          if(hasPermission('info:update')){
@@ -117,16 +117,15 @@ $(function () {
         	 for (var i = 0; i < ids.length; i++) {
    	          var id = ids[i];
    	          var commentRowBtn = '';
-	          var hiddenUserCommontBtn = "<a onclick='vm.hiddenUserComment(\""+ id +"\")'>隐藏</a>  ";
+//	          var hiddenUserCommontBtn = "<a onclick='vm.hiddenUserComment(\""+ id +"\")'>隐藏</a>  ";
 	          var delUserCommontBtn = "<a onclick='vm.deleteUserComment(\""+ id +"\")'>删除</a>  ";
 //	          if(hasPermission('user:commont:update')){
-	        	  commentRowBtn += hiddenUserCommontBtn;
-	        	  console.info(commentRowBtn);
+//	        	  commentRowBtn += hiddenUserCommontBtn;
 //	          }
-//	          if(hasPermission('user:commont:delete') ){
+	          if(hasPermission('user:commont:delete') ){
 	        	  commentRowBtn += delUserCommontBtn;
 	        	  console.info(commentRowBtn);
-//	          }
+	          }
    	          $("#jqGridForUserCommont").jqGrid('setRowData', ids[i], { opt: commentRowBtn});
    	        }
         }
@@ -215,6 +214,7 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			vm.info.detail = escape($('.summernote').summernote('code'));
+//			vm.info.detail = escape($('.summernote').summernote('code'));
 			var url = vm.info.infoId == null ? "/info/save" : "/info/update";
 			$.ajax({
 				type: "POST",
@@ -280,7 +280,7 @@ var vm = new Vue({
 				  datatype: "json",
 				 postData:{'keyword': infoId},
                 page:page
-           }).trigger("reloadGrid");
+           }).trigger("reloadGrid").setGridWidth(895);
 			openLayer('900px', '600px', '用户评论', 'userCommontLayer');
 		},
 		hiddenUserComment:function(userCommentId){
@@ -325,6 +325,9 @@ var vm = new Vue({
 					}
 				}
 			});
+		},
+		infoView: function (infoId){
+			window.location.href = baseURL + '/info/view?infoId='+ infoId;
 		}
 	}
 });

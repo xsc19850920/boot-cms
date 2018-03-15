@@ -5,7 +5,7 @@ $(function () {
         colModel: [			
             { label: '编号', name: 'classRoomVideoId', index: 'class_room_video_id', width: 50, key: true },
             { label: '视频', name: 'fileSrc', index: 'file_src', width: 80 ,formatter:function(value,options,row){
-            	return '<video src="'+value+'" controls="controls" id="uploadImg" style="width:50px;"/>';
+            	return '<video src="'+value+'" controls="controls" id="uploadImg" style="width:120px;"/>';
             }}, 			
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	

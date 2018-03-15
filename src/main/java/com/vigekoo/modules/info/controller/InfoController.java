@@ -1,5 +1,7 @@
 package com.vigekoo.modules.info.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.vigekoo.modules.info.entity.Info;
-import com.vigekoo.modules.info.service.InfoService;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.vigekoo.common.utils.EscapeUtils;
 import com.vigekoo.common.utils.PageUtils;
 import com.vigekoo.common.utils.Query;
 import com.vigekoo.common.utils.Result;
+import com.vigekoo.modules.info.entity.Info;
+import com.vigekoo.modules.info.service.InfoService;
 import com.vigekoo.modules.sys.controller.AbstractController;
 
 /**
@@ -90,6 +95,17 @@ public class InfoController extends AbstractController{
 		infoService.deleteBatch(infoIds);
 		
 		return Result.ok();
+	}
+	
+	
+	@RequestMapping("/view")
+//	@RequiresPermissions("info:delete")
+	public ModelAndView view(Long infoId,HashMap<String,Object> map) throws IOException{
+		Info info = infoService.queryObject(infoId);
+		map.put("info", info);
+		map.put("detail", EscapeUtils.unescape(info.getDetail()));
+		ModelAndView view = new ModelAndView("modules/info/infoView",map);
+		return view;
 	}
 	
 }

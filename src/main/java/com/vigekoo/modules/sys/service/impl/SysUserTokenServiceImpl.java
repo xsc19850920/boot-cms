@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.shiro.TokenGenerator;
 import com.vigekoo.common.utils.IdGenUtil;
-import com.vigekoo.modules.api.utils.JwtUtils;
 import com.vigekoo.modules.sys.dao.SysUserTokenDao;
 import com.vigekoo.modules.sys.entity.SysUserToken;
 import com.vigekoo.modules.sys.redis.SysUserTokenRedis;
@@ -24,9 +23,6 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 
 	@Autowired
 	private SysUserTokenRedis sysUserTokenRedis;
-	
-	@Autowired
-    private JwtUtils jwtUtils;
 	
 	//24小时后过期
 	private final static int EXPIRE = 86400;

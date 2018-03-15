@@ -16,17 +16,7 @@
 13、音频的分类是固定的，只有4个
 14、每个页面的面包屑现在很多都是错误的，需要根据菜单调整
 
--------------数据来源
-用户的统计信息
-都在user_statistics表，具体可查看表的字段说明
 
-查询用户总数
-select count(user_statistics_id) from user_statistics 
-where statistics_key=1
-
-查询今日新增
-select count(user_statistics_id) from user_statistics 
-where statistics_key=1 and statistics_value = yyyyMMdd
 
 ----------------以下有关联操作------------------------
 后台-文章管理

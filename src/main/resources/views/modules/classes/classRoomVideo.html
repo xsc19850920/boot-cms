@@ -52,8 +52,9 @@
 			<div class="form-group">
 			   	<div class="col-sm-2 control-label">上传视频</div>
 			   	<div class="col-sm-10">
+			   	
 			   	<img alt="上传视频" v-if="classRoomVideo.fileSrc == null"  :src="baseURL+'/image/video.jpg'" id="uploadVideo" style="width:50px;"/>
-			   	<img alt="上传视频" v-else :src="classRoomVideo.fileSrc" id="uploadImg" style="width:50px;"/>
+			   	<video  v-else :src="classRoomVideo.fileSrc" controls="controls" id="uploadImg" style="width:50px;"/> 
 			   	<!-- <a  class="btn btn-primary" >删除图片</a> -->
 			    </div>
 			</div>

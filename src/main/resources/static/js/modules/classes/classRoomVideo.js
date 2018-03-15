@@ -4,8 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '编号', name: 'classRoomVideoId', index: 'class_room_video_id', width: 50, key: true },
-            /*<embed id="embid" wmode="direct" flashvars="vid=b00167x9o7q&amp;tpid=0&amp;showend=1&amp;showcfg=1&amp;searchbar=1&amp;pic=http://shp.qpic.cn/qqvideo_ori/0/b00167x9o7q_496_280/0&amp;skin=http://imgcache.qq.com/minivideo_v1/vd/res/skins/TencentPlayerMiniSkin.swf&amp;shownext=1&amp;list=2&amp;autoplay=0" quality="high" name="tenvideo_flash_player_1432016342747" bgcolor="#000000" width="280px" height="240px" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://get.adobe.com/cn/flashplayer/" src="http://player.youku.com/player.php/sid/XNzY3OTE5Njk2/v.swf">*/
-            { label: '视频', name: 'fileSrc', index: 'file_src', width: 80 }, 			
+            { label: '视频', name: 'fileSrc', index: 'file_src', width: 80 ,formatter:function(value,options,row){
+            	return '<video src="'+value+'" controls="controls" id="uploadImg" style="width:50px;"/>';
+            }}, 			
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	
 			{ label: '操作', name: 'opt',  width: 80},

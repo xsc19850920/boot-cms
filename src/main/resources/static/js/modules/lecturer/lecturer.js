@@ -5,11 +5,11 @@ $(function () {
         colModel: [			
 			{ label: 'lecturerId', name: 'lecturerId', index: 'lecturer_id', width: 50, key: true ,hidden:true},
             { label: '姓名', name: 'lecturerName', index: 'lecturer_name', width: 80 }, 			
-            { label : '照片', name : 'cloudUrl', width : 100, formatter : function(value, options, row) {
+            { label : '照片', name : 'cloudUrl', sortable:false, width : 100, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
             { label: '职称', name: 'lecturerTitle', index: 'lecturer_title', width: 80 }, 
-            { label: '操作', name: 'opt',  width: 80},
+            { label: '操作', name: 'opt',  width: 80, sortable:false},
 //			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 //			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 80 }, 			
 //			{ label: '操作ip', name: 'operIp', index: 'oper_ip', width: 80 }, 			

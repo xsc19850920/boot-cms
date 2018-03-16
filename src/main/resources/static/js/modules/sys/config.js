@@ -6,7 +6,7 @@ $(function () {
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true ,hidden: true},
 			{ label: '键', name: 'key', index: 'key', width: 80 }, 			
 			{ label: '值', name: 'value', index: 'value', width: 80 }, 						
-			{ label: '状态', name: 'status', width: 80, formatter: function(value, options, row){
+			{ label: '状态', name: 'status', width: 80, sortable:false, formatter: function(value, options, row){
 				return value === 0 ? 
 					'<span class="label label-danger">隐藏</span>' : 
 					'<span class="label label-success">显示</span>';

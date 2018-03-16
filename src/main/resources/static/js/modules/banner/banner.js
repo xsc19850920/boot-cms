@@ -8,16 +8,16 @@ $(function () {
             { label: '广告位置', name: 'bannerCategory', index: 'banner_category', width: 80 , formatter : function(value, options, row) {
             	return value === 1 ? '<span >首页轮播图</span>' :  '<span >妈妈知道</span>';
 			}},		 //1首页 2妈妈知道	
-            { label : '广告图片', name : 'imagePath', width : 100, formatter : function(value, options, row) {
+            { label : '广告图片', name : 'imagePath', index:'image_path',width : 100, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
-            { label: '时间', name: 'endTime', width: 120, formatter: function(value, options, row){
+            { label: '时间', name: 'endTime',index:'end_time', width: 120, formatter: function(value, options, row){
 				return '<p>开始时间:'+row.startTime+'</p><p>结束时间:'+value+'</p>';
 			} },
 			{ label: '上线/下线', name: 'stateType', index: 'state_type', width: 80, formatter: function(value, options, row){
 				return value === 0 ? "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+1+"\")'>上线</a>" :  "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+0+"\")'>下线</a>" ;
 			}},
-			{ label: '点击次数', name: 'viewQty', index: 'view_qty', width: 80 }, 
+			{ label: '点击次数', name: 'viewQty', index: 'view_qty', width: 80 ,sortable:false}, 
 			{ label: '操作', name: 'opt',  width: 80},
 			
 //			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 }, 			

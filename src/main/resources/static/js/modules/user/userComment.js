@@ -44,11 +44,11 @@ $(function () {
 	        for (var i = 0; i < ids.length; i++) {
 	          var id = ids[i];
 	          var rowData = "";
-	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>编辑</a>  ";
+//	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>编辑</a>  ";
 	          var delBtn = "<a onclick='vm.del(\""+ id +"\")'>删除</a>  ";
-	          if(hasPermission('classes:room:update')){
-	        	  rowData += editBtn;
-	          }
+//	          if(hasPermission('classes:room:update')){
+//	        	  rowData += editBtn;
+//	          }
 	          if(hasPermission('classes:room:info')){
 	        	  rowData += delBtn;
 	          }

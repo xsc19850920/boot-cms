@@ -4,12 +4,12 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '用户名', name: 'username', width: 50 }, 			
-			{ label: '用户操作', name: 'operation', width: 70 }, 			
-			{ label: '请求方法', name: 'method', width: 150 }, 			
-			{ label: '请求参数', name: 'params', width: 80 },
-            { label: '执行时长(毫秒)', name: 'time', width: 80 },
-			{ label: 'IP地址', name: 'ip', width: 70 }, 			
+			{ label: '用户名', name: 'username',index:'username', width: 50 }, 			
+			{ label: '用户操作', name: 'operation',index:'operation', width: 70 }, 			
+			{ label: '请求方法', name: 'method',index:'method', width: 150 }, 			
+			{ label: '请求参数', name: 'params',index:'params', width: 80 },
+            { label: '执行时长(毫秒)', name: 'time', index:'time',width: 80 },
+			{ label: 'IP地址', name: 'ip', width: 70  ,index:'ip',}, 			
 			{ label: '创建时间', name: 'createTime',index: 'create_time', width: 90 }
         ],
 		viewrecords: true,

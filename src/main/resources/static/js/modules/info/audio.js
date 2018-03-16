@@ -4,15 +4,15 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '编号', name: 'infoAudioId', index: 'info_audio_id', width: 50, key: true },
-            { label: '封面图片', name: 'cloudUrl', width: 100, formatter: function(value, options, row){
+            { label: '封面图片', name: 'cloudUrl',index: 'cloud_url', width: 100, formatter: function(value, options, row){
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+value+'" >';
             } },
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	
-			{ label: '相关', name: 'favoriteQty', width: 100, formatter: function(value, options, row){
+			{ label: '相关', name: 'favoriteQty',index: 'favorite_qty', width: 100 ,sortable:false, formatter: function(value, options, row){
 				return '<p>收藏:'+row.playQty+'</p><p>已听:'+value+'</p>';
 			} },
-			{ label: '操作', name: 'opt',  width: 80},
+			{ label: '操作', name: 'opt',  width: 80,sortable:false},
 			
 			
 //			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 80 }, 			

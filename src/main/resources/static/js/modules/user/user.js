@@ -12,12 +12,12 @@ $(function () {
 			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
 			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
 			{ label: '用户类型时效', name: 'userTypeExpiresIn', index: 'user_type_expires_in', width: 80 }, 			
-			{ label: '状态', name: 'stateType', width: 80, formatter: function(value, options, row){
+			{ label: '状态', name: 'stateType',index:'state_type', width: 80, formatter: function(value, options, row){
 				return value === 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '操作', name: 'opt',  width: 80}
+			{ label: '操作', name: 'opt',  width: 80,sortable:false}
         ],
 		viewrecords: true,
         height: 385,

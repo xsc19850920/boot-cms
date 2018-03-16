@@ -4,17 +4,17 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '用户id', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '用户名', name: 'username', width: 75 },
-            { label: '别名', name: 'nickname', width: 75 },
-			{ label: '邮箱', name: 'email', width: 90 },
-			{ label: '手机号码', name: 'mobile', width: 100 },
-			{ label: '状态', name: 'status', width: 80, formatter: function(value, options, row){
+			{ label: '用户名', name: 'username', width: 75 ,sortable:false},
+            { label: '别名', name: 'nickname', width: 75,sortable:false },
+			{ label: '邮箱', name: 'email', width: 90 ,sortable:false},
+			{ label: '手机号码', name: 'mobile', width: 100 ,sortable:false},
+			{ label: '状态', name: 'status',sortable:false, width: 80, formatter: function(value, options, row){
 				return value === 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
 			{name:'createTime',index:'create_time',label:"创建时间",  width:80},
-			{ label: '操作', name: 'opt',  width: 80}
+			{ label: '操作', name: 'opt',  width: 80,sortable:false}
         ],
 		viewrecords: true,
 //        height: 385,

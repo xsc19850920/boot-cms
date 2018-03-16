@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '标题', name: 'title', width: 120 },
-            { label: '分类', name: 'categorys', width: 100 },
-            { label: '专题', name: 'features', width: 100 },
-            { label: '标签', name: 'tags', width: 100 },
+			{ label: '标题', name: 'title',index:'title', width: 120 },
+            { label: '分类', name: 'categorys',index:'categorys', width: 100 },
+            { label: '专题', name: 'features',index:'features', width: 100 },
+            { label: '标签', name: 'tags', width: 100,index:'tags', },
 			{ label: '创建时间', name: 'createTime',index: 'create_time', width: 90 }
         ],
 		viewrecords: true,

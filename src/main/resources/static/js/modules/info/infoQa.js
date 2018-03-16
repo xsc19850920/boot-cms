@@ -8,10 +8,10 @@ $(function () {
             { label: '作者', name: 'author', index: 'author', width: 80 }, 			
             { label: '职称', name: 'authorTitle', index: 'author_title', width: 80 }, 			
             { label: '问题', name: 'question', index: 'question', width: 80 }, 	
-            { label: '内容', name: 'answerDetail', index: 'answer_detail', width: 80,formatter:function(value,options,row){
+            { label: '内容', name: 'answerDetail', index: 'answer_detail', sortable:false, width: 80,formatter:function(value,options,row){
             		return "<a onclick='vm.showAnswerDetail(\""+ value +"\")'>查看内容</a>  ";
             }},
-            { label: '操作', name: 'createTime',  width: 80,formatter:function(value,options,row){
+            { label: '操作', name: 'createTime', sortable:false,  width: 80,formatter:function(value,options,row){
 				
 				  var rowData = "";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.infoQaId +"\")'>编辑</a>  ";

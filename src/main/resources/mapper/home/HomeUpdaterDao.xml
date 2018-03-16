@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigekoo.modules.home.dao.HomeUpdaterDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vigekoo.modules.home.entity.HomeUpdater" id="homeUpdaterMap">
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operUserId" column="oper_user_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="homeUpdaterId" column="home_updater_id"/>
+        <result property="homeUpdaterType" column="home_updater_type"/>
+        <result property="updaterInfoType" column="updater_info_type"/>
+        <result property="updaterInfoId" column="updater_info_id"/>
+        <result property="updaterInfoTitle" column="updater_info_title"/>
+        <result property="updaterInfoImagePath" column="updater_info_image_path"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.vigekoo.modules.home.entity.HomeUpdater">
+		select * from home_updater where `del_flag` = 0 and home_updater_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.vigekoo.modules.home.entity.HomeUpdater">
+		select * from home_updater 
+		
+		<where>
+		    `del_flag` = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`home_updater_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+		
+		
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by home_updater_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from home_updater where  `del_flag` = 0 
+	</select>
+	 
+	<insert id="save" parameterType="com.vigekoo.modules.home.entity.HomeUpdater">
+		insert into home_updater
+		(
+			`create_time`, 
+			`modify_time`, 
+			`oper_ip`, 
+			`oper_user_id`, 
+			`del_flag`, 
+			`home_updater_id`, 
+			`home_updater_type`, 
+			`updater_info_type`, 
+			`updater_info_id`, 
+			`updater_info_title`, 
+			`updater_info_image_path`
+		)
+		values
+		(
+			#{createTime}, 			
+			#{modifyTime}, 			
+			#{operIp}, 			
+			#{operUserId}, 			
+			#{delFlag}, 			
+			#{homeUpdaterId}, 			
+			#{homeUpdaterType}, 			
+			#{updaterInfoType}, 			
+			#{updaterInfoId}, 			
+			#{updaterInfoTitle}, 			
+			#{updaterInfoImagePath}			
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.vigekoo.modules.home.entity.HomeUpdater">
+		update home_updater 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="operIp != null">`oper_ip` = #{operIp}, </if>
+			<if test="operUserId != null">`oper_user_id` = #{operUserId}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="homeUpdaterType != null">`home_updater_type` = #{homeUpdaterType}, </if>
+			<if test="updaterInfoType != null">`updater_info_type` = #{updaterInfoType}, </if>
+			<if test="updaterInfoId != null">`updater_info_id` = #{updaterInfoId}, </if>
+			<if test="updaterInfoTitle != null">`updater_info_title` = #{updaterInfoTitle}, </if>
+			<if test="updaterInfoImagePath != null">`updater_info_image_path` = #{updaterInfoImagePath}</if>
+		</set>
+		where home_updater_id = #{homeUpdaterId}
+	</update>
+	
+	<delete id="delete">
+		update  home_updater set `del_flag` = 1 where home_updater_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		update  home_updater set `del_flag` = 1 where home_updater_id in 
+		<foreach item="homeUpdaterId" collection="array" open="(" separator="," close=")">
+			#{homeUpdaterId}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -11,7 +11,7 @@
 <img style="width: 100%;height:100px;"  th:src="${info.cloudUrl}" />
 <p style="text-align: center;font-weight: bold;font-size: 10px;" th:text="${info.title}"></p>
 <p style="text-align: center;font-weight: bold;font-size: 10px;" >作者:<span th:text="${info.author}"></span></p>
-<div th:text="${detail}"></div>
+<div th:utext="${detail}"></div>
 </div>
 </body>
 </html>

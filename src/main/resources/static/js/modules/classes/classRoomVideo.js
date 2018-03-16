@@ -9,7 +9,7 @@ $(function () {
             }}, 			
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	
-			{ label: '操作', name: 'opt',  width: 80},
+			{ label: '操作', name: 'opt',  width: 80, sortable:false},
 			
 //			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 80 }, 			
 //			{ label: '操作ip', name: 'operIp', index: 'oper_ip', width: 80 }, 			

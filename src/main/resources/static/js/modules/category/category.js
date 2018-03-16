@@ -4,13 +4,13 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '编号', name: 'categoryId', index: 'category_id', width: 50, key: true },
-            { label : '主题图片', name : 'cloudUrl', width : 100, formatter : function(value, options, row) {
+            { label : '主题图片', name : 'cloudUrl', width : 100, sortable:false, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
 			{ label: '主题名称', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '二级标题', name: 'intro', index: 'intro', width: 80 }, 			
 			{ label: '文章数量', name: 'infoQty', index: 'info_qty', width: 80 }, 			
-			{ label: '操作', name: 'allowDeleteFlag',  width: 80,formatter:function(value,options,row){
+			{ label: '操作', name: 'allowDeleteFlag', sortable:false, width: 80,formatter:function(value,options,row){
 				
 				  var rowData = "";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.categoryId +"\")'>编辑</a>  ";

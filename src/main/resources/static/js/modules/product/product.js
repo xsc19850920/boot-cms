@@ -10,7 +10,7 @@ $(function () {
 			{ label: '兑换量', name: 'orderQty', index: 'order_qty', width: 80 }, 			
 			{ label: '所需积分', name: 'points', index: 'points', width: 80 }, 			
 			
-			{ label: '推荐', name: 'hotFlag', width: 80, formatter: function(value, options, row){
+			{ label: '推荐', name: 'hotFlag', width: 80, sortable:false, formatter: function(value, options, row){
 				return value === 0 ? '<input name="isHotCheck" type="checkbox" onclick="vm.updateHot(\''+row.productId+'\','+1+')"/>' : 
 					'<input type="checkbox" name="isHotCheck" checked="checked" onclick="vm.updateHot(\''+row.productId+'\','+0+')"/>';
 			}},

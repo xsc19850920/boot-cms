@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
@@ -43,6 +44,7 @@ public class ClassRoomVideoServiceImpl implements ClassRoomVideoService {
 	}
 	
 	@Override
+	@Transactional
 	public void save(ClassRoomVideo classRoomVideo,HttpServletRequest request){
 		long currentTime  = new Date().getTime();
 		initClassRoomVideo(classRoomVideo,currentTime,request);

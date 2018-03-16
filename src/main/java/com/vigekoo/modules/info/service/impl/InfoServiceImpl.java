@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
@@ -44,6 +45,7 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
+	@Transactional
 	public void save(Info info,HttpServletRequest request){
 		long currentTime  = new Date().getTime();
 		initInfo(info, currentTime,request);

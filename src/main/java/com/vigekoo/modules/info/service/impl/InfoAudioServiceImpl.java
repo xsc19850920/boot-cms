@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
@@ -42,6 +43,7 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 	}
 	
 	@Override
+	@Transactional
 	public void save(InfoAudio infoAudio){
 		long time = new Date().getTime();
 		

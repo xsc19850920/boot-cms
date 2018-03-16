@@ -46,9 +46,9 @@
 			<if test="keyword != null and keyword != ''">
 				and (
 					`user_id` like concat('%',#{keyword},'%')
-					or `openid_weixin` = #{keyword}
-					or `openid_weibo` = #{keyword}
-					or `openid_qq` = #{keyword}
+					or `openid_weixin` like concat('%',#{keyword},'%')
+					or `openid_weibo` like concat('%',#{keyword},'%')
+					or `openid_qq` like concat('%',#{keyword},'%')
 				)
 			</if>
 			and del_flag = 0
@@ -67,7 +67,18 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from user where del_flag = 0
+		select count(*) from user 
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`user_id` like concat('%',#{keyword},'%')
+					or `openid_weixin` like concat('%',#{keyword},'%')
+					or `openid_weibo` like concat('%',#{keyword},'%')
+					or `openid_qq` like concat('%',#{keyword},'%')
+				)
+			</if>
+			and del_flag = 0
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.user.entity.User">
@@ -131,11 +142,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from user where user_id = #{value}
+		update set del_flag = 1 where user_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from user where user_id in 
+		update set del_flag = 1 where user_id in 
 		<foreach item="userId" collection="array" open="(" separator="," close=")">
 			#{userId}
 		</foreach>

@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + '/info/qa/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'infoQaId', index: 'info_qa_id', width: 50, key: true },
+            { label: '编号', name: 'infoQaId', index: 'info_qa_id', width: 50, key: true,hidden :true},
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
             { label: '作者', name: 'author', index: 'author', width: 80 }, 			
             { label: '职称', name: 'authorTitle', index: 'author_title', width: 80 }, 			
@@ -68,7 +68,8 @@ var vm = new Vue({
 		title: null,
 		infoQa: {},
 		q:{
-            keyword: null
+            keyword: null,
+            infoTypeValue : null,
 		},
 	},
 	methods: {
@@ -155,6 +156,14 @@ var vm = new Vue({
 		showAnswerDetail:function(answerDetail){
 			$('#answerDetailDiv').html(unescape(answerDetail));
 			openLayer('900px', '600px', '回答内容', 'answerDetailLayer');
+		},
+		changeInfoQaType:function(infoQaTypeValue){
+	    	var page = $("#jqGrid").jqGrid('getGridParam','page');
+			$("#jqGrid").jqGrid('setGridParam',{ 
+				  datatype: "json",
+				  postData:{'infoQaTypeValue': infoQaTypeValue},
+	            page:page
+	       }).trigger("reloadGrid");
 		}
 	}
 });

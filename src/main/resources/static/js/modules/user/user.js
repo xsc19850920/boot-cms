@@ -3,21 +3,34 @@ $(function () {
         url: baseURL + '/user/list',
         datatype: "json",
         colModel: [			
-            { label: '用戶ID', name: 'userId', index: 'user_id', width: 110, key: true},
+            { label: '用戶ID', name: 'userId', index: 'user_id', width: 110, key: true,hidden:true},
             { label: '微信', name: 'openidWeixin', index: 'openid_weixin', width: 80 }, 			
 			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
 			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 100 }, 			
 			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
 			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
 			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
-			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
-			{ label: '用户类型时效', name: 'userTypeExpiresIn', index: 'user_type_expires_in', width: 80 }, 			
+//			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
+//			{ label: '用户类型时效', name: 'userTypeExpiresIn', index: 'user_type_expires_in', width: 80 }, 			
 			{ label: '状态', name: 'stateType',index:'state_type', width: 80, formatter: function(value, options, row){
 				return value === 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '操作', name: 'opt',  width: 80,sortable:false}
+			{ label: '操作', name: 'stateType',  width: 80,sortable:false, formatter: function(value, options, row){
+				
+		      
+		          var rowData = "";
+		          var editBtn = "<a onclick='vm.getInfo(\""+ row.userId +"\")'>查看</a>  ";
+		          var changeUserStateTypeBtn = value === 0 ? '<a onclick="vm.changeUserStateType(\''+row.userId+'\','+1+')">启用</a>' :'<a onclick="vm.changeUserStateType(\''+row.userId+'\','+0+')">禁用</a>';
+		          if(hasPermission('user:info')){
+		        	  rowData += editBtn;
+		          }
+		          if(hasPermission('user:update')){
+		        	  rowData += changeUserStateTypeBtn;
+		          }
+		        return rowData;
+			}},
         ],
 		viewrecords: true,
         height: 385,
@@ -42,21 +55,7 @@ $(function () {
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
-        	//$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        	var ids = $("#jqGrid").jqGrid('getDataIDs');
-	        for (var i = 0; i < ids.length; i++) {
-	          var id = ids[i];
-	          var rowData = "";
-	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>查看</a>  ";
-	          var delBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>删除</a>  ";
-	          if(hasPermission('sys:user:update')){
-	        	  rowData += editBtn;
-	          }
-	          if(hasPermission('sys:user:info')){
-	        	  rowData += delBtn;
-	          }
-	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
-	        }
+        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
     
@@ -198,6 +197,27 @@ var vm = new Vue({
 							}
 						});
 						
+					}else{
+						alert(r.msg);
+					}
+				}
+			});
+		},
+		
+		changeUserStateType:function(userId,stateType){
+			var tempUser = {};
+			tempUser.userId = userId;
+			tempUser.stateType = stateType;
+			$.ajax({
+				type: "POST",
+			    url: baseURL + "/user/update",
+                contentType: "application/json",
+			    data: JSON.stringify(tempUser),
+			    success: function(r){
+					if(r.code == 0){
+						alert('操作成功', function(index){
+							$("#jqGrid").trigger("reloadGrid");
+						});
 					}else{
 						alert(r.msg);
 					}

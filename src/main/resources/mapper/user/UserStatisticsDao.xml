@@ -15,11 +15,11 @@
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserStatistics">
-		select * from user_statistics where user_statistics_id = #{value}
+		select * from user_statistics where del_flag = 0 and  user_statistics_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.user.entity.UserStatistics">
-		select * from user_statistics
+		select * from user_statistics where del_flag = 0 
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -38,7 +38,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from user_statistics 
+		select count(*) from user_statistics where del_flag = 0 
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserStatistics">
@@ -81,11 +81,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from user_statistics where user_statistics_id = #{value}
+		update user_statistics set  del_flag = 0  where user_statistics_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from user_statistics where user_statistics_id in 
+		update user_statistics set  del_flag = 0  where user_statistics_id in 
 		<foreach item="userStatisticsId" collection="array" open="(" separator="," close=")">
 			#{userStatisticsId}
 		</foreach>

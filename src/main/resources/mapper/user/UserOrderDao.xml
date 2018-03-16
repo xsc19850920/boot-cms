@@ -49,7 +49,7 @@
     
 
 	<select id="queryObject" resultType="com.vigekoo.modules.user.entity.UserOrder">
-		select * from user_order where user_order_id = #{value}
+		select * from user_order where del_flag = 0 and  user_order_id = #{value}
 	</select>
 
 	<select id="queryList" resultMap="userOrderProductMap" >
@@ -68,7 +68,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from user_order where user_id = #{userId}
+		select count(*) from user_order where  del_flag = 0 and user_id = #{userId}
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.user.entity.UserOrder">
@@ -138,11 +138,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from user_order where user_order_id = #{value}
+		udpate user_order set del_flag = 1  where user_order_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from user_order where user_order_id in 
+		udpate user_order set del_flag = 1 where user_order_id in 
 		<foreach item="userOrderId" collection="array" open="(" separator="," close=")">
 			#{userOrderId}
 		</foreach>

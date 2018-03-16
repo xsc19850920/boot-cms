@@ -18,13 +18,14 @@
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.lecturer.entity.Lecturer">
-		select * from lecturer where lecturer_id = #{value}
+		select * from lecturer where  `del_flag` = 0 and  lecturer_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.lecturer.entity.Lecturer">
 		select * from lecturer
 		
 		<where>
+		  `del_flag` = 0 
 			<if test="keyword != null and keyword != ''">
 				and (
 					`lecturer_name` like concat('%',#{keyword},'%')
@@ -47,6 +48,14 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from lecturer 
+		<where>
+		  `del_flag` = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`lecturer_name` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.lecturer.entity.Lecturer">
@@ -98,11 +107,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from lecturer where lecturer_id = #{value}
+		update lecturer set `del_flag` = 1 where lecturer_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from lecturer where lecturer_id in 
+		update lecturer set `del_flag` = 1 where lecturer_id in 
 		<foreach item="lecturerId" collection="array" open="(" separator="," close=")">
 			#{lecturerId}
 		</foreach>

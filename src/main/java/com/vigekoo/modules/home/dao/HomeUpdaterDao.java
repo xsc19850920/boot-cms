@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface HomeUpdaterDao extends BaseDao<HomeUpdater> {
-	
+	HomeUpdater findByProductId(Long productId);
 }

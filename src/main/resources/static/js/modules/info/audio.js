@@ -80,6 +80,7 @@ $(function () {
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
                 alert('只支持jpg、png、gif格式的图片！');
+                layer.closeAll('loading');
                 return false;
             }
         },
@@ -104,10 +105,11 @@ $(function () {
         responseType:"json",
         onSubmit:function(file, extension){
             layer.load(2);
-            /*if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-                alert('只支持jpg、png、gif格式的图片！');
+            if (!(extension && /^(mp3|wma)$/.test(extension.toLowerCase()))){
+                alert('只支持mp3，wma格式的图片！');
+                layer.closeAll('loading');
                 return false;
-            }*/
+            }
         },
         onComplete : function(file, r){
             layer.closeAll('loading');
@@ -120,6 +122,16 @@ $(function () {
             }
         }
     });
+    
+//    $('.radio-inline').click(function(){
+//    	var infoTypeValue = $("input[name='infoTypeRadio']").filter(':checked').val();
+//    	var page = $("#jqGrid").jqGrid('getGridParam','page');
+//		$("#jqGrid").jqGrid('setGridParam',{ 
+//			  datatype: "json",
+//			  postData:{'infoTypeValue': infoTypeValue},
+//            page:page
+//       }).trigger("reloadGrid");
+//    });
 });
 
 var vm = new Vue({
@@ -129,7 +141,8 @@ var vm = new Vue({
 		title: null,
 		infoAudio: {},
 		q:{
-            keyword: null
+            keyword: null,
+            infoTypeValue : null,
 		},
 	},
 	methods: {
@@ -213,6 +226,14 @@ var vm = new Vue({
 		},
 		play : function(){
 			window.open(vm.infoAudio.fileSrc);
+		},
+		changeAudioType:function(infoTypeValue){
+	    	var page = $("#jqGrid").jqGrid('getGridParam','page');
+			$("#jqGrid").jqGrid('setGridParam',{ 
+				  datatype: "json",
+				  postData:{'infoTypeValue': infoTypeValue},
+	            page:page
+	       }).trigger("reloadGrid");
 		}
 	}
 });

@@ -71,6 +71,15 @@ public class ProductServiceImpl implements ProductService {
 			homeUpdater.setUpdaterInfoType(0);//更新内容信息类型 : 1早安童诗 2晚安故事 3特色绘本 4古典音乐 0产品无分类
 			homeUpdaterDao.save(homeUpdater);
 		}
+		
+		
+		if(product.getHotFlag().equals(0)){ 
+	//		取消推荐
+			HomeUpdater homeUpdaterFromDb = homeUpdaterDao.findByProductId(product.getProductId());
+			if(null != homeUpdaterFromDb){
+				homeUpdaterDao.delete(homeUpdaterFromDb.getHomeUpdaterId());
+			}
+		}
 	}
 	
 	@Override

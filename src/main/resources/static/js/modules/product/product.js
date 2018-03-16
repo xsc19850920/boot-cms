@@ -134,8 +134,6 @@ var vm = new Vue({
 			var product = {}
 			product.productId = productId;
 			product.hotFlag = value;
-			console.info(product);
-			
 			$.ajax({
 				type: "POST",
 			    url: baseURL + "/product/update",

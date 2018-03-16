@@ -21,11 +21,20 @@
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.classes.entity.ClassRoom">
-		select * from class_room where class_room_id = #{value}
+		select * from class_room where `del_flag` = 0 and  class_room_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.classes.entity.ClassRoom">
 		select * from class_room
+		
+		<where>
+			`del_flag` = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`title` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -41,6 +50,14 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from class_room 
+		<where>
+			`del_flag` = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`title` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.classes.entity.ClassRoom">
@@ -101,11 +118,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from class_room where class_room_id = #{value}
+		update class_room set `del_flag` = 1 where class_room_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from class_room where class_room_id in 
+		update class_room set `del_flag` = 1 where class_room_id in 
 		<foreach item="classRoomId" collection="array" open="(" separator="," close=")">
 			#{classRoomId}
 		</foreach>

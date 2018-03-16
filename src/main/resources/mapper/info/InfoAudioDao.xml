@@ -23,11 +23,22 @@
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.info.entity.InfoAudio">
-		select * from info_audio where info_audio_id = #{value}
+		select * from info_audio where `del_flag` = 0 and info_audio_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.info.entity.InfoAudio">
 		select * from info_audio
+		<where>
+			`del_flag` = 0
+			<if test="keyword != null and keyword != ''">
+				and (
+					`title` like concat('%',#{keyword},'%')
+				)
+			</if>
+			<if test="infoTypeValue != null and infoTypeValue != ''">
+				and  `info_type` = #{infoTypeValue}
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -43,6 +54,17 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from info_audio 
+		<where>
+			`del_flag` = 0
+			<if test="keyword != null and keyword != ''">
+				and (
+					`title` like concat('%',#{keyword},'%')
+				)
+			</if>
+			<if test="infoTypeValue != null and infoTypeValue != ''">
+				and  `info_type` = #{infoTypeValue}
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.info.entity.InfoAudio">
@@ -109,11 +131,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from info_audio where info_audio_id = #{value}
+		update  info_audio  set `del_flag` = 0 where info_audio_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from info_audio where info_audio_id in 
+		update  info_audio  set `del_flag` = 0 where info_audio_id in 
 		<foreach item="infoAudioId" collection="array" open="(" separator="," close=")">
 			#{infoAudioId}
 		</foreach>

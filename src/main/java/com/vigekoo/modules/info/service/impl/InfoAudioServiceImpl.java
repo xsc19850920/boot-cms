@@ -88,7 +88,7 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 		infoAudio.setModifyTime(time);
 		infoAudio.setDelFlag(0);
 		infoAudio.setDuration(1);
-		infoAudio.setDurationText("01:10:20");
+//		infoAudio.setDurationText("01:10:20");
 		infoAudio.setFavoriteQty(0);
 		infoAudio.setFlagTop(0);
 		infoAudio.setInfoAudioId(Long.parseLong(IdGenUtil.get().nextId()));

@@ -21,13 +21,14 @@
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
-		select * from class_room_video where class_room_video_id = #{value}
+		select * from class_room_video where `del_flag` = 0 and class_room_video_id = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
 		select * from class_room_video
 		
 		<where>
+		`del_flag` = 0 
 			<if test="keyword != null and keyword != ''">
 				and (
 					`class_room_video_id` like concat('%',#{keyword},'%')
@@ -51,6 +52,14 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from class_room_video 
+		<where>
+		`del_flag` = 0 
+			<if test="keyword != null and keyword != ''">
+				and (
+					`class_room_video_id` like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
@@ -111,11 +120,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from class_room_video where class_room_video_id = #{value}
-	</delete>
+		update class_room_video set `del_flag` = 1 where class_room_video_id = #{value}
+	</delete> 
 	
 	<delete id="deleteBatch">
-		delete from class_room_video where class_room_video_id in 
+		update class_room_video set `del_flag` = 1  where class_room_video_id in 
 		<foreach item="classRoomVideoId" collection="array" open="(" separator="," close=")">
 			#{classRoomVideoId}
 		</foreach>

@@ -20,6 +20,10 @@
 	<select id="queryObject" resultType="com.vigekoo.modules.home.entity.HomeUpdater">
 		select * from home_updater where `del_flag` = 0 and home_updater_id = #{value}
 	</select>
+	
+	<select id="findByProductId" resultType="com.vigekoo.modules.home.entity.HomeUpdater">
+		select * from home_updater where `del_flag` = 0 and updater_info_id = #{value}
+	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.home.entity.HomeUpdater">
 		select * from home_updater 

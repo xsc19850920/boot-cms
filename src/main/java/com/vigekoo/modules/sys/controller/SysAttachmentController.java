@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -136,17 +137,17 @@ public class SysAttachmentController extends AbstractController {
 	@SysLog("删除配置")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:attachment:delete")
-	public Result delete(@RequestParam(value = "key") String key) {
-//		sysAttachmentService.deleteBatch(ids);
-//		return Result.ok();
-		if (!key.isEmpty()) {
-			// 初始化OSSClient
-			OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
-			AliyunOSSClientUtil.deleteFile(ossClient, Constant.BACKET_NAME, Constant.FOLDER, key);
-			return Result.ok();
-		} else {
-			return Result.error();
-		}
+	public Result delete(@RequestBody Long[] ids/*@RequestParam(value = "key") String key*/) {
+		sysAttachmentService.deleteBatch(ids);
+		return Result.ok();
+//		if (!key.isEmpty()) {
+//			// 初始化OSSClient
+//			OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
+//			AliyunOSSClientUtil.deleteFile(ossClient, Constant.BACKET_NAME, Constant.FOLDER, key);
+//			return Result.ok();
+//		} else {
+//			return Result.error();
+//		}
 	}
 
 }

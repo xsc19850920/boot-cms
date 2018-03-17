@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + '/sys/attachment/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', index: 'id', key: true, hidden: true },
+			{ label: 'id', name: 'id', index: 'id', key: true,hidden:true, },
 			{ label: '标题', name: 'title', index:'title',width: 100 },
             { label: '缩略图', name: 'path', width: 100, sortable:false, formatter: function(value, options, row){
                 var mime=row.mimeType;
@@ -17,7 +17,7 @@ $(function () {
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+baseURL+'/image/file.jpg" >';
                 }
             } },
-			{ label: '后缀', name: 'suffix',index:'suffix' width: 50 },
+			{ label: '后缀', name: 'suffix',index:'suffix', width: 50 },
             { label: '类型', name: 'mimeType', index: 'mime_type',width: 60 },
             { label: '创建时间', name: 'createTime', index: 'create_time',width: 90 }
         ],

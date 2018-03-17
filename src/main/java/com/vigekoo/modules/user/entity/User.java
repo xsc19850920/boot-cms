@@ -50,6 +50,8 @@ public class User implements Serializable {
 	private Integer userTypeExpiresIn;
 	//状态类型 : 0未处_无效 1已处_有效
 	private Integer stateType;
+	
+	private UserDetail userDetail;
 
 	/**
 	 * 设置：添加时间
@@ -231,5 +233,13 @@ public class User implements Serializable {
 	public Integer getStateType() {
 		return stateType;
 	}
+	public UserDetail getUserDetail() {
+		return userDetail;
+	}
+	public void setUserDetail(UserDetail userDetail) {
+		this.userDetail = userDetail;
+	}
+	
+	
 
 }

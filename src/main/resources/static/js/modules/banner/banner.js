@@ -191,6 +191,7 @@ var vm = new Vue({
 		},
 		getInfo: function(bannerId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/banner/info/"+bannerId, function(r){
                 vm.banner = r.banner;
             });

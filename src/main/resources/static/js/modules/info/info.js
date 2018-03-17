@@ -270,6 +270,7 @@ var vm = new Vue({
 		},
 		getInfo: function(infoId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/info/info/"+infoId, function(r){
                 vm.info = r.info;
                 $('.summernote').summernote('code',unescape(r.info.detail));

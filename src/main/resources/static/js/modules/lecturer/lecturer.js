@@ -161,6 +161,7 @@ var vm = new Vue({
 		},
 		getInfo: function(lecturerId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/lecturer/info/"+lecturerId, function(r){
                 vm.lecturer = r.lecturer;
             });

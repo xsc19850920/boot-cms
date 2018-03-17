@@ -134,6 +134,7 @@ var vm = new Vue({
 		},
 		getInfo: function(userCommentId){
 			vm.showList = false;
+			vm.title = "";
 			$.get(baseURL + "/user/commont/info/"+userCommentId, function(r){
                 vm.userComment = r.userComment;
             });

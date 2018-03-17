@@ -142,6 +142,7 @@ var vm = new Vue({
 		},
 		getInfo: function(infoQaId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/info/qa/info/"+infoQaId, function(r){
                 vm.infoQa = r.infoQa;
 //                vm.infoQa.answerDetail = unescape(vm.infoQa.answerDetail);

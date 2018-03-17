@@ -26,7 +26,7 @@ spring:
         mode : LEGACYHTML5
     # 环境 dev|prod
     profiles:
-        active: dev
+        active: prod
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver

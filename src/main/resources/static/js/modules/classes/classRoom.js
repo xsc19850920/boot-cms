@@ -167,6 +167,7 @@ var vm = new Vue({
 		},
 		getInfo: function(classRoomId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/classes/room/info/"+classRoomId, function(r){
                 vm.classRoom = r.classRoom;
             });

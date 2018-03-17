@@ -173,6 +173,7 @@ var vm = new Vue({
 		},
 		getInfo: function(classRoomVideoId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/classes/room/video/info/"+classRoomVideoId, function(r){
                 vm.classRoomVideo = r.classRoomVideo;
             });

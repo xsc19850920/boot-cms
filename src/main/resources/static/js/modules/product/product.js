@@ -5,7 +5,7 @@ $(function () {
         colModel: [			
             { label: '商品名称', name: 'title', index: 'title', width: 80 }, 			
             { label: '商品编号', name: 'productCode', index: 'product_code', width: 80 }, 			
-			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 }, 			
+			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
 			{ label: '库存', name: 'inventoryQty', index: 'inventory_qty', width: 80 }, 			
 			{ label: '兑换量', name: 'orderQty', index: 'order_qty', width: 80 }, 			
 			{ label: '所需积分', name: 'points', index: 'points', width: 80 }, 			
@@ -180,6 +180,7 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(productId){
+			vm.title = "编辑修改";
 			$.get(baseURL + "/product/info/"+productId, function(r){
                 vm.product = r.product;
             });

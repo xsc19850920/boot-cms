@@ -212,6 +212,7 @@ var vm = new Vue({
 		},
 		getInfo: function(infoAudioId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/info/audio/info/"+infoAudioId, function(r){
                 vm.infoAudio = r.infoAudio;
                 if(vm.infoAudio.fileSrc != baseURL + '/image/audio.jpg'){

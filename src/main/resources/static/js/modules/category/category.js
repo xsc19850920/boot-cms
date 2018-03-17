@@ -171,6 +171,7 @@ var vm = new Vue({
 		},
 		getInfo: function(categoryId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/category/info/"+categoryId, function(r){
                 vm.category = r.category;
             });

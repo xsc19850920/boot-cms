@@ -134,6 +134,7 @@ var vm = new Vue({
 		},
 		getInfo: function(infoPregnancyCheckId){
 			vm.showList = false;
+			vm.title = "编辑修改";
 			$.get(baseURL + "/info/pregnancycheck/info/"+infoPregnancyCheckId, function(r){
                 vm.infoPregnancyCheck = r.infoPregnancyCheck;
             });

@@ -5,9 +5,16 @@ $(function () {
         colModel: [			
             { label: '用戶ID', name: 'userId', index: 'user_id', width: 110, key: true,hidden:true},
 //            { label: '微信', name: 'openidWeixin', index: 'openid_weixin', width: 80 }, 			
+            { label: '昵称', name: 'userDetail.nickname', index: 'd.nickname', width: 80 }, 			
 			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
 			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 100 }, 			
 			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
+			{ label: '性别', name: 'userDetail.gender', index: 'd.gender', width: 80 ,formatter: function(value, options, row){
+				return value == 1 ? 
+						'<span>男</span>' : 
+						'<span>女</span>';
+				}},			
+			{ label: '生日', name: 'userDetail.birthday', index: 'd.birthday', width: 80 }, 			
 //			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
 //			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
 //			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
@@ -139,7 +146,7 @@ var vm = new Vue({
 		},
 		getInfo: function(userId){
 			vm.showList = false;
-            
+			vm.title = "";
 			$.get(baseURL + "/user/info/"+userId, function(r){
                 vm.user = r.user;
                 //init user Statistics
@@ -163,45 +170,45 @@ var vm = new Vue({
             }).trigger("reloadGrid");
 		},
 		updateDefaultAddress: function(userId,userAddressId){
-			//先根据用户id全部更新成不是默认的
-			var updateByUserIdObj = {}
-			updateByUserIdObj.userId = userId;
-			updateByUserIdObj.defaultFlag = 0;
-			
-			//更新指定地址为默认
-			var updateByUserIdAndUserAddressIdObj = {}
-			updateByUserIdAndUserAddressIdObj.userId = userId;
-			updateByUserIdAndUserAddressIdObj.defaultFlag = 1;
-			updateByUserIdAndUserAddressIdObj.userAddressId = userAddressId;
-			$.ajax({
-				type: "POST",
-			    url: baseURL + "/user/address/update",
-                contentType: "application/json",
-			    data: JSON.stringify(updateByUserIdObj),
-			    success: function(r){
-					if(r.code == 0){
-						
-						$.ajax({
-							type: "POST",
-						    url: baseURL + "/user/address/update",
-			                contentType: "application/json",
-						    data: JSON.stringify(updateByUserIdAndUserAddressIdObj),
-						    success: function(r){
-								if(r.code == 0){
-									alert('操作成功', function(index){
-										//$("#jqGrid").trigger("reloadGrid");
-									});
-								}else{
-									alert(r.msg);
-								}
-							}
-						});
-						
-					}else{
-						alert(r.msg);
-					}
-				}
-			});
+//			//先根据用户id全部更新成不是默认的
+//			var updateByUserIdObj = {}
+//			updateByUserIdObj.userId = userId;
+//			updateByUserIdObj.defaultFlag = 0;
+//			
+//			//更新指定地址为默认
+//			var updateByUserIdAndUserAddressIdObj = {}
+//			updateByUserIdAndUserAddressIdObj.userId = userId;
+//			updateByUserIdAndUserAddressIdObj.defaultFlag = 1;
+//			updateByUserIdAndUserAddressIdObj.userAddressId = userAddressId;
+//			$.ajax({
+//				type: "POST",
+//			    url: baseURL + "/user/address/update",
+//                contentType: "application/json",
+//			    data: JSON.stringify(updateByUserIdObj),
+//			    success: function(r){
+//					if(r.code == 0){
+//						
+//						$.ajax({
+//							type: "POST",
+//						    url: baseURL + "/user/address/update",
+//			                contentType: "application/json",
+//						    data: JSON.stringify(updateByUserIdAndUserAddressIdObj),
+//						    success: function(r){
+//								if(r.code == 0){
+//									alert('操作成功', function(index){
+//										//$("#jqGrid").trigger("reloadGrid");
+//									});
+//								}else{
+//									alert(r.msg);
+//								}
+//							}
+//						});
+//						
+//					}else{
+//						alert(r.msg);
+//					}
+//				}
+//			});
 		},
 		
 		changeUserStateType:function(userId,stateType){
@@ -258,8 +265,8 @@ function initGridForUserAddress(data){
 			{ label: '详细地址', name: 'address', index: 'address', width: 80 }, 			
 //			{ label: '邮编号码', name: 'postCode', index: 'post_code', width: 80 }, 			
 			{ label: '默认地址', name: 'defaultFlag', width: 80, formatter: function(value, options, row){
-				return value === 0 ? '<input name="defaultAddressRadio" type="radio" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>' : 
-					'<input type="radio" name="defaultAddressRadio" checked="checked" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>';
+				return value === 0 ? '<input name="defaultAddressRadio" type="radio" disabled="disabled" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>' : 
+					'<input type="radio" name="defaultAddressRadio" disabled="disabled" checked="checked" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>';
 			}},
        ],
        caption : "地址信息"

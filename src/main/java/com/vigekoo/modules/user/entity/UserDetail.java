@@ -3,6 +3,7 @@ package com.vigekoo.modules.user.entity;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.DateCodec;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 /**

@@ -18,9 +18,6 @@ spring:
      # 指定静态资源的路径
     resources:
         static-locations: classpath:/static/,classpath:/views/
-    # 环境 dev|prod
-    profiles:
-        active: prod
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver

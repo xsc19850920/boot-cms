@@ -722,10 +722,10 @@ INSERT INTO `sys_menu` VALUES ('32', '1', '系统日志', 'modules/sys/log.html'
 INSERT INTO `sys_menu` VALUES ('33', '1', 'SQL监控', 'druid/sql.html', NULL, 1, 'fa fa-bug', 8);
 INSERT INTO `sys_menu` VALUES ('4', '2', '新增', NULL, 'sys:user:save,sys:role:select,sys:dept:select,sys:dept:list', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES ('5', '2', '修改', NULL, 'sys:user:update,sys:role:select,sys:dept:select,sys:dept:list', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES ('50', '0', '代码生成器', NULL, NULL, 0, 'fa fa-support', 2);
-INSERT INTO `sys_menu` VALUES ('51', '50', '代码生成', 'modules/sys/generator.html', NULL, 1, 'fa fa-rocket', 1);
-INSERT INTO `sys_menu` VALUES ('52', '51', '查看', NULL, 'sys:generator:list', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES ('53', '51', '生成代码', NULL, 'sys:generator:code', 2, NULL, 0);
+--INSERT INTO `sys_menu` VALUES ('50', '0', '代码生成器', NULL, NULL, 0, 'fa fa-support', 2);
+--INSERT INTO `sys_menu` VALUES ('51', '50', '代码生成', 'modules/sys/generator.html', NULL, 1, 'fa fa-rocket', 1);
+--INSERT INTO `sys_menu` VALUES ('52', '51', '查看', NULL, 'sys:generator:list', 2, NULL, 0);
+--INSERT INTO `sys_menu` VALUES ('53', '51', '生成代码', NULL, 'sys:generator:code', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES ('54', '32', '查看', NULL, 'sys:log:info', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES ('6', '2', '删除', NULL, 'sys:user:delete', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES ('972352025666781184', '0', '用户管理', NULL, NULL, 0, 'fa fa-user', 0);

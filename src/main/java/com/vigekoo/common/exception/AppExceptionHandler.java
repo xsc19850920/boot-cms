@@ -25,6 +25,7 @@ public class AppExceptionHandler {
 	 */
 	@ExceptionHandler(AppException.class)
 	public Result handleAppException(AppException e){
+		logger.error(e.getMessage(), e);
 		return Result.error(e.getCode(), e.getMessage());
 	}
 

@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + '/banner/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'bannerId', index: 'banner_id', width: 50, key: true },
+            { label: '编号', name: 'bannerId', index: 'banner_id', width: 50, key: true ,hidden:true},
             { label: '广告名称', name: 'title', index: 'title', width: 80}, 			
             { label: '广告位置', name: 'bannerCategory', index: 'banner_category', width: 80 , formatter : function(value, options, row) {
             	return value === 1 ? '<span >首页轮播图</span>' :  '<span >妈妈知道</span>';
@@ -61,7 +61,7 @@ $(function () {
 	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>编辑</a>  ";
 	          var topBtn = "<a onclick='vm.top(\""+ id +"\")'>置顶</a>  ";
 	          var delBtn = "<a onclick='vm.del(\""+ id +"\")'>删除</a>  ";
-	          if(hasPermission('classes:room:update')){
+	          if(hasPermission('banner:update')){
 	        	  rowData += editBtn;
 	          }
 	          if(hasPermission('banner:update')){

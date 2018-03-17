@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.modules.user.dao.UserDao;
+import com.vigekoo.modules.user.dao.UserDetailDao;
 import com.vigekoo.modules.user.entity.User;
+import com.vigekoo.modules.user.entity.UserDetail;
 import com.vigekoo.modules.user.service.UserService;
 
 @Service("userService")
@@ -16,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserDetailDao userDetailDao;
 	
 	@Override
 	public User queryObject(Long userId){
@@ -39,8 +45,15 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional
 	public void update(User user){
 		userDao.update(user);
+		//用户详细一起更改
+		UserDetail userDetail = userDetailDao.queryObject(user.getUserId());
+		if( null != userDetail){
+			userDetail.setStateType(user.getStateType());
+			userDetailDao.update(userDetail);
+		}
 	}
 	
 	@Override

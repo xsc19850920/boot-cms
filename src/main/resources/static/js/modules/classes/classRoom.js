@@ -3,11 +3,11 @@ $(function () {
         url: baseURL + '/classes/room/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'classRoomId', index: 'class_room_id', width: 50, key: true },
+            { label: '编号', name: 'classRoomId', index: 'class_room_id', width: 50, key: true,hidden:true },
+            { label: '课程标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label : '课程图片', name : 'cloudUrl', width : 100, sortable:false, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
-			{ label: '课程标题', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 			{ label: '视频数', name: 'videoQty', index: 'video_qty', width: 80 }, 			
 			{ label: '相关', name: 'viewQty', sortable:false, width: 100, formatter: function(value, options, row){

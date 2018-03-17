@@ -24,9 +24,9 @@ spring:
     thymeleaf:
         prefix: classpath:/views/
         mode : LEGACYHTML5
-    # 环境 dev|sit|uat|prod
+    # 环境 dev|prod
     profiles:
-        active: dev
+        active: prod
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vigekoo.common.utils.DateUtils;
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.common.utils.ShiroUtils;
@@ -89,8 +90,8 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 		infoAudio.setCreateTime(time);
 		infoAudio.setModifyTime(time);
 		infoAudio.setDelFlag(0);
-		infoAudio.setDuration(1);
-//		infoAudio.setDurationText("01:10:20");
+//		infoAudio.setDuration(1);
+		infoAudio.setDurationText(DateUtils.secToTime(infoAudio.getDuration()));
 		infoAudio.setFavoriteQty(0);
 		infoAudio.setFlagTop(0);
 		infoAudio.setInfoAudioId(Long.parseLong(IdGenUtil.get().nextId()));

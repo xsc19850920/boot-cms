@@ -4,12 +4,12 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '用戶ID', name: 'userId', index: 'user_id', width: 110, key: true,hidden:true},
-            { label: '微信', name: 'openidWeixin', index: 'openid_weixin', width: 80 }, 			
+//            { label: '微信', name: 'openidWeixin', index: 'openid_weixin', width: 80 }, 			
 			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
 			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 100 }, 			
 			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
-			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
-			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
+//			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
+//			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			
 //			{ label: '用户类型(保留)', name: 'userType', index: 'user_type', width: 80 }, 			
 //			{ label: '用户类型时效', name: 'userTypeExpiresIn', index: 'user_type_expires_in', width: 80 }, 			
 			{ label: '状态', name: 'stateType',index:'state_type', width: 80, formatter: function(value, options, row){
@@ -40,7 +40,7 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
-        multiselect: true,
+//        multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -262,7 +262,7 @@ function initGridForUserAddress(data){
 					'<input type="radio" name="defaultAddressRadio" checked="checked" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>';
 			}},
        ],
-       caption : "统计信息"
+       caption : "地址信息"
      });
 	 
 	 for ( var i = 0; i <= data.list.length; i++){
@@ -287,7 +287,7 @@ function initGridForUserOrder(data){
 							'<span class="label label-success">正常</span>';
 					}},
 		           ],
-		           caption : "统计信息"
+		           caption : "订单信息"
 	});
 	
 	for ( var i = 0; i <= data.list.length; i++){

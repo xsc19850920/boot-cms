@@ -128,15 +128,16 @@ public class IPUtils {
 	 * @return
 	 */
 	public static int Ip2Int(String strIp) {
-		String[] ss = strIp.split("\\.");
-		if (ss.length != 4) {
-			return 0;
-		}
-		byte[] bytes = new byte[ss.length];
-		for (int i = 0; i < bytes.length; i++) {
-			bytes[i] = (byte) Integer.parseInt(ss[i]);
-		}
-		return byte2Int(bytes);
+//		String[] ss = strIp.split("\\.");
+//		if (ss.length != 4) {
+//			return 0;
+//		}
+//		byte[] bytes = new byte[ss.length];
+//		for (int i = 0; i < bytes.length; i++) {
+//			bytes[i] = (byte) Integer.parseInt(ss[i]);
+//		}
+//		return byte2Int(bytes);
+		return 0;
 	}
 
 	/**
@@ -198,10 +199,10 @@ public class IPUtils {
 		return ipPattern.matcher(address).matches();
 	}
 
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		String ip1 = "192.168.1.1";
 //		int intIp = Ip2Int(ip1);
 //		String ip2 = int2Ip(intIp);
 //		System.out.println(ip2.equals(ip1));
-//	}
+	}
 }

@@ -3,11 +3,12 @@ $(function () {
         url: baseURL + '/info/audio/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'infoAudioId', index: 'info_audio_id', width: 50, key: true },
+            { label: '编号', name: 'infoAudioId', index: 'info_audio_id', width: 50, key: true,hidden:true },
+            { label: '标题', name: 'title', index: 'title', width: 80 }, 			
             { label: '封面图片', name: 'cloudUrl',index: 'cloud_url', width: 100, formatter: function(value, options, row){
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+value+'" >';
             } },
-            { label: '标题', name: 'title', index: 'title', width: 80 }, 			
+			{ label: '音频时长', name: 'durationText', index: 'duration_text', width: 80 }, 			
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	
 			{ label: '相关', name: 'favoriteQty',index: 'favorite_qty', width: 100 ,sortable:false, formatter: function(value, options, row){
 				return '<p>收藏:'+row.playQty+'</p><p>已听:'+value+'</p>';
@@ -21,7 +22,6 @@ $(function () {
 //			{ label: '删除标识', name: 'delFlag', index: 'del_flag', width: 80 }, 			
 //			{ label: '信息分类 : 1早安童诗 2晚安故事 3古文小故事 4特色绘本', name: 'infoType', index: 'info_type', width: 80 }, 			
 //			{ label: '文件路径', name: 'fileSrc', index: 'file_src', width: 80 }, 			
-//			{ label: '音视频秒数', name: 'duration', index: 'duration', width: 80 }, 			
 //			{ label: '音视频秒数文本 : 01:10:20', name: 'durationText', index: 'duration_text', width: 80 }, 			
 //			{ label: '置顶标识', name: 'flagTop', index: 'flag_top', width: 80 }, 			
 //			{ label: '收藏次数', name: 'favoriteQty', index: 'favorite_qty', width: 80 }, 			
@@ -33,7 +33,7 @@ $(function () {
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
-        multiselect: true,
+//        multiselect: true,
         caption:"音频列表",
         rownumWidth: 25, 
         autowidth:true,
@@ -255,7 +255,7 @@ var vm = new Vue({
 				alert('音频不能为空');
 				return false;
 			} 
-			if(undefined == vm.infoAudio.durationText || vm.infoAudio.durationText == ''  ){
+			if(undefined == vm.infoAudio.duration || vm.infoAudio.duration == ''  ){
 				alert('音视频秒数不能为空');
 				return false;
 			} 

@@ -40,7 +40,20 @@
     <div v-show="!showList" class="panel panel-default">
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
-							<div class="form-group">
+		
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">商品编号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="product.productCode" placeholder="商品编号"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">标题</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="product.title" placeholder="标题"/>
+			    </div>
+			</div>
+			<div class="form-group">
 			   	<div class="col-sm-2 control-label">添加时间</div>
 			   	<div class="col-sm-10">
 			      <input type="text" class="form-control" v-model="product.createTime" placeholder="添加时间"/>
@@ -70,18 +83,7 @@
 			      <input type="text" class="form-control" v-model="product.delFlag" placeholder="删除标识"/>
 			    </div>
 			</div>
-													<div class="form-group">
-			   	<div class="col-sm-2 control-label">商品编号</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="product.productCode" placeholder="商品编号"/>
-			    </div>
-			</div>
-									<div class="form-group">
-			   	<div class="col-sm-2 control-label">标题</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="product.title" placeholder="标题"/>
-			    </div>
-			</div>
+			
 									<div class="form-group">
 			   	<div class="col-sm-2 control-label">单价文本</div>
 			   	<div class="col-sm-10">

@@ -6,7 +6,6 @@
     <groupId>com.vigekoo</groupId>
     <artifactId>template</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
     <description>template</description>
 
     <parent>
@@ -247,9 +246,9 @@
             <properties>
                 <profiles.active>dev</profiles.active>
             </properties>
-            <activation>
+            <!-- <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>
+            </activation> -->
         </profile>
         <!-- PROD -->
         <profile>
@@ -257,6 +256,9 @@
             <properties>
                 <profiles.active>prod</profiles.active>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 

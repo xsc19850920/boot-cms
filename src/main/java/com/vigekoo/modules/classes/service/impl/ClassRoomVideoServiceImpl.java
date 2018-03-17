@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vigekoo.common.utils.DateUtils;
 import com.vigekoo.common.utils.IPUtils;
 import com.vigekoo.common.utils.IdGenUtil;
 import com.vigekoo.common.utils.ShiroUtils;
@@ -80,8 +81,8 @@ public class ClassRoomVideoServiceImpl implements ClassRoomVideoService {
 		classRoomVideo.setCreateTime(currentTime);
 		classRoomVideo.setDelFlag(0);
 		classRoomVideo.setDisplayOrder(0);
-		classRoomVideo.setDuration(0);
-		classRoomVideo.setDurationText("01:10:20");
+//		classRoomVideo.setDuration(0);
+		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
 		classRoomVideo.setModifyTime(currentTime);
 		classRoomVideo.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
 		classRoomVideo.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));

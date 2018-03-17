@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + '/info/pregnancycheck/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'infoPregnancyCheckId', index: 'info_pregnancy_check_id', width: 50, key: true },
+            { label: '编号', name: 'infoPregnancyCheckId', index: 'info_pregnancy_check_id', width: 50, key: true,hidden:true },
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
             { label: '操作', name: 'displayOrder', sortable:false,  width: 80,formatter:function(value,options,row){
 				

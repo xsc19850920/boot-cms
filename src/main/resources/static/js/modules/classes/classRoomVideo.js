@@ -3,11 +3,12 @@ $(function () {
         url: baseURL + '/classes/room/video/list',
         datatype: "json",
         colModel: [			
-            { label: '编号', name: 'classRoomVideoId', index: 'class_room_video_id', width: 50, key: true },
+            { label: '编号', name: 'classRoomVideoId', index: 'class_room_video_id', width: 50, key: true ,hidden:true},
+            { label: '标题', name: 'title', index: 'title', width: 80 }, 			
             { label: '视频', name: 'fileSrc', index: 'file_src', width: 80 ,formatter:function(value,options,row){
             	return '<video src="'+value+'" controls="controls" id="uploadImg" style="width:120px;"/>';
             }}, 			
-            { label: '标题', name: 'title', index: 'title', width: 80 }, 			
+            { label: '视频时长', name: 'durationText', index: 'duration_text', width: 80 }, 
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 80 }, 	
 			{ label: '操作', name: 'opt',  width: 80, sortable:false},
 			
@@ -195,6 +196,10 @@ var vm = new Vue({
 			} 
 			if(undefined ==vm.classRoomVideo.classRoomId || vm.classRoomVideo.classRoomId == ''  ){
 				alert('课程不能为空');
+				return false;
+			}
+			if(undefined ==vm.classRoom.duration || vm.classRoom.duration == ''  ){
+				alert('视频秒数不能为空');
 				return false;
 			}
 			return true;

@@ -1,6 +1,11 @@
 server:
     port: 8889
     context-path: /bb/admin
+#logging:
+#  level:
+#    root: info
+#    com.vigekoo: debug
+#  file: log.log
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource

@@ -45,10 +45,7 @@
 		<where>
 			<if test="keyword != null and keyword != ''">
 				and (
-					`user_id` like concat('%',#{keyword},'%')
-					or `openid_weixin` like concat('%',#{keyword},'%')
-					or `openid_weibo` like concat('%',#{keyword},'%')
-					or `openid_qq` like concat('%',#{keyword},'%')
+					`tel` like concat('%',#{keyword},'%')
 				)
 			</if>
 			and del_flag = 0
@@ -71,10 +68,7 @@
 		<where>
 			<if test="keyword != null and keyword != ''">
 				and (
-					`user_id` like concat('%',#{keyword},'%')
-					or `openid_weixin` like concat('%',#{keyword},'%')
-					or `openid_weibo` like concat('%',#{keyword},'%')
-					or `openid_qq` like concat('%',#{keyword},'%')
+					`tel` like concat('%',#{keyword},'%')
 				)
 			</if>
 			and del_flag = 0

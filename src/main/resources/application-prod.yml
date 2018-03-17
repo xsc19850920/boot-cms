@@ -1,7 +1,17 @@
 server:
     port: 80
     context-path: /bb/admin
+#logging:
+#  level:
+#    root: info
+#    com.vigekoo: debug
+#  file: /opt/ujiabb/log/log.log
 spring:
+    http:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
+            enabled: true
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver

@@ -16,7 +16,7 @@ server:
         uri-encoding: UTF-8
         max-application-dev.ymlthreads: 1000
         min-spare-threads: 30
-    #打开注释，则通过【http://localhost:8888/bb/admin】访问
+    #打开注释，则通过【http://localhost/bb/admin】访问
     context-path: /bb/admin
 
 # mysql

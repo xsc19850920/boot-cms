@@ -1,11 +1,6 @@
 server:
     port: 80
     context-path: /bb/admin
-#logging:
-#  level:
-#    root: info
-#    com.vigekoo: debug
-#  file: /opt/ujiabb/log/log.log
 spring:
     http:
         multipart:

@@ -233,7 +233,7 @@ function initGridForStatistics(data){
 	      {
 	        datatype : "local",
 	        autowidth:true,
-	        colNames : [  '可用优优', '收藏文章', '收藏音频', '兑换记录','转发次数' ],
+	        colNames : [  '可用优优', '收藏文章', '收藏音频', '兑换商品件数','转发次数' ],
 	        colModel : [ 
 	                     {name : 'points',index : 'points',sorttype : "date"}, 
 	                     {name : 'article',index : 'article',}, 
@@ -256,7 +256,7 @@ function initGridForUserAddress(data){
 			{ label: '姓名', name: 'nickname', index: 'nickname', width: 80 }, 			
 			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
 			{ label: '详细地址', name: 'address', index: 'address', width: 80 }, 			
-			{ label: '邮编号码', name: 'postCode', index: 'post_code', width: 80 }, 			
+//			{ label: '邮编号码', name: 'postCode', index: 'post_code', width: 80 }, 			
 			{ label: '默认地址', name: 'defaultFlag', width: 80, formatter: function(value, options, row){
 				return value === 0 ? '<input name="defaultAddressRadio" type="radio" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>' : 
 					'<input type="radio" name="defaultAddressRadio" checked="checked" onclick="vm.updateDefaultAddress('+row.userId+','+row.userAddressId+')"/>';
@@ -280,11 +280,22 @@ function initGridForUserOrder(data){
 		           { label: '兑换物品编号', name: 'productCode', index: 'product_code', width: 80 }, 			
 		           { label: '兑换物品名称', name: 'product.title', index: 'product.title', width: 80 }, 			
 		           { label: '兑换积分', name: 'points', index: 'points', width: 80 }, 			
+		           { label: '兑换数量', name: 'qty', index: 'qty', width: 80 }, 			
 		           { label: '快递单号', name: 'trackingNo', index: 'tracking_no', width: 80 }, 			
 		           { label: '订单状态', name: 'stateType', width: 80, formatter: function(value, options, row){
-						return value === 0 ? 
-							'<span class="label label-danger">禁用</span>' : 
-							'<span class="label label-success">正常</span>';
+		        	   var btn = '';
+		        	   if(value == 1){
+		        		   btn= '<span >兑换中</span>'
+		        	   }else if(value == 2){
+		        		   btn = '<span >已发货</span>'
+		        	   }else if(value == 3){
+		        		   btn = '<span >已收货</span>'
+		        	   }else{
+		        		   btn = '<span >未知状态</span>'
+		        	   }
+		        	   
+		        	   return btn;
+						
 					}},
 		           ],
 		           caption : "订单信息"

@@ -34,6 +34,7 @@
 			<a v-if="hasPermission('info:audio:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;添加</a>
 		</div>
 		<div class="grid-btn" style="text-align: right;">
+			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="0" @click="changeAudioType(0)"> 全部 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="1" @click="changeAudioType(1)"> 早安童话 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="2" @click="changeAudioType(2)"> 晚安故事 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="3" @click="changeAudioType(3)"> 古文小故事 </label>

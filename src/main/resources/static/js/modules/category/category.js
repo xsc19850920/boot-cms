@@ -43,7 +43,7 @@ $(function () {
         height: 'auto',
         rowNum: 10,
 		rowList : [10,30,50],
-		caption:"列表",
+		caption:"主题列表",
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,

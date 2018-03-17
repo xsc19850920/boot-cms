@@ -93,8 +93,8 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.infoQa.infoQaId == null ? "/info/qa/save" : "/info/qa/update";
-			vm.infoQa.answerDetail = escape(vm.infoQa.answerDetail);
-			$('#answerDetailTextarea').val('');
+//			vm.infoQa.answerDetail = escape(vm.infoQa.answerDetail);
+//			$('#answerDetailTextarea').val('');
 			if(vm.validate()){
 				$.ajax({
 					type: "POST",
@@ -144,7 +144,7 @@ var vm = new Vue({
 			vm.showList = false;
 			$.get(baseURL + "/info/qa/info/"+infoQaId, function(r){
                 vm.infoQa = r.infoQa;
-                vm.infoQa.answerDetail = unescape(vm.infoQa.answerDetail);
+//                vm.infoQa.answerDetail = unescape(vm.infoQa.answerDetail);
             });
 		},
 		reload: function (event) {
@@ -156,7 +156,7 @@ var vm = new Vue({
             }).trigger("reloadGrid");
 		},
 		showAnswerDetail:function(answerDetail){
-			$('#answerDetailDiv').html(unescape(answerDetail));
+			$('#answerDetailDiv').html(answerDetail/*unescape(answerDetail)*/);
 			openLayer('900px', '600px', '回答内容', 'answerDetailLayer');
 		},
 		changeInfoQaType:function(infoQaTypeValue){

@@ -33,7 +33,7 @@
 					`title` like concat('%',#{keyword},'%')
 				)
 			</if>
-			<if test="infoQaTypeValue != null and infoQaTypeValue != ''">
+			<if test="infoQaTypeValue != null and infoQaTypeValue != '' and infoQaTypeValue != 0">
 				and  `info_qa_type` = #{infoQaTypeValue}
 			</if>
 		</where>
@@ -61,7 +61,7 @@
 					`title` like concat('%',#{keyword},'%')
 				)
 			</if>
-			<if test="infoQaTypeValue != null and infoQaTypeValue != ''">
+			<if test="infoQaTypeValue != null and infoQaTypeValue != '' and infoQaTypeValue != 0">
 				and  `info_qa_type` = #{infoQaTypeValue}
 			</if>
 		</where>

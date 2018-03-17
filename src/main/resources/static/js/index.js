@@ -40,7 +40,7 @@ var vm = new Vue({
 		main:"main.html",
 		password:'',
 		newPassword:'',
-        navTitle:"欢迎页"
+        navTitle:"欢迎页",
 	},
 	methods: {
 		getMenuList: function () {
@@ -96,7 +96,10 @@ var vm = new Vue({
                     location.href = baseURL + '/login.html';
                 }
             });
-        }
+        },
+        goback:function(){
+        	vm.main = '';
+    	}
 	},
 	created: function(){
 		this.getMenuList();
@@ -107,7 +110,8 @@ var vm = new Vue({
 		var router = new Router();
 		routerList(router, vm.menuList);
 		router.start();
-	}
+	},
+	
 });
 
 function routerList(router, menuList){
@@ -118,7 +122,6 @@ function routerList(router, menuList){
 		}else if(menu.type == 1){
 			router.add('#'+menu.url, function() {
 				var url = window.location.hash;
-
 				//替换iframe的url
 			    vm.main = url.replace('#', '');
 			    
@@ -126,7 +129,6 @@ function routerList(router, menuList){
 			    $(".treeview-menu li").removeClass("active");
                 $(".sidebar-menu li").removeClass("active");
 			    $("a[href='"+url+"']").parents("li").addClass("active");
-			    
 			    vm.navTitle = $("a[href='"+url+"']").text();
 			});
 		}

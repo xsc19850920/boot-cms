@@ -198,7 +198,7 @@ var vm = new Vue({
 				alert('课程不能为空');
 				return false;
 			}
-			if(undefined ==vm.classRoom.duration || vm.classRoom.duration == ''  ){
+			if(undefined ==vm.classRoomVideo.duration || vm.classRoomVideo.duration == ''  ){
 				alert('视频秒数不能为空');
 				return false;
 			}

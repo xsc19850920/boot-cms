@@ -46,6 +46,9 @@ public class UserOrder implements Serializable {
 	private String title;
 	//积分点数
 	private Integer points;
+	
+	//积分点数
+	private Integer qty;
 	//昵称-姓名
 	private String nickname;
 	//手机号码
@@ -251,6 +254,12 @@ public class UserOrder implements Serializable {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	public Integer getQty() {
+		return qty;
+	}
+	public void setQty(Integer qty) {
+		this.qty = qty;
 	}
 	
 	

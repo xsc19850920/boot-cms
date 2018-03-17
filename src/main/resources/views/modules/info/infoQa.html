@@ -33,6 +33,7 @@
 			<a v-if="hasPermission('info:qa:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;添加</a>
 		</div>
 		<div class="grid-btn" style="text-align: right;">
+			 <label class="radio-inline"><input type="radio" name="infoQaTypeRadio" value="1" @click="changeInfoQaType(0)">全部</label> 
 			 <label class="radio-inline"><input type="radio" name="infoQaTypeRadio" value="1" @click="changeInfoQaType(1)">新生儿期 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoQaTypeRadio" value="2" @click="changeInfoQaType(2)">婴儿期 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoQaTypeRadio" value="3" @click="changeInfoQaType(3)">幼儿期 </label>

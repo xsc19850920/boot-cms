@@ -69,6 +69,7 @@ $(function () {
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
                 alert('只支持jpg、png、gif格式的图片！');
+                layer.closeAll('loading');
                 return false;
             }
         },
@@ -114,22 +115,24 @@ var vm = new Vue({
             vm.getInfo(lecturerId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.lecturer.lecturerId == null ? "/lecturer/save" : "/lecturer/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.lecturer),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.lecturer.lecturerId == null ? "/lecturer/save" : "/lecturer/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.lecturer),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		del: function (ids) {
 //			var lecturerIds = getSelectedRows();
@@ -169,6 +172,26 @@ var vm = new Vue({
 				postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.lecturer.lecturerName || vm.lecturer.lecturerName == ''  ){
+				alert('讲师姓名不能为空');
+				return false;
+			} 
+			if(undefined ==vm.lecturer.lecturerTitle || vm.lecturer.lecturerTitle == ''  ){
+				alert('讲师职称不能为空');
+				return false;
+			} 
+			if(undefined ==vm.lecturer.cloudUrl || vm.lecturer.cloudUrl == ''  ){
+				alert('教师图片不能为空');
+				return false;
+			}
+			if(undefined == vm.lecturer.intro || vm.lecturer.intro == ''  ){
+				alert('讲师简介不能为空');
+				return false;
+			} 
+			
+			return true;
 		}
 	}
 });

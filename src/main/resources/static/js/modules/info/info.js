@@ -1,4 +1,5 @@
 $(function () {
+	
     $("#jqGrid").jqGrid({
         url: baseURL + '/info/list',
         datatype: "json",
@@ -140,6 +141,7 @@ $(function () {
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
                 alert('只支持jpg、png、gif格式的图片！');
+                layer.closeAll('loading');
                 return false;
             }
         },
@@ -194,6 +196,7 @@ var vm = new Vue({
 		},
 		categoryList:[],
 	},
+	
 	methods: {
 		query: function () {
 			vm.reload();
@@ -216,23 +219,27 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			vm.info.detail = escape($('.summernote').summernote('code'));
-//			vm.info.detail = escape($('.summernote').summernote('code'));
-			var url = vm.info.infoId == null ? "/info/save" : "/info/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.info)/*.replace(/\"/g,"\\\"").replace(/\'/g,"\\'")*/,
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+//				vm.info.detail = escape($('.summernote').summernote('code'));
+				var url = vm.info.infoId == null ? "/info/save" : "/info/update";
+				$.ajax({
+					type: "POST",
+				    url: baseURL + url,
+	                contentType: "application/json",
+				    data: JSON.stringify(vm.info)/*.replace(/\"/g,"\\\"").replace(/\'/g,"\\'")*/,
+				    success: function(r){
+				    	if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
+			
+//				
 		},
 		del: function (id) {
 			//var infoIds = getSelectedRows();
@@ -330,9 +337,31 @@ var vm = new Vue({
 		},
 		infoView: function (infoId){
 			window.location.href = baseURL + '/info/view?infoId='+ infoId;
+		},
+		validate:function(){
+			if(undefined ==vm.info.title || vm.info.title == ''  ){
+				alert('文章标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.info.categoryId || vm.info.categoryId == ''  ){
+				alert('文章分类不能为空');
+				return false;
+			} 
+			if(undefined ==vm.info.cloudUrl || vm.info.cloudUrl == ''  ){
+				alert('文章图片不能为空');
+				return false;
+			}
+			if(undefined == vm.info.detail || vm.info.detail == ''  ){
+				alert('文章内容不能为空');
+				return false;
+			} 
+			return true;
 		}
+		
 	}
 });
+
+
 
 
 function initCategoryList(){

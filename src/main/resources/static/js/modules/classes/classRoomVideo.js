@@ -74,10 +74,11 @@ $(function () {
         responseType:"json",
         onSubmit:function(file, extension){
             layer.load(2);
-          /*  if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-                alert('只支持jpg、png、gif格式的图片！');
+            if (!(extension && /^(avi|mp4)$/.test(extension.toLowerCase()))){
+                alert('只支持avi、mp4格式！');
+                layer.closeAll('loading');
                 return false;
-            }*/
+            }
         },
         onComplete : function(file, r){
             layer.closeAll('loading');
@@ -122,22 +123,25 @@ var vm = new Vue({
             vm.getInfo(classRoomVideoId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.classRoomVideo.classRoomVideoId == null ? "/classes/room/video/save" : "/classes/room/video/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.classRoomVideo),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.classRoomVideo.classRoomVideoId == null ? "/classes/room/video/save" : "/classes/room/video/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.classRoomVideo),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
+			
 		},
 		del: function (id) {
 //			/var classRoomVideoIds = getSelectedRows();
@@ -179,6 +183,21 @@ var vm = new Vue({
 				 postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.classRoomVideo.title || vm.classRoomVideo.title == ''  ){
+				alert('标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.classRoomVideo.fileSrc || vm.classRoomVideo.fileSrc == ''  ){
+				alert('视频不能为空');
+				return false;
+			} 
+			if(undefined ==vm.classRoomVideo.classRoomId || vm.classRoomVideo.classRoomId == ''  ){
+				alert('课程不能为空');
+				return false;
+			}
+			return true;
 		}
 	}
 });

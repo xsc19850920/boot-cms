@@ -77,6 +77,7 @@ $(function () {
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
                 alert('只支持jpg、png、gif格式的图片！');
+                layer.closeAll('loading');
                 return false;
             }
         },
@@ -123,22 +124,24 @@ var vm = new Vue({
             vm.getInfo(classRoomId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.classRoom.classRoomId == null ? "/classes/room/save" : "/classes/room/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.classRoom),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.classRoom.classRoomId == null ? "/classes/room/save" : "/classes/room/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.classRoom),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		del: function (infoAudioIds) {
 			var idsArr = [];
@@ -175,6 +178,29 @@ var vm = new Vue({
 				 postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.classRoom.title || vm.classRoom.title == ''  ){
+				alert('课程标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.classRoom.cloudUrl || vm.classRoom.cloudUrl == ''  ){
+				alert('课程图片不能为空');
+				return false;
+			} 
+			if(undefined ==vm.classRoom.intro || vm.classRoom.intro == ''  ){
+				alert('课程简介不能为空');
+				return false;
+			}
+			if(undefined == vm.classRoom.apply || vm.classRoom.apply == ''  ){
+				alert('适用人群不能为空');
+				return false;
+			} 
+			if(undefined == vm.classRoom.lecturerId || vm.classRoom.lecturerId == ''  ){
+				alert('讲师不能为空');
+				return false;
+			} 
+			return true;
 		}
 	}
 });

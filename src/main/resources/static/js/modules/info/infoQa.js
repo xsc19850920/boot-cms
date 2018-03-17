@@ -95,21 +95,23 @@ var vm = new Vue({
 			var url = vm.infoQa.infoQaId == null ? "/info/qa/save" : "/info/qa/update";
 			vm.infoQa.answerDetail = escape(vm.infoQa.answerDetail);
 			$('#answerDetailTextarea').val('');
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.infoQa),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.infoQa),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		del: function (id) {
 			//var infoQaIds = getSelectedRows();
@@ -164,6 +166,33 @@ var vm = new Vue({
 				  postData:{'infoQaTypeValue': infoQaTypeValue},
 	            page:page
 	       }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.infoQa.infoQaType || vm.infoQa.infoQaType == ''  ){
+				alert('分类不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoQa.title || vm.infoQa.title == ''  ){
+				alert('标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoQa.question || vm.infoQa.question == ''  ){
+				alert('问题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoQa.author || vm.infoQa.author == ''  ){
+				alert('作者不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoQa.authorTitle || vm.infoQa.authorTitle == ''  ){
+				alert('作者职称不能为空');
+				return false;
+			} 
+			if(undefined == vm.infoQa.answerDetail || vm.infoQa.answerDetail == ''  ){
+				alert('回答内容不能为空');
+				return false;
+			} 
+			return true;
 		}
 	}
 });

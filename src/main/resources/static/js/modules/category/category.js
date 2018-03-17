@@ -75,6 +75,7 @@ $(function () {
         onSubmit:function(file, extension){
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
+            	 layer.closeAll('loading');
                 alert('只支持jpg、png、gif格式的图片！');
                 return false;
             }
@@ -121,22 +122,25 @@ var vm = new Vue({
             vm.getInfo(categoryId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.category.categoryId == null ? "/category/save" : "/category/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.category),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				
+				var url = vm.category.categoryId == null ? "/category/save" : "/category/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.category),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		del: function (id) {
 			//var categoryIds = getSelectedRows();
@@ -178,6 +182,26 @@ var vm = new Vue({
 				 postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.category.title || vm.category.title == ''  ){
+				alert('主题名称不能为空');
+				return false;
+			} 
+			if(undefined ==vm.category.intro || vm.category.intro == ''  ){
+				alert('二级标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.category.allowDeleteFlag || vm.category.allowDeleteFlag == ''  ){
+				alert('状态不能为空');
+				return false;
+			} 
+			if(undefined ==vm.category.cloudUrl || vm.category.cloudUrl == ''  ){
+				alert('分类图标不能为空');
+				return false;
+			}
+			
+			return true;
 		}
 	}
 });

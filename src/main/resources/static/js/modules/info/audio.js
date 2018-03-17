@@ -165,25 +165,28 @@ var vm = new Vue({
             vm.getInfo(infoAudioId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.infoAudio.infoAudioId == null ? "/info/audio/save" : "/info/audio/update";
-			if(!vm.infoAudio.cloudUrl ){
-            	vm.infoAudio.cloudUrl = baseURL + '/image/audio.jpg'
-            }
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.infoAudio),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.infoAudio.infoAudioId == null ? "/info/audio/save" : "/info/audio/update";
+				if(!vm.infoAudio.cloudUrl ){
+	            	vm.infoAudio.cloudUrl = baseURL + '/image/audio.jpg'
+	            }
+				$.ajax({
+					type: "POST",
+				    url: baseURL + url,
+	                contentType: "application/json",
+				    data: JSON.stringify(vm.infoAudio),
+				    success: function(r){
+				    	if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
+			
 		},
 		del: function (infoAudioIds) {
 			
@@ -234,6 +237,29 @@ var vm = new Vue({
 				  postData:{'infoTypeValue': infoTypeValue},
 	            page:page
 	       }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.infoAudio.infoType || vm.infoAudio.infoType == ''  ){
+				alert('音频分类不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoAudio.title || vm.infoAudio.title == ''  ){
+				alert('音频标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoAudio.cloudUrl || vm.infoAudio.cloudUrl == ''  ){
+				alert('音频图片不能为空');
+				return false;
+			}
+			if(undefined == vm.infoAudio.fileSrc || vm.infoAudio.fileSrc == ''  ){
+				alert('音频不能为空');
+				return false;
+			} 
+			if(undefined == vm.infoAudio.durationText || vm.infoAudio.durationText == ''  ){
+				alert('音视频秒数不能为空');
+				return false;
+			} 
+			return true;
 		}
 	}
 });

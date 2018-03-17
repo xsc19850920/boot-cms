@@ -86,22 +86,24 @@ var vm = new Vue({
             vm.getInfo(infoPregnancyCheckId)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.infoPregnancyCheck.infoPregnancyCheckId == null ? "/info/pregnancycheck/save" : "/info/pregnancycheck/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.infoPregnancyCheck),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.infoPregnancyCheck.infoPregnancyCheckId == null ? "/info/pregnancycheck/save" : "/info/pregnancycheck/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.infoPregnancyCheck),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		del: function (id) {
 			//var infoPregnancyCheckIds = getSelectedRows();
@@ -143,6 +145,17 @@ var vm = new Vue({
 				 postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
+		},
+		validate:function(){
+			if(undefined ==vm.infoPregnancyCheck.title || vm.infoPregnancyCheck.title == ''  ){
+				alert('标题不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoPregnancyCheck.detail || vm.infoPregnancyCheck.detail == ''  ){
+				alert('详情不能为空');
+				return false;
+			} 
+			return true;
 		}
 	}
 });

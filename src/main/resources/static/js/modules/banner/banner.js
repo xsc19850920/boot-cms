@@ -84,6 +84,7 @@ $(function () {
         onSubmit:function(file, extension){
             layer.load(2);
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
+            	layer.closeAll('loading');
                 alert('只支持jpg、png、gif格式的图片！');
                 return false;
             }
@@ -141,22 +142,25 @@ var vm = new Vue({
 		saveOrUpdate: function (event) {
 			vm.banner.startTime= $('#startTime').val();
 			vm.banner.endTime= $('#endTime').val() + " 23:59:59";
-			var url = vm.banner.bannerId == null ? "/banner/save" : "/banner/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.banner),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(index){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
+			if(vm.validate()){
+				var url = vm.banner.bannerId == null ? "/banner/save" : "/banner/update";
+				$.ajax({
+					type: "POST",
+					url: baseURL + url,
+					contentType: "application/json",
+					data: JSON.stringify(vm.banner),
+					success: function(r){
+						if(r.code === 0){
+							alert('操作成功', function(index){
+								vm.reload();
+							});
+						}else{
+							alert(r.msg);
+						}
 					}
-				}
-			});
+				});
+			}
+			
 		},
 		del: function (id) {
 			//var bannerIds = getSelectedRows();
@@ -241,6 +245,37 @@ var vm = new Vue({
 					}
 				}
 			});
+		},
+		validate:function(){
+			if(undefined ==vm.banner.title || vm.banner.title == ''  ){
+				alert('广告名称不能为空');
+				return false;
+			} 
+			if(undefined ==vm.banner.bannerCategory || vm.banner.bannerCategory == ''  ){
+				alert('广告位置不能为空');
+				return false;
+			} 
+			if(undefined ==vm.banner.displayOrder || vm.banner.displayOrder == ''  ){
+				alert('顺序不能为空');
+				return false;
+			}
+			if(undefined ==vm.banner.startTime || vm.banner.startTime == ''  ){
+				alert('开始时间不能为空');
+				return false;
+			}
+			if(undefined ==vm.banner.endTime || vm.banner.endTime == ''  ){
+				alert('结束时间不能为空');
+				return false;
+			}
+			if(undefined ==vm.banner.imagePath || vm.banner.imagePath == ''  ){
+				alert('广告图片不能为空');
+				return false;
+			}
+			if(undefined ==vm.banner.urlLink || vm.banner.urlLink == ''  ){
+				alert('广告连接不能为空');
+				return false;
+			}
+			return true;
 		}
 		
 	}

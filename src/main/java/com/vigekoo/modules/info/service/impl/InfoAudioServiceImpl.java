@@ -71,6 +71,7 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 	
 	@Override
 	public void update(InfoAudio infoAudio){
+		infoAudio.setDurationText(DateUtils.secToTime(infoAudio.getDuration()));
 		infoAudioDao.update(infoAudio);
 	}
 	

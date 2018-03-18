@@ -50,6 +50,7 @@ renren-fast是一个轻量级的Java快速开发平台，具体查看：http://g
 	body : 	{
 				"userOrderId":974930032147300352
 				, "stateType":2
+				,"trackingNo" :"1123"
 			}
 		 结果 
 			成功 : {

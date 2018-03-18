@@ -14,10 +14,10 @@ $(function () {
             { label: '时间', name: 'endTime',index:'end_time', width: 120, formatter: function(value, options, row){
 				return '<p>开始时间:'+row.startTime+'</p><p>结束时间:'+value+'</p>';
 			} },
-			{ label: '上线/下线', name: 'stateType', index: 'state_type', width: 30, formatter: function(value, options, row){
+			{ label: '上线/下线', name: 'stateType', index: 'state_type', width: 40, formatter: function(value, options, row){
 				return value === 0 ? "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+1+"\")'>上线</a>" :  "<a onclick='vm.upordown(\""+row.bannerId+"\",\""+0+"\")'>下线</a>" ;
 			}},
-			{ label: '点击次数', name: 'viewQty', index: 'view_qty', width: 20 ,sortable:false}, 
+			{ label: '点击次数', name: 'viewQty', index: 'view_qty', width: 40 ,sortable:false}, 
 			{ label: '操作', name: 'opt',  width: 80},
 			
 //			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 80 }, 			

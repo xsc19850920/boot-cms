@@ -102,6 +102,10 @@ public class InfoController extends AbstractController{
 //	@RequiresPermissions("info:delete")
 	public ModelAndView view(Long infoId,HashMap<String,Object> map) throws IOException{
 		Info info = infoService.queryObject(infoId);
+		if(null == info){
+			ModelAndView view = new ModelAndView("404",map);
+			return view;
+		}
 		map.put("info", info);
 		map.put("detail", EscapeUtils.unescape(info.getDetail()));
 		ModelAndView view = new ModelAndView("modules/info/infoView",map);

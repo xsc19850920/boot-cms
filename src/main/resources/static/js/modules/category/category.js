@@ -9,17 +9,17 @@ $(function () {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
 			{ label: '二级标题', name: 'intro', index: 'intro', width: 60 }, 			
-			{ label: '文章数量', name: 'infoQty', index: 'info_qty', width: 20 }, 		
-			{ label: '显示排序', name: 'displayOrder', index: 'display_order', width: 20 }, 
+			{ label: '文章数量', name: 'infoQty', index: 'info_qty', width: 40 }, 		
+			{ label: '显示排序', name: 'displayOrder', index: 'display_order', width: 40 }, 
 			{ label: '操作', name: 'allowDeleteFlag', sortable:false, width: 60,formatter:function(value,options,row){
 				
 				  var rowData = "";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.categoryId +"\")'>编辑</a>  ";
 		          var delBtn = "<a onclick='vm.del(\""+ row.categoryId +"\")'>删除</a>  ";
-		          if(hasPermission('category:update') &&  value === 1){
+		          if(hasPermission('category:update') ){
 		        	  rowData += editBtn;
 		          }
-		          if(hasPermission('category:info') &&  value === 1 ){
+		          if(hasPermission('category:delete') &&  value === 1 ){
 		        	  rowData += delBtn;
 		          }
 		          return rowData;
@@ -193,10 +193,10 @@ var vm = new Vue({
 				alert('二级标题不能为空');
 				return false;
 			} 
-			if(undefined ==vm.category.allowDeleteFlag || vm.category.allowDeleteFlag == ''  ){
-				alert('状态不能为空');
-				return false;
-			} 
+//			if(undefined ==vm.category.allowDeleteFlag || vm.category.allowDeleteFlag == ''  ){
+//				alert('状态不能为空');
+//				return false;
+//			} 
 			if(undefined ==vm.category.cloudUrl || vm.category.cloudUrl == ''  ){
 				alert('分类图标不能为空');
 				return false;

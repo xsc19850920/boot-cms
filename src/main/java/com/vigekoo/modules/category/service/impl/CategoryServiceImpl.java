@@ -60,6 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
 		category.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
 		category.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));
 		category.setStateType(1);
+		category.setAllowDeleteFlag(1);
 	}
 	
 	@Override

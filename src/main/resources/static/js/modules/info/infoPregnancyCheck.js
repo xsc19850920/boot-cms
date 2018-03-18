@@ -5,7 +5,7 @@ $(function () {
         colModel: [			
             { label: '编号', name: 'infoPregnancyCheckId', index: 'info_pregnancy_check_id', width: 50, key: true,hidden:true },
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
-            { label: '显示顺序', name: 'displayOrder', index: 'display_order', width: 20 }, 			
+            { label: '显示顺序', name: 'displayOrder', index: 'display_order', width: 40 }, 			
             { label: '操作', name: 'displayOrder', sortable:false,  width: 60,formatter:function(value,options,row){
 				
 				  var rowData = "";

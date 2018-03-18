@@ -62,6 +62,7 @@ public class ClassRoomVideoServiceImpl implements ClassRoomVideoService {
 	
 	@Override
 	public void update(ClassRoomVideo classRoomVideo){
+		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
 		classRoomVideoDao.update(classRoomVideo);
 	}
 	

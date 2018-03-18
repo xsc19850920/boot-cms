@@ -269,11 +269,11 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(infoId){
-			vm.showList = false;
 			vm.title = "编辑修改";
 			$.get(baseURL + "/info/info/"+infoId, function(r){
                 vm.info = r.info;
                 $('.summernote').summernote('code',unescape(r.info.detail));
+                vm.showList = false;
             });
 		},
 		reload: function (event) {
@@ -337,7 +337,9 @@ var vm = new Vue({
 			});
 		},
 		infoView: function (infoId){
-			window.location.href = baseURL + '/info/view?infoId='+ infoId;
+//			window.location.href = baseURL + '/info/view?infoId='+ infoId;
+			$('#infoViewLayer').find('iframe:eq(0)').attr('src',baseURL+ '/info/view?infoId='+ infoId);
+			openLayer('400px', '550px', '预览文章', 'infoViewLayer');
 		},
 		validate:function(){
 			if(undefined ==vm.info.title || vm.info.title == ''  ){
@@ -352,10 +354,15 @@ var vm = new Vue({
 				alert('文章图片不能为空');
 				return false;
 			}
+			if(undefined == vm.info.intro || vm.info.intro == ''  ){
+				alert('文章简介不能为空');
+				return false;
+			} 
 			if(undefined == vm.info.detail || vm.info.detail == ''  ){
 				alert('文章内容不能为空');
 				return false;
 			} 
+			
 			return true;
 		}
 		

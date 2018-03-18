@@ -9,7 +9,7 @@ $(function () {
             { label: '视频', name: 'fileSrc', index: 'file_src', width: 80 ,formatter:function(value,options,row){
             	return '<video  controls="controls"  style="width:120px;"><source src="'+value+'" /></video>';
             }}, 			
-            { label: '视频时长', name: 'durationText', index: 'duration_text', width: 30 }, 
+            { label: '视频时长', name: 'durationText', index: 'duration_text', width: 40 }, 
 			{ label: '发布时间', name: 'createTime', index: 'create_time', width: 120 }, 	
 			{ label: '操作', name: 'opt',  width: 80, sortable:false},
 			

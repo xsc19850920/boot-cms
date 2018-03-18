@@ -23,3 +23,41 @@ renren-fast是一个轻量级的Java快速开发平台，具体查看：http://g
 引入路由机制，刷新页面会停留在当前页
 
 修改了附件管理功能，增加内容管理功能，分类，专题，标签等等细节
+
+	
+更新用户订单信息
+	登陆   --> http://101.132.171.95/bb/admin/api/login?username=om&password=admin
+		结果:
+			失败 
+				情况1:{
+					"msg": "账号不存在",
+					"code": 500
+				}
+				情况2:{
+					"msg": "账号已被锁定,请联系管理员",
+					"code": 500
+				}
+			成功{
+				"msg": "操作成功",
+				"code": 0,
+				"expire": 60,
+				"userId": "2",
+				"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNTIxMzQ4MDE1LCJleHAiOjE1MjEzNDgwNzV9.yNjDut4mpx_933x4vwnoIc66YPyiigNVfQzIBbuiotIuEwXv89BKUFpfbbd2Ve8H9tvy7LARs9KhcIncEstLew"
+			   }
+	操作  -->http://101.132.171.95/bb/admin/api/order/update
+	header : token:login 获得的字符串
+			 Content-Type :application/json
+	body : 	{
+				"userOrderId":974930032147300352
+				, "stateType":2
+			}
+		 结果 
+			成功 : {
+					"msg": "操作成功",
+					"code": 0
+					}	
+			失败 : {
+				"msg": "订单信息错误.",
+				"code": 500
+			}
+文章H5路径 ---> http://101.132.171.95/bb/admin/info/view?infoId=975037830059261952

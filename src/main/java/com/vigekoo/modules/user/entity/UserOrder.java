@@ -38,7 +38,8 @@ public class UserOrder implements Serializable {
 	private Long userId;
 	
 	//产品id
-//	private Long productId;
+	private Long productId;
+	
 	private Product product;
 	//商品编号
 	private String productCode;
@@ -260,6 +261,12 @@ public class UserOrder implements Serializable {
 	}
 	public void setQty(Integer qty) {
 		this.qty = qty;
+	}
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 	
 	

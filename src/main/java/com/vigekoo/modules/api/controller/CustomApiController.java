@@ -12,8 +12,8 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vigekoo.common.Constant;
@@ -44,7 +44,7 @@ public class CustomApiController {
     
     
     @Autowired
-    private UserOrderService rserOrderService;
+    private UserOrderService userOrderService;
     
 //    @Autowired
 //    private SysUserTokenService sysUserTokenService;
@@ -97,45 +97,38 @@ public class CustomApiController {
    /**
     * 	快递单号 */
     @Login
-    @PostMapping("/order/trackingNo/update")
-    public Result test(@RequestParam("userOrderId") Long userOrderId,
-    					@RequestParam("trackingNo") String trackingNo ,
+    @PostMapping("/order/update")
+    public Result userOrderUpdate(@RequestBody UserOrder userOrder,
     					HttpServletRequest request){
-    	UserOrder userOrder = rserOrderService.queryObject( userOrderId);
-    	if(userOrder == null){
+    	if(userOrder == null || userOrder.getUserOrderId() == null  || (StringUtils.isEmpty(userOrder.getTrackingNo()) && (null == userOrder.getStateType()))){
+    		throw new AppException("订单信息错误.");
+    	}
+    	UserOrder userOrderFromDb = userOrderService.queryObject(userOrder.getUserOrderId());
+    	if(userOrderFromDb == null){
     		throw new AppException("订单id错误.");
     	}
-    	if(StringUtils.isNotEmpty(trackingNo)){
-    		long currentTime = new Date().getTime();
-    		userOrder.setModifyTime(currentTime);
-    		userOrder.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
-    		userOrder.setTrackingNo(trackingNo);
-    		
+    	// update Tracking No
+    	long currentTime = new Date().getTime();
+    	if(StringUtils.isNotEmpty(userOrder.getTrackingNo())){
+    		userOrderFromDb.setModifyTime(currentTime);
+    		userOrderFromDb.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
+    		userOrderFromDb.setTrackingNo(userOrder.getTrackingNo());
+    		userOrderService.update(userOrderFromDb);
     		return Result.ok();
     	}
-    	return Result.error("快递单号不能为空");
-    }
-    
-    /**
-   	 *   订单状态（1兑换中 2已发货 3已收货）*/
-    @Login
-    @PostMapping("/order/stateType/update")
-    public Result test(@RequestParam("userOrderId") Long userOrderId,  
-    					@RequestParam("stateType") Integer stateType,
-    					HttpServletRequest request){
-    	UserOrder userOrder = rserOrderService.queryObject( userOrderId);
-    	if(userOrder == null){
-    		throw new AppException("订单id错误.");
+    	if( null != userOrder.getStateType() ){
+    		int[] stateTypeArr = {1,2,3};
+        	if(ArrayUtils.contains(stateTypeArr, userOrder.getStateType()) ){
+        		userOrder.setModifyTime(currentTime);
+        		userOrder.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
+        		userOrder.setStateType(userOrder.getStateType());
+        		userOrderService.update(userOrder);
+        		return Result.ok();
+        	}else{
+        		return Result.error("订单状态错误.");
+        	}
     	}
-    	int[] stateTypeArr = {1,2,3};
-    	if(ArrayUtils.contains(stateTypeArr, stateType) ){
-    		long currentTime = new Date().getTime();
-    		userOrder.setModifyTime(currentTime);
-    		userOrder.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
-    		userOrder.setStateType(stateType);
-    		return Result.ok();
-    	}
-    	return Result.error("订单状态错误.");
+    	return Result.error();
+    	
     }
-
 }

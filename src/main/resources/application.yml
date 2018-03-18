@@ -8,7 +8,7 @@ sys:
         # 加密秘钥
         secret: f4e2e52034348f86b67cde581c0f9eb5[bb]
         # token有效时长，单位秒
-        expire: 86400
+        expire: 60
 
 # Tomcat
 server:

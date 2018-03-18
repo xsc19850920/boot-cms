@@ -44,6 +44,9 @@ public class InfoPregnancyCheckServiceImpl implements InfoPregnancyCheckService 
 	}
 	
 	public void initCategory(InfoPregnancyCheck infoPregnancyCheck, HttpServletRequest request) {
+		if(infoPregnancyCheck.getDisplayOrder() == null){
+			infoPregnancyCheck.setDisplayOrder(0);
+		}
 		long currentTime = new Date().getTime();
 		infoPregnancyCheck.setModifyTime(currentTime);
 		infoPregnancyCheck.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
@@ -51,7 +54,6 @@ public class InfoPregnancyCheckServiceImpl implements InfoPregnancyCheckService 
 		infoPregnancyCheck.setInfoPregnancyCheckId(Long.parseLong(IdGenUtil.get().nextId()));
 		infoPregnancyCheck.setCreateTime(currentTime);
 		infoPregnancyCheck.setDelFlag(0);
-		infoPregnancyCheck.setDisplayOrder(0);
 		infoPregnancyCheck.setStateType(1);
 	}
 	

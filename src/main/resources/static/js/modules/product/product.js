@@ -62,11 +62,14 @@ $(function () {
             autoSubmit:true,
             responseType:"json",
             onSubmit:function(file, extension){
-                layer.load(2);
-                /*if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-                    alert('只支持jpg、png、gif格式的图片！');
-                    return false;
-                }*/
+//                layer.load(2);
+//                if (!(extension && /^(excel)$/.test(extension.toLowerCase()))){
+//                	layer.closeAll('loading');
+//                    alert('只支持excel格式！');
+//                    return false;
+//                }
+            	alert('商品导入API未提供功,能开发中...');
+            	return false;
             },
             onComplete : function(file, r){
                 layer.closeAll('loading');

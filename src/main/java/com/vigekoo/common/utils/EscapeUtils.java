@@ -52,7 +52,7 @@ public class EscapeUtils {
             } else if (ch == '-' || ch == '_'       // unreserved : as it was  
                 || ch == '.' || ch == '!'  
                 || ch == '~' || ch == '*'  
-                || ch == '\'' || ch == '('   || ch == ')') {  
+                || ch == '\'' || ch == '('  || ch == '/' || ch == ')') {  
                 sbuf.append((char)ch);  
             } else if (ch <= 0x007F) {              // other ASCII : map to %XX  
                 sbuf.append('%');  
@@ -84,7 +84,7 @@ public class EscapeUtils {
                 || ch == '.' || ch == '!'  
                 || ch == '~' || ch == '*'  
                 || ch == '\'' || ch == '('  
-                || ch == ')') {  
+                || ch == ')'|| ch == '/') {  
                 sbuf.append((char)ch);  
             } else if (ch == '%') {  
                 int cint = 0;  

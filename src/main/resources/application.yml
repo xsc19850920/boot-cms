@@ -18,19 +18,51 @@ server:
         min-spare-threads: 30
     #打开注释，则通过【http://localhost/bb/admin】访问
     context-path: /bb/admin
-
-# mysql
+    port: 80
 spring:
     thymeleaf:
         prefix: classpath:/views/
         mode : LEGACYHTML5
-    # 环境 dev|prod
+#     环境 dev|prod
     profiles:
         active: prod
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-    # jackson时间格式化
+        druid:
+            initial-size: 10
+            max-active: 100
+            min-idle: 10
+            max-wait: 60000
+            pool-prepared-statements: true
+            max-pool-prepared-statement-per-connection-size: 20
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: SELECT 1 FROM DUAL
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            stat-view-servlet:
+                enabled: true
+                url-pattern: /druid/*
+            filter:
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 1000
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true
+            url: jdbc:mysql://rm-uf6972331679ea807po.mysql.rds.aliyuncs.com:3306/ujiabb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+            username: ujiabb_root
+            password: Ujiabb2018
+#            url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#            username: a710009498
+#            password: a710009498
+#            url: jdbc:mysql://192.168.0.88:3306/boot-cms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#            username: root
+#            password: root
+#     jackson时间格式化
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss
@@ -39,7 +71,7 @@ spring:
             max-file-size: 100MB
             max-request-size: 100MB
             enabled: true
-    # 指定静态资源的路径
+#     指定静态资源的路径
     resources:
         static-locations: classpath:/static/,classpath:/views/
     redis:

@@ -131,11 +131,11 @@
 	</update>
 	
 	<delete id="delete">
-		update  info_audio  set `del_flag` = 0 where info_audio_id = #{value}
+		update  info_audio  set `del_flag` = 1 where info_audio_id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		update  info_audio  set `del_flag` = 0 where info_audio_id in 
+		update  info_audio  set `del_flag` = 1 where info_audio_id in 
 		<foreach item="infoAudioId" collection="array" open="(" separator="," close=")">
 			#{infoAudioId}
 		</foreach>

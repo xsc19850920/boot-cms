@@ -10,10 +10,14 @@ $(function () {
 			{ label: '更新时间', name: 'modifyTime', index: 'modify_time', width: 100 }, 			
 			{ label: '手机号码', name: 'tel', index: 'tel', width: 80 }, 			
 			{ label: '性别', name: 'userDetail.gender', index: 'd.gender', width: 80 ,formatter: function(value, options, row){
-				return value == 1 ? 
-						'<span>男</span>' : 
-						'<span>女</span>';
-				}},			
+				if(value == 1){
+					return '<span>男</span>'
+				}else if(value == 2){
+					return '<span>女</span>';
+				}else{
+					return '<span>未设置</span>';
+				}
+			}},			
 			{ label: '生日', name: 'userDetail.birthday', index: 'd.birthday', width: 80 }, 			
 //			{ label: '微博', name: 'openidWeibo', index: 'openid_weibo', width: 80 }, 			
 //			{ label: 'QQ', name: 'openidQq', index: 'openid_qq', width: 80 }, 			

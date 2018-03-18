@@ -44,12 +44,14 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public void initCategory(Category category, HttpServletRequest request) {
+		if(category.getDisplayOrder() == null){
+			category.setDisplayOrder(0);
+		}
 		long currentTime = new Date().getTime();
 		category.setCategoryId(Long.parseLong(IdGenUtil.get().nextId()));
 		category.setCategoryType(1); //妈妈知道
 		category.setCreateTime(currentTime);
 		category.setDelFlag(0);
-		category.setDisplayOrder(0);
 		category.setHotFlag(0);
 		category.setHotOrder(0);
 		category.setInfoQty(0);

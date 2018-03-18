@@ -4,18 +4,19 @@ $(function () {
         datatype: "json",
         colModel: [			
             { label: '编号', name: 'categoryId', index: 'category_id', width: 50, key: true,hidden:true },
-            { label: '主题名称', name: 'title', index: 'title', width: 80 }, 			
-            { label : '主题图片', name : 'cloudUrl', width : 100, sortable:false, formatter : function(value, options, row) {
+            { label: '主题名称', name: 'title', index: 'title', width: 60 }, 			
+            { label : '主题图片', name : 'cloudUrl', width : 30, sortable:false, formatter : function(value, options, row) {
 				 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' + value + '" >';
 			}},
-			{ label: '二级标题', name: 'intro', index: 'intro', width: 80 }, 			
-			{ label: '文章数量', name: 'infoQty', index: 'info_qty', width: 80 }, 			
-			{ label: '操作', name: 'allowDeleteFlag', sortable:false, width: 80,formatter:function(value,options,row){
+			{ label: '二级标题', name: 'intro', index: 'intro', width: 60 }, 			
+			{ label: '文章数量', name: 'infoQty', index: 'info_qty', width: 20 }, 		
+			{ label: '显示排序', name: 'displayOrder', index: 'display_order', width: 20 }, 
+			{ label: '操作', name: 'allowDeleteFlag', sortable:false, width: 60,formatter:function(value,options,row){
 				
 				  var rowData = "";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.categoryId +"\")'>编辑</a>  ";
 		          var delBtn = "<a onclick='vm.del(\""+ row.categoryId +"\")'>删除</a>  ";
-		          if(hasPermission('category:update')){
+		          if(hasPermission('category:update') &&  value === 1){
 		        	  rowData += editBtn;
 		          }
 		          if(hasPermission('category:info') &&  value === 1 ){
@@ -32,7 +33,6 @@ $(function () {
 //			{ label: '删除标识', name: 'delFlag', index: 'del_flag', width: 80 }, 			
 //			{ label: '类别的类型(1妈妈知道)', name: 'categoryType', index: 'category_type', width: 80 }, 			
 //			{ label: '图片路径', name: 'cloudUrl', index: 'cloud_url', width: 80 }, 			
-//			{ label: '显示排序', name: 'displayOrder', index: 'display_order', width: 80 }, 			
 //			{ label: '允许删除标识', name: 'allowDeleteFlag', index: 'allow_delete_flag', width: 80 }, 			
 //			{ label: '热门标识', name: 'hotFlag', index: 'hot_flag', width: 80 }, 			
 //			{ label: '热门排序', name: 'hotOrder', index: 'hot_order', width: 80 }, 			
@@ -199,6 +199,10 @@ var vm = new Vue({
 			} 
 			if(undefined ==vm.category.cloudUrl || vm.category.cloudUrl == ''  ){
 				alert('分类图标不能为空');
+				return false;
+			}
+			if(undefined ==vm.category.displayOrder || vm.category.displayOrder == ''  ){
+				alert('书序排序不能为空');
 				return false;
 			}
 			

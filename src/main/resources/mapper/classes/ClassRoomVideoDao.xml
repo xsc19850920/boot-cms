@@ -18,20 +18,24 @@
         <result property="displayOrder" column="display_order"/>
         <result property="viewQty" column="view_qty"/>
         <result property="stateType" column="state_type"/>
+        <association property="classRoom" javaType="com.vigekoo.modules.classes.entity.ClassRoom">
+        	<id property="classRoomId" column="class_room_id"/>
+        	<result property="title" column="rtitle"/>
+        </association>
     </resultMap>
 
 	<select id="queryObject" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
 		select * from class_room_video where `del_flag` = 0 and class_room_video_id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.vigekoo.modules.classes.entity.ClassRoomVideo">
-		select * from class_room_video
-		
+	<select id="queryList" resultMap="classRoomVideoMap">
+		select v.*,c.title rtitle from class_room_video v LEFT JOIN class_room c on c.class_room_id = v.class_room_id  
 		<where>
-		`del_flag` = 0 
+			v.`del_flag` = 0 
 			<if test="keyword != null and keyword != ''">
 				and (
-					`class_room_video_id` like concat('%',#{keyword},'%')
+					v.`title` like concat('%',#{keyword},'%')
+					or c.title like concat('%',#{keyword},'%')
 				)
 			</if>
 		</where>
@@ -51,12 +55,13 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from class_room_video 
+		select count(*) from class_room_video v LEFT JOIN class_room c on c.class_room_id = v.class_room_id  
 		<where>
-		`del_flag` = 0 
+			v.`del_flag` = 0 
 			<if test="keyword != null and keyword != ''">
 				and (
-					`class_room_video_id` like concat('%',#{keyword},'%')
+					v.`title` like concat('%',#{keyword},'%')
+					or c.title like concat('%',#{keyword},'%')
 				)
 			</if>
 		</where>

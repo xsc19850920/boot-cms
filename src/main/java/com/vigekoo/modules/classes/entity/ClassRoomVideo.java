@@ -50,6 +50,8 @@ public class ClassRoomVideo implements Serializable {
 	private Integer viewQty;
 	//状态类型 : 0未处_无效 1已处_有效
 	private Integer stateType;
+	
+	private ClassRoom classRoom;
 
 	/**
 	 * 设置：添加时间
@@ -219,5 +221,11 @@ public class ClassRoomVideo implements Serializable {
 	public Integer getStateType() {
 		return stateType;
 	}
-
+	public ClassRoom getClassRoom() {
+		return classRoom;
+	}
+	public void setClassRoom(ClassRoom classRoom) {
+		this.classRoom = classRoom;
+	}
+	
 }

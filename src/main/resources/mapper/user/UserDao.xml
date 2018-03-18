@@ -54,7 +54,7 @@
 		<where>
 			<if test="keyword != null and keyword != ''">
 				and (
-					`u.tel` like concat('%',#{keyword},'%')
+					u.`tel` like concat('%',#{keyword},'%')
 				)
 			</if>
 			and u.del_flag = 0

@@ -48,7 +48,8 @@
 			<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
 					<dt style=" border-right: 1px solid #ddd;display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
 						<span style="display: inline-block;height: 75%;width: 50%;margin-bottom: 20px;margin-left: 47px; ">
-							<img  :src="userDetail.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
+							<img v-if="userDetail.cloudUrl != ''" :src="userDetail.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
+							<img  v-else src="../../image/head.jpg" class="img-circle" style="height: 100%;width: 100%"/>
 						</span>
 						<span style="display: inline-block; width: 90%;text-align: center;">{{userDetail.nickname}}</span>
 					</dt>
@@ -60,7 +61,8 @@
 				<dl style=" display: inline-block; width: 50%; height: 180px;float: left;">
 					<dt style=" border-right: 1px solid #ddd;display: inline-block; height: 157px; width: 30%; margin-left: 10px; margin-top: 10px; float: left;">
 						<span style="display: inline-block; height: 75%; width: 50%; margin-bottom: 20px;margin-left: 47px;">
-							<img  :src="userBaby.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
+							<img  v-if="userBaby.cloudUrl != ''" :src="userBaby.cloudUrl" class="img-circle" style="height: 100%;width: 100%"/>
+							<img  v-else src="../../image/head.jpg" class="img-circle" style="height: 100%;width: 100%"/>
 						</span>
 						<span style="display: inline-block; width: 90%;text-align: center;">宝宝</span>
 					</dt>

@@ -50,6 +50,7 @@
 			<if test="keyword != null and keyword != ''">
 				and (
 					i.`title` like concat('%',#{keyword},'%')
+					or c.`title` like concat('%',#{keyword},'%')
 				)
 			</if>
 		</where>
@@ -69,12 +70,13 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from info 
+		select count(*) from info i left join category c on i.category_id = c.category_id
 		<where>
-			`del_flag` = 0
+			i.`del_flag` = 0
 			<if test="keyword != null and keyword != ''">
 				and (
-					`title` like concat('%',#{keyword},'%')
+					i.`title` like concat('%',#{keyword},'%')
+					or c.`title` like concat('%',#{keyword},'%')
 				)
 			</if>
 		</where>

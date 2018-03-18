@@ -198,7 +198,9 @@ public class AliyunOSSClientUtil {
         if(".mp3".equalsIgnoreCase(fileExtension)) {
             return "audio/mp3";
         }
-
+        if(".mp4".equalsIgnoreCase(fileExtension)) {
+            return "video/mpeg4";
+        }
         //默认返回类型
         return "image/jpeg";
     }

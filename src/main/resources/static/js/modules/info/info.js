@@ -159,7 +159,7 @@ $(function () {
     $('.summernote').summernote({
     	lang : 'zh-CN',
     	tabsize: 4,
-        height: 100,
+        height: 400,
     	callbacks: { // 覆写掉自带的上传文件函数
 	        onImageUpload: function(files, editor, $editable) {
 	        	var formData = new FormData();

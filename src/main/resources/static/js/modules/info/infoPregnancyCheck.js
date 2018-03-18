@@ -5,7 +5,8 @@ $(function () {
         colModel: [			
             { label: '编号', name: 'infoPregnancyCheckId', index: 'info_pregnancy_check_id', width: 50, key: true,hidden:true },
             { label: '标题', name: 'title', index: 'title', width: 80 }, 			
-            { label: '操作', name: 'displayOrder', sortable:false,  width: 80,formatter:function(value,options,row){
+            { label: '显示顺序', name: 'displayOrder', index: 'display_order', width: 20 }, 			
+            { label: '操作', name: 'displayOrder', sortable:false,  width: 60,formatter:function(value,options,row){
 				
 				  var rowData = "";
 		          var editBtn = "<a onclick='vm.getInfo(\""+ row.infoPregnancyCheckId +"\")'>编辑</a>  ";
@@ -154,6 +155,10 @@ var vm = new Vue({
 			} 
 			if(undefined ==vm.infoPregnancyCheck.detail || vm.infoPregnancyCheck.detail == ''  ){
 				alert('详情不能为空');
+				return false;
+			} 
+			if(undefined ==vm.infoPregnancyCheck.displayOrder || vm.infoPregnancyCheck.displayOrder  == ''  ){
+				alert('显示顺序不能为空');
 				return false;
 			} 
 			return true;

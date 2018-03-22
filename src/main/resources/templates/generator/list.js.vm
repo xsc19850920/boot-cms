@@ -11,6 +11,18 @@ $(function () {
 			
 #end			
 #end
+			{ label: '操作', name: 'id',  width: 100,formatter:function(value,options,row){
+				
+		          var editBtn = "<a onclick='vm.getInfo(\""+ value +"\")'>编辑</a>  ";
+		          var delBtn = "<a onclick='vm.del(\""+ value+"\")'>删除</a>  ";
+		          if(hasPermission('${pathPrefix}:${classname}:update')){
+		        	  rowData += editBtn;
+		          }
+		          if(hasPermission('${pathPrefix}:${classname}:delete') ){
+		        	  rowData += delBtn;
+		          }
+		          return rowData;
+			}},
         ],
 		viewrecords: true,
         //height: 385,
@@ -37,19 +49,21 @@ $(function () {
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         	var ids = $("#jqGrid").jqGrid('getDataIDs');
+        	/*
 	        for (var i = 0; i < ids.length; i++) {
 	          var id = ids[i];
 	          var rowData = "";
 	          var editBtn = "<a onclick='vm.getInfo(\""+ id +"\")'>编辑</a>  ";
 	          var delBtn = "<a onclick='vm.del(\""+ id +"\")'>删除</a>  ";
-	          if(hasPermission('classes:room:update')){
+	          if(hasPermission('${pathPrefix}:${classname}:list')){
 	        	  rowData += editBtn;
 	          }
-	          if(hasPermission('classes:room:info')){
+	          if(hasPermission('${pathPrefix}:${classname}:info')){
 	        	  rowData += delBtn;
 	          }
 	          $("#jqGrid").jqGrid('setRowData', ids[i], { opt: rowData});
 	        }
+	        */
         }
     });
 });

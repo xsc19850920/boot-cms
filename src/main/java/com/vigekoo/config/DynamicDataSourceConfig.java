@@ -1,16 +1,14 @@
 package com.vigekoo.config;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import javax.sql.DataSource;
+
 //import com.vigekoo.common.datasource.DataSourceNames;
 //import com.vigekoo.common.datasource.DynamicDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
 /**
  * @author sxia

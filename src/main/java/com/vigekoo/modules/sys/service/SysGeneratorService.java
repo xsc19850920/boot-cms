@@ -18,6 +18,6 @@ public interface SysGeneratorService {
 
     List<Map<String, String>> queryColumns(String tableName);
 
-    byte[] generatorCode(String[] tableNames);
+    byte[] generatorCode(String[] tableNames,boolean isZip);
 
 }

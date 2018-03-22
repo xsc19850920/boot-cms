@@ -53,12 +53,12 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-            url: jdbc:mysql://rm-uf6972331679ea807po.mysql.rds.aliyuncs.com:3306/ujiabb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-            username: ujiabb_root
-            password: Ujiabb2018
-#            url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#            username: a710009498
-#            password: a710009498
+#            url: jdbc:mysql://rm-uf6972331679ea807po.mysql.rds.aliyuncs.com:3306/ujiabb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#            username: ujiabb_root
+#            password: Ujiabb2018
+            url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+            username: a710009498
+            password: a710009498
 #     jackson时间格式化
     jackson:
         time-zone: GMT+8

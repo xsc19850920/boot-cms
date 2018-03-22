@@ -3,10 +3,12 @@ package com.vigekoo.common.utils;
 import com.vigekoo.common.exception.AppException;
 import com.vigekoo.modules.sys.entity.SysColumn;
 import com.vigekoo.modules.sys.entity.SysTable;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.velocity.Template;
@@ -14,6 +16,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
@@ -43,8 +46,12 @@ public class GeneratorUtils {
 	/**
 	 * 生成代码
 	 */
-	public static void generatorCode(Map<String, String> table,
-			List<Map<String, String>> columns, ZipOutputStream zip){
+	public static void generatorCode(Map<String, String> table, List<Map<String, String>> columns, ZipOutputStream... zips){
+		ZipOutputStream zip = null;
+		if(ArrayUtils.isNotEmpty(zips)){
+			zip = zips[0];
+		}
+		
 		//配置信息
 		Configuration config = getConfig();
 		
@@ -124,10 +131,24 @@ public class GeneratorUtils {
 			
 			try {
 				//添加到zip
-				zip.putNextEntry(new ZipEntry(getFileName(template, classNameTemp, classnameTmep, config.getString("package"))));
-				IOUtils.write(sw.toString(), zip, "UTF-8");
-				IOUtils.closeQuietly(sw);
-				zip.closeEntry();
+				if(null != zip){
+					zip.putNextEntry(new ZipEntry(getFileName(template, classNameTemp, classnameTmep, config.getString("package"))));
+					IOUtils.write(sw.toString(), zip, "UTF-8");
+					IOUtils.closeQuietly(sw);
+					zip.closeEntry();
+				}else{
+					String projectDir = System.getProperty("user.dir");
+					String filePath = projectDir + File.separator + config.getString("outputPrefix") + File.separator + getFileName(template, classNameTemp, classnameTmep, config.getString("package"));
+					File tempFile = new File(filePath);
+					if(!tempFile.getParentFile().exists()){
+						tempFile.getParentFile().mkdirs();
+					}
+					FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
+					IOUtils.write(sw.toString(), fileOutputStream, "UTF-8");
+					IOUtils.closeQuietly(sw);
+					IOUtils.closeQuietly(fileOutputStream);
+				}
+				
 			} catch (IOException e) {
 				throw new AppException("渲染模板失败，表名：" + sysTable.getTableName(), e);
 			}

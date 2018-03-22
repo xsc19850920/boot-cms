@@ -22,8 +22,7 @@ public class ApplicationTests {
     @Test
     public void generatorCode() {
         String[] tableNames = {"info_qa"};
-
-        sysGeneratorService.generatorCode(tableNames);
+        sysGeneratorService.generatorCode(tableNames,false);
 
     }
 }

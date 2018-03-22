@@ -44,17 +44,27 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
     }
 
     @Override
-    public byte[] generatorCode(String[] tableNames) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
+    public byte[] generatorCode(String[] tableNames,boolean isZip) {
+    	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    	 ZipOutputStream zip = null;
+    	if(isZip){
+            zip = new ZipOutputStream(outputStream);
+    	}
 
         for(String tableName : tableNames){
             //查询表信息
+        	//tableName  ENGINE  tableComment  createTime
+        	//info_qa	InnoDB	一问一答	2018-03-16 10:16:06
             Map<String, String> table = queryTable(tableName);
             //查询列信息
             List<Map<String, String>> columns = queryColumns(tableName);
             //生成代码
-            GeneratorUtils.generatorCode(table, columns, zip);
+            if(zip != null){
+            	GeneratorUtils.generatorCode(table, columns, zip);
+            }else{
+            	// 特定路径生成代码
+            	GeneratorUtils.generatorCode(table, columns);
+            }
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();

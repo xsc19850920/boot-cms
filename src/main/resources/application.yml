@@ -18,7 +18,7 @@ server:
         min-spare-threads: 30
     #打开注释，则通过【http://localhost/bb/admin】访问
     context-path: /bb/admin
-    port: 80
+    port: 8889
 spring:
     thymeleaf:
         prefix: classpath:/views/
@@ -59,9 +59,6 @@ spring:
 #            url: jdbc:mysql://58.2.221.69:3306/a710009498?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
 #            username: a710009498
 #            password: a710009498
-#            url: jdbc:mysql://192.168.0.88:3306/boot-cms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#            username: root
-#            password: root
 #     jackson时间格式化
     jackson:
         time-zone: GMT+8

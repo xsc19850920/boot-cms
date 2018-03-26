@@ -118,6 +118,7 @@ public class SysAttachmentController extends AbstractController {
 
 	/**
 	 * 下载文件
+	 * @throws Throwable 
 	 */
 	@RequestMapping("/download/{id}")
 	@RequiresPermissions("sys:attachment:download")
@@ -127,7 +128,7 @@ public class SysAttachmentController extends AbstractController {
 			throw new AppException("文件不存在");
 		}
 
-		String path = FileUtils.getTempPath() + attachment.getPath();
+		String path = /*FileUtils.getTempPath() +*/ attachment.getPath();
 		FileUtils.download(path, attachment.getTitle(), response);
 	}
 

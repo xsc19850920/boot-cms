@@ -62,7 +62,8 @@ public class ClassRoomVideoServiceImpl implements ClassRoomVideoService {
 	
 	@Override
 	public void update(ClassRoomVideo classRoomVideo){
-		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
+//		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
+		classRoomVideo.setDuration(DateUtils.getSecondFromTimeStr(classRoomVideo.getDurationText()));
 		classRoomVideoDao.update(classRoomVideo);
 	}
 	
@@ -82,8 +83,8 @@ public class ClassRoomVideoServiceImpl implements ClassRoomVideoService {
 		classRoomVideo.setCreateTime(currentTime);
 		classRoomVideo.setDelFlag(0);
 		classRoomVideo.setDisplayOrder(0);
-//		classRoomVideo.setDuration(0);
-		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
+//		classRoomVideo.setDurationText(DateUtils.secToTime(classRoomVideo.getDuration()));
+		classRoomVideo.setDuration(DateUtils.getSecondFromTimeStr(classRoomVideo.getDurationText()));
 		classRoomVideo.setModifyTime(currentTime);
 		classRoomVideo.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
 		classRoomVideo.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));

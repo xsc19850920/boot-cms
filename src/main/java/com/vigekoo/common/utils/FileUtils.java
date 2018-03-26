@@ -15,14 +15,23 @@
  */
 package com.vigekoo.common.utils;
 
-import com.vigekoo.common.Constant;
-import com.vigekoo.common.exception.AppException;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.vigekoo.common.Constant;
+import com.vigekoo.common.exception.AppException;
 
 /**
  * @author sxia
@@ -140,8 +149,9 @@ public class FileUtils {
 	 * @param path
 	 * @param fileName
 	 * @param response
+	 * @throws Throwable 
 	 */
-	public static void download(String path, String fileName, HttpServletResponse response){
+	public static void download(String path, String fileName, HttpServletResponse response) {
 		File file=new File(path);
 		if(!file.exists()){
 			throw new AppException("文件不存在");

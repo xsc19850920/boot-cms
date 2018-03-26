@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
 <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
 <link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../plugins/datetimepicker/css/bootstrap-datetimepicker.css">
 <script src="../../libs/jquery.min.js"></script>
 <script src="../../plugins/layer/layer.js"></script>
 <script src="../../libs/bootstrap.min.js"></script>
@@ -18,6 +19,8 @@
 <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
 <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
 <script src="../../libs/ajaxupload.js"></script>
+<script src="../../plugins/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="../../plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../../js/common.js"></script>
 
 </head>
@@ -35,7 +38,7 @@
 		</div>
 		<div class="grid-btn" style="text-align: right;">
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="0" @click="changeAudioType(0)"> 全部 </label> 
-			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="1" @click="changeAudioType(1)"> 早安童话 </label> 
+			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="1" @click="changeAudioType(1)"> 早安童诗 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="2" @click="changeAudioType(2)"> 晚安故事 </label> 
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="3" @click="changeAudioType(3)"> 古文小故事 </label>
 			 <label class="radio-inline"><input type="radio" name="infoTypeRadio" value="4" @click="changeAudioType(4)"> 特色绘本 </label>
@@ -69,10 +72,10 @@
 			<div class="form-group">
 			   	<div class="col-sm-2 control-label">音频图片</div>
 			   	<div class="col-sm-10">
-			   	<img alt="音频图片" v-if="infoAudio.cloudUrl == null"  :src="baseURL+'/image/audio.jpg'" id="uploadImg" style="width:50px;"/>
+			   	<img alt="音频图片" v-if="infoAudio.cloudUrl == null"  :src="baseURL+'/image/upload.jpg'" id="uploadImg" style="width:50px;"/>
 			   	<img alt="音频图片" v-else :src="infoAudio.cloudUrl" id="uploadImg" style="width:50px;"/>
 			   	<!-- <a  class="btn btn-primary" >删除图片</a> -->
-			   	<input type="hidden"  v-if="infoAudio.cloudUrl == null"  id="infoAudioCloudUrl"  value="baseURL+'/image/audio.jpg'"/>
+			   	<input type="hidden"  v-if="infoAudio.cloudUrl == null"  id="infoAudioCloudUrl"  value="baseURL+'/image/upload.jpg'"/>
 			   	<input type="hidden"  v-else id="infoAudioCloudUrl" v-model="infoAudio.cloudUrl"/>
 			    </div>
 			</div>
@@ -85,9 +88,10 @@
 			</div>
 			
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">音频秒数</div>
+			
+				<div class="col-sm-2 control-label">音频时长</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="infoAudio.duration" placeholder="音频秒数"/>
+			      <input type="text" class="form-control" v-model="infoAudio.durationText" placeholder="格式(时:分:秒)"/>
 			    </div>
 			</div>
 			

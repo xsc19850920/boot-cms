@@ -1,8 +1,13 @@
 package com.vigekoo.common.utils;
 
 import java.security.InvalidParameterException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.vigekoo.common.exception.AppException;
 
 /**
  * @author sxia
@@ -14,7 +19,8 @@ public class DateUtils {
 	public final static String DATE_PATTERN = "yyyy-MM-dd";
 	/** 时间格式(yyyy-MM-dd HH:mm:ss) */
 	public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-	
+	/** 时间格式( HH:mm:ss) */
+	public final static String TIME_PATTERN = "HH:mm:ss";
 	public static String format(Date date) {
         return format(date, DATE_PATTERN);
     }
@@ -41,6 +47,22 @@ public class DateUtils {
         long millSecondsInOneDay = 24 * 60 * 60 * 1000;
         return (int) ((date1.getTime() - date2.getTime()) / millSecondsInOneDay);
     }
+    
+    /**
+     * 根据用户输入 的时间转换成int类型 
+     * @param timeStr
+     * @return
+     */
+	public static int getSecondFromTimeStr(String timeStr) {
+		try {
+			if (StringUtils.isEmpty(timeStr)) {
+				throw new InvalidParameterException("time string cannot be null!");
+			}
+			return (int)((org.apache.commons.lang.time.DateUtils.parseDate(timeStr, new String[] { TIME_PATTERN }).getTime()) / 1000 );
+		} catch (ParseException e) {
+			throw new AppException("请输入正确的时长格式");
+		}
+	}
     
     
     public static String secToTime(int time) {  

@@ -229,9 +229,7 @@ var vm = new Vue({
 				    data: JSON.stringify(vm.info)/*.replace(/\"/g,"\\\"").replace(/\'/g,"\\'")*/,
 				    success: function(r){
 				    	if(r.code === 0){
-							alert('操作成功', function(index){
-								vm.reload();
-							});
+				    		vm.reload();
 						}else{
 							alert(r.msg);
 						}

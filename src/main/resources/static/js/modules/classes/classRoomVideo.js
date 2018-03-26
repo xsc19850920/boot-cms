@@ -92,6 +92,8 @@ $(function () {
             }
         }
     });
+    
+  
 });
 
 var vm = new Vue({
@@ -200,8 +202,8 @@ var vm = new Vue({
 				alert('课程不能为空');
 				return false;
 			}
-			if(undefined ==vm.classRoomVideo.duration || vm.classRoomVideo.duration == ''  ){
-				alert('视频秒数不能为空');
+			if(undefined ==vm.classRoomVideo.durationText || vm.classRoomVideo.durationText == ''  ){
+				alert('视频时长不能为空');
 				return false;
 			}
 			return true;

@@ -88,7 +88,7 @@
 			  <div class="form-group">
 			   	<div class="col-sm-2 control-label">结束时间</div>
 			    <div class="input-group date form_time col-md-8"  >
-                    <input class="form-control" size="16" type="text" value="" readonly  v-model="banner.endTime" id="endTime" placeholder="结束时间">
+                    <input class="form-control" size="16" type="text" value=""   v-model="banner.endTime" id="endTime" placeholder="结束时间">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                 </div>
 			</div>
@@ -97,7 +97,7 @@
 			<div class="form-group">
 			   	<div class="col-sm-2 control-label">广告图片</div>
 			   	<div class="col-sm-10">
-			   	<img alt="广告图片" v-if="banner.imagePath == null"  :src="baseURL+'/image/audio.jpg'" id="uploadImg" style="width:50px;"/>
+			   	<img alt="广告图片" v-if="banner.imagePath == null"  :src="baseURL+'/image/upload.jpg'" id="uploadImg" style="width:50px;"/>
 			   	<img alt="广告图片" v-else :src="banner.imagePath" id="uploadImg" style="width:50px;"/>
 			   	<!-- <a  class="btn btn-primary" >删除图片</a> -->
 			    </div>

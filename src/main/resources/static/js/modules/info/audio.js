@@ -106,7 +106,7 @@ $(function () {
         onSubmit:function(file, extension){
             layer.load(2);
             if (!(extension && /^(mp3|wma)$/.test(extension.toLowerCase()))){
-                alert('只支持mp3，wma格式的图片！');
+                alert('只支持mp3，wma格式的音频！');
                 layer.closeAll('loading');
                 return false;
             }
@@ -132,6 +132,7 @@ $(function () {
 //            page:page
 //       }).trigger("reloadGrid");
 //    });
+    
 });
 
 var vm = new Vue({
@@ -168,7 +169,7 @@ var vm = new Vue({
 			if(vm.validate()){
 				var url = vm.infoAudio.infoAudioId == null ? "/info/audio/save" : "/info/audio/update";
 				if(!vm.infoAudio.cloudUrl ){
-	            	vm.infoAudio.cloudUrl = baseURL + '/image/audio.jpg'
+	            	vm.infoAudio.cloudUrl = baseURL + '/image/upload.jpg'
 	            }
 				$.ajax({
 					type: "POST",
@@ -215,7 +216,7 @@ var vm = new Vue({
 			vm.title = "编辑修改";
 			$.get(baseURL + "/info/audio/info/"+infoAudioId, function(r){
                 vm.infoAudio = r.infoAudio;
-                if(vm.infoAudio.fileSrc != baseURL + '/image/audio.jpg'){
+                if(vm.infoAudio.fileSrc != baseURL + '/image/upload.jpg'){
                 	$('#play').show();
                 } 
             });
@@ -256,8 +257,8 @@ var vm = new Vue({
 				alert('音频不能为空');
 				return false;
 			} 
-			if(undefined == vm.infoAudio.duration || vm.infoAudio.duration == ''  ){
-				alert('音视频秒数不能为空');
+			if(undefined == vm.infoAudio.durationText || vm.infoAudio.durationText == ''  ){
+				alert('音视时长数不能为空');
 				return false;
 			} 
 			return true;

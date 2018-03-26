@@ -74,7 +74,7 @@ public class SysAttachmentController extends AbstractController {
 	 * 上传文件
 	 */
 	@RequestMapping("/upload")
-	@RequiresPermissions("sys:attachment:upload")
+//	@RequiresPermissions("sys:attachment:upload")
 	public Result upload(HttpServletRequest request) {
 
 		String webpath = StringUtils.EMPTY;

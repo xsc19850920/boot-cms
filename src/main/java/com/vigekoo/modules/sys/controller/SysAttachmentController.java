@@ -93,10 +93,10 @@ public class SysAttachmentController extends AbstractController {
 				newFile.deleteOnExit();
 				logger.debug(String.format("富文本上传文件物理路径 ： %s", newFile.getAbsolutePath()));
 				// 初始化OSSClient
-				OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
-				AliyunOSSClientUtil.uploadObject2OSS(ossClient, newFile, Constant.BACKET_NAME, Constant.FOLDER);
-				webpath = AliyunOSSClientUtil.getUrl(Constant.FOLDER + newFile.getName());
-//				webpath = "http://knowledge-master.oss-cn-hangzhou.aliyuncs.com/knowledge/e1fc9287548e48bd86a654423277adda.jpg?Expires=1835964310&OSSAccessKeyId=LTAIqcXTcQ4gdiKi&Signature=0uH74fRipx%2Bhqd%2B7tXG1mQe8Xn4%3D";
+//				OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
+//				AliyunOSSClientUtil.uploadObject2OSS(ossClient, newFile, Constant.BACKET_NAME, Constant.FOLDER);
+//				webpath = AliyunOSSClientUtil.getUrl(Constant.FOLDER + newFile.getName());
+				webpath = "http://knowledge-master.oss-cn-hangzhou.aliyuncs.com/knowledge/e1fc9287548e48bd86a654423277adda.jpg?Expires=1835964310&OSSAccessKeyId=LTAIqcXTcQ4gdiKi&Signature=0uH74fRipx%2Bhqd%2B7tXG1mQe8Xn4%3D";
 				logger.debug(String.format("富文本上传文件路径 ： %s", webpath));
 
 				SysAttachment sysAttachment = new SysAttachment();

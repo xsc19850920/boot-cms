@@ -257,10 +257,14 @@ var vm = new Vue({
 				alert('音频不能为空');
 				return false;
 			} 
-			if(undefined == vm.infoAudio.durationText || vm.infoAudio.durationText == ''  ){
-				alert('音视时长数不能为空');
+			if(undefined == vm.infoAudio.durationText || vm.infoAudio.durationText == '' ){
+				alert('音视时长不能为空');
 				return false;
-			} 
+			}else if(!(/(\d{0,2}时){0,1}(\d{0,2}分){0,1}(\d{0,2}秒)/.test(vm.infoAudio.durationText)) && !(/\d{1,2}:\d{1,2}:\d{1,2}/.test( vm.infoAudio.durationText)) ){
+				alert('音视时长格式不正确');
+				return false;
+			}
+			
 			return true;
 		}
 	}

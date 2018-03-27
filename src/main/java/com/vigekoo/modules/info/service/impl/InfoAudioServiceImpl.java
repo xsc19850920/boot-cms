@@ -72,7 +72,7 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 	@Override
 	public void update(InfoAudio infoAudio){
 //		infoAudio.setDurationText(DateUtils.secToTime(infoAudio.getDuration()));
-		infoAudio.setDuration(DateUtils.getSecondFromTimeStr(infoAudio.getDurationText()));
+		infoAudio.setDuration(DateUtils.timeToSec(infoAudio.getDurationText()));
 		infoAudioDao.update(infoAudio);
 	}
 	
@@ -93,7 +93,7 @@ public class InfoAudioServiceImpl implements InfoAudioService {
 		infoAudio.setModifyTime(time);
 		infoAudio.setDelFlag(0);
 //		infoAudio.setDurationText(DateUtils.secToTime(infoAudio.getDuration()));
-		infoAudio.setDuration(DateUtils.getSecondFromTimeStr(infoAudio.getDurationText()));
+		infoAudio.setDuration(DateUtils.timeToSec(infoAudio.getDurationText()));
 		infoAudio.setFavoriteQty(0);
 		infoAudio.setFlagTop(0);
 		infoAudio.setInfoAudioId(Long.parseLong(IdGenUtil.get().nextId()));

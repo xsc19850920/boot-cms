@@ -205,8 +205,11 @@ var vm = new Vue({
 			if(undefined ==vm.classRoomVideo.durationText || vm.classRoomVideo.durationText == ''  ){
 				alert('视频时长不能为空');
 				return false;
+			}else if(!( /(\d{0,2}时){0,1}(\d{0,2}分){0,1}(\d{0,2}秒)/.test( vm.classRoomVideo.durationText)) && !( /\d{1,2}:\d{1,2}:\d{1,2}/.test( vm.classRoomVideo.durationText)) ){
+				alert('视频时长格式不正确');
+				return false;
 			}
-			return true;
+				return true;
 		}
 	}
 });

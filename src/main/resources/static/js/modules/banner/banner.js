@@ -151,9 +151,8 @@ var vm = new Vue({
 					data: JSON.stringify(vm.banner),
 					success: function(r){
 						if(r.code === 0){
-							vm.reload();
 //							alert('操作成功', function(index){
-//								
+								vm.reload();
 //							});
 						}else{
 							alert(r.msg);

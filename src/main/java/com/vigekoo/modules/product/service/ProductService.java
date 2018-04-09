@@ -25,4 +25,6 @@ public interface ProductService {
 	
 	void deleteBatch(Long[] productIds);
 
+	void importDataFromAPI();
+
 }

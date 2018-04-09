@@ -1,6 +1,9 @@
 package com.vigekoo.modules.product.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.DateCodec;
@@ -316,5 +319,22 @@ public class Product implements Serializable {
 	public Integer getStateType() {
 		return stateType;
 	}
+	
+	public Product() {
+	}
+	
+	//only for init product object from api
+	public Product(String[] array) {
+		if(ArrayUtils.isNotEmpty(array)){
+			
+			this.productCode = array[0];//PDTCODE
+			this.title = array[1]; //VALUE
+			this.priceText = array[2]; //PRICELIST 
+			this.detail = array[4]; //MARKETDES
+			this.points = new BigDecimal(this.priceText).multiply(BigDecimal.valueOf(50)).intValue();  //PRICELIST * 50
+			
+		}
+	}
+	
 
 }

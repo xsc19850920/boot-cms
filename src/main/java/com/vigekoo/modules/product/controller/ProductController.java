@@ -92,4 +92,14 @@ public class ProductController extends AbstractController{
 		return Result.ok();
 	}
 	
+	/**
+	 * 删除
+	 */
+	@RequestMapping("/import")
+	@RequiresPermissions("product:import")
+	public Result importData(){
+		
+		return Result.ok();
+	}
+	
 }

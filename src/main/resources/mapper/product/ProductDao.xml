@@ -30,6 +30,10 @@
 	<select id="queryObject" resultType="com.vigekoo.modules.product.entity.Product">
 		select * from product where `del_flag` = 0 and  product_id = #{value}
 	</select>
+	
+	<select id="queryAllObject" resultType="com.vigekoo.modules.product.entity.Product">
+		select * from product where `del_flag` = 0 
+	</select>
 
 	<select id="queryList" resultType="com.vigekoo.modules.product.entity.Product">
 		select * from product

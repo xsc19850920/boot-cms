@@ -4,13 +4,9 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.vigekoo.modules.product.entity.ResultFromAPI;
 
 public class BOSUtil {
 
@@ -102,34 +98,5 @@ public class BOSUtil {
 
     }*/
     
-    public static void main(String args[]) {
-        JSONObject cmdparam = new JSONObject();
-        cmdparam.put("table", 23180);
-        cmdparam.put("start", 1);
-        cmdparam.put("range", 99999);
-        cmdparam.put("count", true);
-        HashMap<String, Object> hm = getCMDParams("Query", cmdparam);
-//        OKHttpUtils http = new OKHttpUtils();
-        
-        String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);
-        if (StringUtils.isNotBlank(response)) {
-            // Class class = JSON.parseObject(json, Class.class)
-        	
-//            JSONArray ja = null;
-            try {
-            	List<ResultFromAPI> list = JSONArray.parseArray(response, ResultFromAPI.class);
-            	for (ResultFromAPI resultFromAPI : list) {
-            		resultFromAPI.setProductList(resultFromAPI.getRows());
-				}
-            	
-            	System.out.println(list);
-//                ja = JSONArray.parseArray(response);
-            } catch (Exception e) {
-            	e.printStackTrace();
-            }
-//            if (ja != null && ja.size() > 0) {
-//               System.out.println(ja.toString());
-//            }
-        }
-    }
+  
 }

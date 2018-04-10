@@ -55,33 +55,6 @@ $(function () {
         }
     });
     
-    if(hasPermission('product:importdata')){
-    	new AjaxUpload('#importData', {
-            action: baseURL + '/sys/attachment/upload?X-Token=' + token,
-            name: 'file',
-            autoSubmit:true,
-            responseType:"json",
-            onSubmit:function(file, extension){
-//                layer.load(2);
-//                if (!(extension && /^(excel)$/.test(extension.toLowerCase()))){
-//                	layer.closeAll('loading');
-//                    alert('只支持excel格式！');
-//                    return false;
-//                }
-            	alert('商品导入API未提供功,能开发中...');
-            	return false;
-            },
-            onComplete : function(file, r){
-                layer.closeAll('loading');
-                if(r.code == 0){
-                    vm.reload();
-                }else{
-                    alert(r.msg);
-                }
-            }
-        });
-    }
-    
     
 });
 
@@ -196,13 +169,13 @@ var vm = new Vue({
                 page:page
             }).trigger("reloadGrid");
 		},
-		importDataFromAPI:function(){
-			confirm('确定导入数据？', function(){
+		syncinfo:function(){
+			confirm('确定更新产品信息？', function(){
 				$.ajax({
 					type: "GET",
-				    url: baseURL + "/product/delete",
+				    url: baseURL + "/product/syncinfo",
                     contentType: "application/json",
-				    data: JSON.stringify(productIds),
+//				    data: JSON.stringify(productIds),
 				    success: function(r){
 						if(r.code == 0){
 //							alert('操作成功', function(index){
@@ -214,7 +187,26 @@ var vm = new Vue({
 					}
 				});
 			});
-		}
+		},
+		syncinventory : function(){
+			confirm('确定更新产品库存？', function(){
+				$.ajax({
+					type: "GET",
+				    url: baseURL + "/product/syncinventory",
+                    contentType: "application/json",
+//				    data: JSON.stringify(productIds),
+				    success: function(r){
+						if(r.code == 0){
+//							alert('操作成功', function(index){
+								$("#jqGrid").trigger("reloadGrid");
+//							});
+						}else{
+							alert(r.msg);
+						}
+					}
+				});
+			});
+		},
 		
 	}
 });

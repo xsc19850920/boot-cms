@@ -324,17 +324,76 @@ public class Product implements Serializable {
 	}
 	
 	//only for init product object from api
-	public Product(String[] array) {
+	public Product(String[] array,TypeEnumForParseAPI type) {
 		if(ArrayUtils.isNotEmpty(array)){
-			
-			this.productCode = array[0];//PDTCODE
-			this.title = array[1]; //VALUE
-			this.priceText = array[2]; //PRICELIST 
-			this.detail = array[4]; //MARKETDES
-			this.points = new BigDecimal(this.priceText).multiply(BigDecimal.valueOf(50)).intValue();  //PRICELIST * 50
+			if(TypeEnumForParseAPI.INFO == type){ //解析json 成产品信息
+				this.productCode = array[0];//PDTCODE
+				this.title = array[1]; //VALUE
+				this.priceText = array[2]; //PRICELIST 
+				this.detail = array[4]; //MARKETDES
+				this.points = new BigDecimal(this.priceText).multiply(BigDecimal.valueOf(50)).intValue();  //PRICELIST * 50
+			}else if(TypeEnumForParseAPI.INVENTORY == type){ //解析json 成产品库存 
+				this.productCode = array[0];//PDTCODE
+				this.inventoryQty = Integer.parseInt(array[1]); //QTYCAN
+			}else{
+				
+			}
 			
 		}
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+		result = prime * result + ((delFlag == null) ? 0 : delFlag.hashCode());
+		result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+		result = prime * result + ((hotFlag == null) ? 0 : hotFlag.hashCode());
+		result = prime * result + ((hotOrder == null) ? 0 : hotOrder.hashCode());
+		result = prime * result + ((imagePath == null) ? 0 : imagePath.hashCode());
+		result = prime * result + ((imagePathMult == null) ? 0 : imagePathMult.hashCode());
+		result = prime * result + ((inventoryQty == null) ? 0 : inventoryQty.hashCode());
+		result = prime * result + ((lookQty == null) ? 0 : lookQty.hashCode());
+		result = prime * result + ((modifyTime == null) ? 0 : modifyTime.hashCode());
+		result = prime * result + ((operIp == null) ? 0 : operIp.hashCode());
+		result = prime * result + ((operUserId == null) ? 0 : operUserId.hashCode());
+		result = prime * result + ((orderQty == null) ? 0 : orderQty.hashCode());
+		result = prime * result + ((points == null) ? 0 : points.hashCode());
+		result = prime * result + ((priceText == null) ? 0 : priceText.hashCode());
+		result = prime * result + ((productCode == null) ? 0 : productCode.hashCode());
+		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
+		result = prime * result + ((stateType == null) ? 0 : stateType.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((topFlag == null) ? 0 : topFlag.hashCode());
+		result = prime * result + ((topOrder == null) ? 0 : topOrder.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		
+		if (productCode == null) {
+			if (other.productCode != null)
+				return false;
+		} else if (!productCode.equals(other.productCode))
+			return false;
+//		if (productId == null) {
+//			if (other.productId != null)
+//				return false;
+//		} else if (!productId.equals(other.productId))
+//			return false;
+		
+		return true;
+	}
+	
+	
+	
 	
 
 }

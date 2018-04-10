@@ -93,12 +93,22 @@ public class ProductController extends AbstractController{
 	}
 	
 	/**
-	 * 删除
+	 * 同步产品信息
 	 */
-	@RequestMapping("/import")
-	@RequiresPermissions("product:import")
-	public Result importData(){
-		
+	@RequestMapping("/syncinfo")
+	@RequiresPermissions("product:sync:info")
+	public  Result  syncProductInfo(){
+		productService.syncProductInfo();
+		return Result.ok();
+	}
+	
+	/**
+	 * 同步产品库存
+	 */
+	@RequestMapping("/syncinventory")
+	@RequiresPermissions("product:sync:inventory")
+	public  Result  syncInventoryQty(){
+		productService.syncInventoryQty();
 		return Result.ok();
 	}
 	

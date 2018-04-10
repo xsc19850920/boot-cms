@@ -25,6 +25,8 @@ public interface ProductService {
 	
 	void deleteBatch(Long[] productIds);
 
-	void importDataFromAPI();
+	void syncProductInfo();
+	
+	void syncInventoryQty();
 
 }

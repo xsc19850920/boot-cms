@@ -39,27 +39,16 @@ public class ResultFromAPI {
 	public List<Product> getProductList() {
 		return productList;
 	}
-	public void setProductList(List<String> strList) {
+	public void setProductList(List<String> strList,TypeEnumForParseAPI type ) {
 		List<Product> productFromAPIList = new ArrayList<Product>();
 		for (String str : strList) {
 			//去掉[] 和双引号
 			str = str.substring(1, str.length()-1).replaceAll("\"", "");
-			productFromAPIList.add(new Product(str.split(",")));
+			
+			productFromAPIList.add(new Product(str.split(","),type));
 		}
-		this.productList = productList;
+		this.productList = productFromAPIList;
 	}
-	//	public List<ProductFromAPI> getProductFromAPIList() {
-//		return productFromAPIList;
-//	}
-//	public void setProductFromAPIList(List<String> strList) {
-//		List<ProductFromAPI> productFromAPIList = new ArrayList<ProductFromAPI>();
-//		for (String str : strList) {
-//			//去掉[] 和双引号
-//			str = str.substring(1, str.length()-1).replaceAll("\"", "");
-//			productFromAPIList.add(new ProductFromAPI(str.split(",")));
-//		}
-//		this.productFromAPIList = productFromAPIList;
-//	}
 	public List<String> getRows() {
 		return rows;
 	}

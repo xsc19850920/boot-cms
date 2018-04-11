@@ -145,8 +145,8 @@ public class ProductServiceImpl implements ProductService {
 		}
 		//
 		if (CollectionUtils.isEmpty(list) || CollectionUtils.isEmpty(list.stream().findFirst().get().getProductList())) {
-			logger.error("可以同步的产品数量为0.");
-			throw new AppException("可以同步的产品数量为0.");
+			logger.error("同步产品信息出错.");
+			throw new AppException("同步产品信息出错.");
 		}
 		List<Product> productListFromAPI = list.get(0).getProductList();
 
@@ -228,13 +228,11 @@ public class ProductServiceImpl implements ProductService {
 				logger.error("同步库存信息出错: " + e.getMessage());
 			}
 		}
-		//
-		List<Product> productListFromAPI = list.get(0).getProductList();
-		if (CollectionUtils.isEmpty(productListFromAPI)) {
-			logger.error("可以同步的产品数量为0.");
-			throw new AppException("可以同步的产品数量为0.");
+		if (CollectionUtils.isEmpty(list) || CollectionUtils.isEmpty(list.stream().findFirst().get().getProductList())) {
+			logger.error("同步库存信息出错.");
+			throw new AppException("同步库存信息出错.");
 		}
-
+		List<Product> productListFromAPI = list.get(0).getProductList();
 		// step 2 : get all exist product data from system db
 		List<Product> productListFromDB = productDao.queryAllObject();
 		// step 3 : merge all api data to system db

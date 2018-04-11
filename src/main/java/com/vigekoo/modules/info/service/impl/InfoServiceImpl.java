@@ -54,6 +54,7 @@ public class InfoServiceImpl implements InfoService {
 		//添加 文章信息（info表）的时候，要更新类别表（category）的memo字段，更新的内容是：yyyy-mm-dd|信息标题
 		Category category = categoryDao.queryObject(info.getCategoryId());
 		category.setMemo(DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "|" + info.getTitle());
+		category.setInfoQty(category.getInfoQty() + 1);
 		category.setModifyTime(currentTime);
 		category.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
 		category.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));
@@ -82,9 +83,31 @@ public class InfoServiceImpl implements InfoService {
 	@Override
 	public void update(Info info,HttpServletRequest request){
 		long currentTime  = new Date().getTime();
+		
+		Long infoId = info.getInfoId();
+		Info infoFromDB = infoDao.queryObject(infoId);
+		//这个商品原来的分类下产品数量-1 最小0
+		Category oldCategory = categoryDao.queryObject(infoFromDB.getCategoryId());
+//		oldCcategory.setMemo(DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "|" + info.getTitle());
+		oldCategory.setInfoQty((oldCategory.getInfoQty() -1 >= 0) ? oldCategory.getInfoQty() -1  : 0);
+		oldCategory.setModifyTime(currentTime);
+		oldCategory.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
+		oldCategory.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));
+		categoryDao.update(oldCategory);
+		
+		//更新商品信息
 		info.setModifyTime(currentTime);
 		info.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
 		infoDao.update(info);
+		
+		//这个商品新的分类下产品数量+1
+		Category category = categoryDao.queryObject(info.getCategoryId());
+		category.setMemo(DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "|" + info.getTitle());
+		category.setInfoQty(category.getInfoQty() + 1);
+		category.setModifyTime(currentTime);
+		category.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
+		category.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));
+		categoryDao.update(category);
 	}
 	
 	@Override

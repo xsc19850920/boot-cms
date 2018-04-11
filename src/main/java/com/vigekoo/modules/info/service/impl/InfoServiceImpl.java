@@ -76,7 +76,7 @@ public class InfoServiceImpl implements InfoService {
 		info.setStateType(1);
 		info.setViewQty(0);
 //		info.setIntro("");
-		info.setAuthor(ShiroUtils.getUserEntity().getNickname());
+//		info.setAuthor(ShiroUtils.getUserEntity().getNickname());
 	}
 	
 	@Override

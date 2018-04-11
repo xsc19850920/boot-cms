@@ -20,6 +20,10 @@ public class Application extends SpringBootServletInitializer {
 
 
     public static void main(String[] args) throws Exception {
+//    	System.setProperty("http.proxySet", "true");  
+//        System.setProperty("http.proxyHost", "58.2.221.9");  
+//        System.setProperty("http.proxyPort", "80");  
+    	
         log.debug("start application...");
         SpringApplication app = new SpringApplication(Application.class);
         Set<Object> set = new HashSet<>();

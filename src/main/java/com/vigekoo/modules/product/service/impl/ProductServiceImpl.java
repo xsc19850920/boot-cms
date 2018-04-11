@@ -116,13 +116,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void syncProductInfo() {
 		List<ResultFromAPI> list = null;
-
+        
 		// step 1 : get product data from API
 		JSONObject cmdparam = new JSONObject();
 		cmdparam.put("table", 23180);
 		cmdparam.put("start", 1);
 		cmdparam.put("range", 99999);
 		cmdparam.put("count", true);
+		
+		JSONObject params = new JSONObject();
+        params.put("column", "ISACTIVE");
+        params.put("condition", "=Y");
+        cmdparam.put("params", params);
+        
 		HashMap<String, Object> hm = BOSUtil.getCMDParams("Query", cmdparam);
 
 		String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);
@@ -138,11 +144,11 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		//
-		List<Product> productListFromAPI = list.get(0).getProductList();
-		if (CollectionUtils.isEmpty(productListFromAPI)) {
+		if (CollectionUtils.isEmpty(list) || CollectionUtils.isEmpty(list.stream().findFirst().get().getProductList())) {
 			logger.error("可以同步的产品数量为0.");
 			throw new AppException("可以同步的产品数量为0.");
 		}
+		List<Product> productListFromAPI = list.get(0).getProductList();
 
 		// step 2 : get all exist product data from system db
 		List<Product> productListFromDB = productDao.queryAllObject();
@@ -202,6 +208,12 @@ public class ProductServiceImpl implements ProductService {
 		cmdparam.put("start", 1);
 		cmdparam.put("range", 99999);
 		cmdparam.put("count", true);
+		
+		JSONObject params = new JSONObject();
+        params.put("column", "ISACTIVE");
+        params.put("condition", "=Y");
+        cmdparam.put("params", params);
+        
 		HashMap<String, Object> hm = BOSUtil.getCMDParams("Query", cmdparam);
 
 		String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);

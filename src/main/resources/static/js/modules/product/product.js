@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + '/product/list',
         datatype: "json",
         colModel: [			
-            { label: '商品名称', name: 'title', index: 'title', width: 80 }, 			
+            { label: '商品名称', name: 'title', index: 'title', width: 230 }, 			
             { label: '商品编号', name: 'productCode', index: 'product_code', width: 80 }, 			
 			{ label: '添加时间', name: 'createTime', index: 'create_time', width: 100 }, 			
 			{ label: '库存', name: 'inventoryQty', index: 'inventory_qty', width: 80 }, 			
@@ -136,7 +136,6 @@ var vm = new Vue({
 			if(productIds == null){
 				return ;
 			}
-			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
@@ -171,6 +170,7 @@ var vm = new Vue({
 		},
 		syncinfo:function(){
 			confirm('确定更新产品信息？', function(){
+				layer.load(2);
 				$.ajax({
 					type: "GET",
 				    url: baseURL + "/product/syncinfo",
@@ -178,10 +178,12 @@ var vm = new Vue({
 //				    data: JSON.stringify(productIds),
 				    success: function(r){
 						if(r.code == 0){
+							layer.closeAll('loading');
 //							alert('操作成功', function(index){
 								$("#jqGrid").trigger("reloadGrid");
 //							});
 						}else{
+							layer.closeAll('loading');
 							alert(r.msg);
 						}
 					}
@@ -190,6 +192,7 @@ var vm = new Vue({
 		},
 		syncinventory : function(){
 			confirm('确定更新产品库存？', function(){
+				layer.load(2);
 				$.ajax({
 					type: "GET",
 				    url: baseURL + "/product/syncinventory",
@@ -197,10 +200,12 @@ var vm = new Vue({
 //				    data: JSON.stringify(productIds),
 				    success: function(r){
 						if(r.code == 0){
+							layer.closeAll('loading');
 //							alert('操作成功', function(index){
 								$("#jqGrid").trigger("reloadGrid");
 //							});
 						}else{
+							layer.closeAll('loading');
 							alert(r.msg);
 						}
 					}

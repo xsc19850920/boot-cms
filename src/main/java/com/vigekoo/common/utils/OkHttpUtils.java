@@ -47,7 +47,7 @@ public class OkHttpUtils{
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
             response = okHttpClient.newCall(request).execute();
-//            int status = response.code();
+            int status = response.code();
             if (response.isSuccessful()) {
                 return response.body().string();
             }

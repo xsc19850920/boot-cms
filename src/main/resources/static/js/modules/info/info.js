@@ -352,6 +352,10 @@ var vm = new Vue({
 				alert('文章图片不能为空');
 				return false;
 			}
+			if(undefined == vm.info.author || vm.info.author == ''  ){
+				alert('文章作者不能为空');
+				return false;
+			} 
 			if(undefined == vm.info.intro || vm.info.intro == ''  ){
 				alert('文章简介不能为空');
 				return false;

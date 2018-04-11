@@ -25,6 +25,6 @@ public interface InfoService {
 	
 	void delete(Long infoId);
 	
-	void deleteBatch(Long[] infoIds);
+	void deleteBatch(Long[] infoIds,HttpServletRequest request);
 
 }

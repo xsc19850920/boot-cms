@@ -116,7 +116,21 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
-	public void deleteBatch(Long[] infoIds){
+	public void deleteBatch(Long[] infoIds,HttpServletRequest request){
+		//这个商品原来的分类下产品数量-1 最小0
+		long currentTime  = new Date().getTime();
+		for (Long infoId : infoIds) {
+			Info infoFromDB = infoDao.queryObject(infoId);
+			//这个商品原来的分类下产品数量-1 最小0
+			Category oldCategory = categoryDao.queryObject(infoFromDB.getCategoryId());
+//			oldCcategory.setMemo(DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "|" + info.getTitle());
+			oldCategory.setInfoQty((oldCategory.getInfoQty() -1 >= 0) ? oldCategory.getInfoQty() -1  : 0);
+			oldCategory.setModifyTime(currentTime);
+			oldCategory.setOperIp(IPUtils.Ip2Int(IPUtils.getIpAddr(request)));
+			oldCategory.setOperUserId(Long.parseLong(ShiroUtils.getUserId()));
+			categoryDao.update(oldCategory);
+		}
+		
 		infoDao.deleteBatch(infoIds);
 	}
 	

@@ -91,9 +91,8 @@ public class InfoController extends AbstractController{
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("info:delete")
-	public Result delete(@RequestBody Long[] infoIds){
-		infoService.deleteBatch(infoIds);
-		
+	public Result delete(@RequestBody Long[] infoIds,HttpServletRequest request){
+		infoService.deleteBatch(infoIds,request);
 		return Result.ok();
 	}
 	

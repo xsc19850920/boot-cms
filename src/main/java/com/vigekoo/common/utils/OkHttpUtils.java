@@ -2,16 +2,16 @@ package com.vigekoo.common.utils;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @SuppressWarnings({"rawtypes","unchecked"})
 public class OkHttpUtils{
     private static final Logger logger = LoggerFactory.getLogger(OkHttpUtils.class);
@@ -46,7 +46,7 @@ public class OkHttpUtils{
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
             response = okHttpClient.newCall(request).execute();
-            int status = response.code();
+//            int status = response.code();
             if (response.isSuccessful()) {
                 return response.body().string();
             }

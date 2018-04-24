@@ -179,7 +179,7 @@ public class ProductServiceImpl implements ProductService {
 				productFromAPI.setHotFlag(0);
 				productFromAPI.setHotOrder(0);
 //				productFromAPI.setImagePath("");
-//				productFromAPI.setImagePathMult("");
+				productFromAPI.setImagePathMult("");
 				productFromAPI.setInventoryQty(0);
 				productFromAPI.setLookQty(0);
 				productFromAPI.setOrderQty(0);

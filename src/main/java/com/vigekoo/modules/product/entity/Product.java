@@ -334,7 +334,7 @@ public class Product implements Serializable {
 				this.detail = array[4]; //MARKETDES
 				this.points = new BigDecimal(this.priceText).multiply(BigDecimal.valueOf(50)).intValue();  //PRICELIST * 50
 				this.imagePath = this.productCode + Constant.JPG_EXT;
-				this.imagePathMult = String.format("%s_1.jpg,%s_2.jpg,%s_3.jpg,%s_4.jpg,%s_5.jpg", array[0],array[0],array[0],array[0],array[0]);
+//				this.imagePathMult = String.format("%s_1.jpg,%s_2.jpg,%s_3.jpg,%s_4.jpg,%s_5.jpg", array[0],array[0],array[0],array[0],array[0]);
 			}else if(TypeEnumForParseAPI.INVENTORY == type){ //解析json 成产品库存 
 				this.productCode = array[0];//PDTCODE
 				this.inventoryQty = Integer.parseInt(array[1]); //QTYCAN

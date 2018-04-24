@@ -159,9 +159,7 @@ public class ProductServiceImpl implements ProductService {
 
 			for (Product productFromDB : productListFromDB) {
 				if (productFromDB.getProductCode().equals(productFromAPI.getProductCode())) {
-					productFromAPI.setProductId(productFromDB.getProductId()); // set
-																				// product
-																				// id
+					productFromAPI.setProductId(productFromDB.getProductId()); // set  product id
 					updateFlag = true;
 					break;
 				}
@@ -180,8 +178,8 @@ public class ProductServiceImpl implements ProductService {
 				productFromAPI.setDelFlag(0);
 				productFromAPI.setHotFlag(0);
 				productFromAPI.setHotOrder(0);
-				productFromAPI.setImagePath("");
-				productFromAPI.setImagePathMult("");
+//				productFromAPI.setImagePath("");
+//				productFromAPI.setImagePathMult("");
 				productFromAPI.setInventoryQty(0);
 				productFromAPI.setLookQty(0);
 				productFromAPI.setOrderQty(0);

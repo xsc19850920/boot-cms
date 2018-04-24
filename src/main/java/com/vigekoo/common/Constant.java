@@ -17,7 +17,9 @@ public class Constant {
     public static final String BACKET_NAME = "ujiabb-manager";
     //阿里云API的文件夹名称
     public static final String FOLDER="ujiabb/";
-
+    
+    public static final String JPG_EXT = ".jpg";
+    
     /**
      * 超级管理员ID
      */

@@ -1,5 +1,7 @@
 package com.vigekoo.common.utils;
 
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,10 +107,18 @@ public class BOSUtil {
     
     public static void main(String args[]) {
     	
+    	Authenticator.setDefault(new Authenticator(){
+    		@Override
+    		protected PasswordAuthentication getPasswordAuthentication() {
+    			 return new PasswordAuthentication("800021189", "G@28032008t".toCharArray());
+    		}
+    	});
     	System.setProperty("http.proxySet", "true");  
         System.setProperty("http.proxyHost", "58.2.221.9");  
         System.setProperty("http.proxyPort", "80");  
         
+        System.setProperty("https.proxyHost", "58.2.221.9"); 
+        System.setProperty("https.proxyPort", "80"); 
         
         JSONObject cmdparam = new JSONObject();
         cmdparam.put("table", 23180);
@@ -145,4 +155,7 @@ public class BOSUtil {
 //            }
         }
     }
+    
+    
 }
+

@@ -44,7 +44,6 @@ public class ResultFromAPI {
 		for (String str : strList) {
 			//去掉[] 和双引号
 			str = str.substring(1, str.length()-1).replaceAll("\"", "");
-			
 			productFromAPIList.add(new Product(str.split(","),type));
 		}
 		this.productList = productFromAPIList;

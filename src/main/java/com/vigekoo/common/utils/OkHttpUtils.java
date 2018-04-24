@@ -30,7 +30,6 @@ public class OkHttpUtils{
             boolean firstFlag = true;
             Iterator iterator = queries.entrySet().iterator();
             while (iterator.hasNext()) {
-                
 				Map.Entry entry = (Map.Entry<String, String>) iterator.next();
                 if (firstFlag) {
                     sb.append("?" + entry.getKey() + "=" + entry.getValue());

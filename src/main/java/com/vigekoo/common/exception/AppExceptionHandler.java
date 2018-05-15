@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MultipartException;
 
 import com.vigekoo.common.utils.Result;
 
@@ -33,6 +34,12 @@ public class AppExceptionHandler {
 	public Result handleDuplicateKeyException(DuplicateKeyException e){
 		logger.error(e.getMessage(), e);
 		return Result.error("数据库中已存在该记录");
+	}
+	
+	@ExceptionHandler(MultipartException.class)
+	public Result handleMultipartException(MultipartException e){
+		logger.error(e.getMessage(), e);
+		return Result.error("文件大小超过限制");
 	}
 
 	@ExceptionHandler(AuthorizationException.class)

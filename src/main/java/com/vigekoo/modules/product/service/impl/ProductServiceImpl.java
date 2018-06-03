@@ -131,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
         
 		HashMap<String, Object> hm = BOSUtil.getCMDParams("Query", cmdparam);
 
-		String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);
+		String response = OkHttpUtils.get("http://106.14.57.1:90/servlets/binserv/Rest", hm);
 		if (StringUtils.isNotBlank(response)) {
 
 			try {
@@ -214,7 +214,7 @@ public class ProductServiceImpl implements ProductService {
         
 		HashMap<String, Object> hm = BOSUtil.getCMDParams("Query", cmdparam);
 
-		String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);
+		String response = OkHttpUtils.get("http://106.14.57.1:90/servlets/binserv/Rest", hm);
 		if (StringUtils.isNotBlank(response)) {
 
 			try {

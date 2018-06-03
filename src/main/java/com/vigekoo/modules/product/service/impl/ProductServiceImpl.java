@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService {
         
 		// step 1 : get product data from API
 		JSONObject cmdparam = new JSONObject();
-		cmdparam.put("table", 23180);
+		cmdparam.put("table", 23207);
 		cmdparam.put("start", 1);
 		cmdparam.put("range", 99999);
 		cmdparam.put("count", true);
@@ -202,7 +202,7 @@ public class ProductServiceImpl implements ProductService {
 
 		// step 1 : get product data from API
 		JSONObject cmdparam = new JSONObject();
-		cmdparam.put("table", 23181);
+		cmdparam.put("table", 23206);
 		cmdparam.put("start", 1);
 		cmdparam.put("range", 99999);
 		cmdparam.put("count", true);

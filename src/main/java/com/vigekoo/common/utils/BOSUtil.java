@@ -43,9 +43,9 @@ public class BOSUtil {
         SimpleDateFormat a = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         a.setLenient(false);
 
-        String sipKey = "ylkj@ujiabb.com";
+        String sipKey = "creditmall@burgeo.cn";
         String tt = a.format(new Date());
-        String m = MD5("admin");
+        String m = MD5("123");
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("sip_appkey", sipKey);
         params.put("sip_timestamp", tt);
@@ -134,7 +134,7 @@ public class BOSUtil {
         HashMap<String, Object> hm = getCMDParams("Query", cmdparam);
 //        OKHttpUtils http = new OKHttpUtils();
         
-        String response = OkHttpUtils.get("http://106.14.57.1:120/servlets/binserv/Rest", hm);
+        String response = OkHttpUtils.get("http://106.14.57.1:90/servlets/binserv/Rest", hm);
         if (StringUtils.isNotBlank(response)) {
             // Class class = JSON.parseObject(json, Class.class)
         	

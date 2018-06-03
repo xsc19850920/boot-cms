@@ -337,7 +337,11 @@ public class Product implements Serializable {
 //				this.imagePathMult = String.format("%s_1.jpg,%s_2.jpg,%s_3.jpg,%s_4.jpg,%s_5.jpg", array[0],array[0],array[0],array[0],array[0]);
 			}else if(TypeEnumForParseAPI.INVENTORY == type){ //解析json 成产品库存 
 				this.productCode = array[0];//PDTCODE
-				this.inventoryQty = Integer.parseInt(array[1]); //QTYCAN
+				if(Integer.parseInt(array[1]) < 0){
+					this.inventoryQty = 0;
+				}else{
+					this.inventoryQty = Integer.parseInt(array[1]); //QTYCAN
+				}
 			}else{
 				
 			}

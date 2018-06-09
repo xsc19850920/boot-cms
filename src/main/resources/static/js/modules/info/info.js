@@ -160,6 +160,18 @@ $(function () {
     	lang : 'zh-CN',
     	tabsize: 4,
         height: 400,
+        toolbar: [
+                  ['style', ['style']], // no style button
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']],
+                  ['insert', ['picture', 'link']], // no insert buttons
+                  ['table', ['table']], // no table button
+//                  ['help', ['help']] //no help button
+                ],
+        
     	callbacks: { // 覆写掉自带的上传文件函数
 	        onImageUpload: function(files, editor, $editable) {
 	        	var formData = new FormData();
